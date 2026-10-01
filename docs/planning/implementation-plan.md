@@ -6,6 +6,8 @@ A fase 0 está concluída. A fase 1 começou com registry independente, índice 
 
 ## Incremento entregue
 
+O mapa somente leitura recebeu um [redesign com SVG](bind-map-svg-redesign.md): teclado ANSI proporcional, mouse interativo, filtros e inspector sobre o modelo compartilhado. Essa entrega prepara os componentes visuais para builders, mas não habilita escrita de binds.
+
 | Fase | Entrega atual                                                                                                          | Limites restantes                                                             |
 | ---- | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
 | 1    | Validação de tipos, defaults, enums, evidência, fontes e referências/ciclos de compatibilidade                         | Contratos adicionais de ações e contexto conforme houver evidência            |

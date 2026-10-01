@@ -8,17 +8,27 @@ export function bindMapPage(webview: vscode.Webview, root: vscode.Uri): string {
   const nonce = randomBytes(24).toString('hex');
   const css = webview.asWebviewUri(vscode.Uri.joinPath(root, 'bind-map.css'));
   const script = webview.asWebviewUri(vscode.Uri.joinPath(root, 'bind-map.js'));
+  const layout = webview.asWebviewUri(vscode.Uri.joinPath(root, 'visual-input', 'layout.js'));
+  const svg = webview.asWebviewUri(vscode.Uri.joinPath(root, 'visual-input', 'svg.js'));
+  const visualState = webview.asWebviewUri(vscode.Uri.joinPath(root, 'visual-input', 'state.js'));
   return `<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource}; script-src 'nonce-${nonce}';">
 <link rel="stylesheet" href="${css}"><title>CS2 Config Tools</title></head>
-<body><main><h1 id="title">Bind map</h1><p id="file"></p>
-<p id="status" role="status" aria-live="polite"></p><p id="scope"></p>
-<p id="legend"></p>
-<div id="layout"></div><section aria-labelledby="detail-title"><h2 id="detail-title" tabindex="-1">Bind</h2>
-<div id="details"></div></section><h2 id="list-title">All modeled binds</h2><div id="list"></div>
-</main><script nonce="${nonce}" src="${script}"></script></body></html>`;
+<body><main><header><div><h1 id="title">Bind map</h1><p id="file"></p></div><span id="mode"></span></header>
+<p id="summary" role="status" aria-live="polite"></p>
+<button id="retry" type="button" hidden>Retry</button>
+<div class="workspace"><aside aria-labelledby="filters-title"><details id="filter-panel" open><summary id="filters-title">Filters</summary><div class="filter-controls">
+<label id="category-label" for="category">Category</label><select id="category"></select>
+<label id="state-label" for="state-filter">State</label><select id="state-filter"></select>
+<p id="legend"></p><details id="bind-list"><summary id="list-title">All modeled binds</summary><div id="list"></div></details></div></details></aside>
+<section class="canvas" id="layout" aria-labelledby="keyboard-title"><h2 id="keyboard-title">Keyboard</h2><div id="keyboard"></div>
+<div class="mouse-area"><div><h2 id="mouse-title">Mouse</h2><p id="mouse-note"></p></div><div id="mouse"></div></div>
+<p id="selection-help"></p><div id="tooltip" role="tooltip" hidden></div></section>
+<section class="inspector" aria-labelledby="detail-title"><h2 id="detail-title" tabindex="-1">Selected bind</h2><div id="details"></div></section></div>
+<details class="analysis"><summary id="analysis-title">Analysis details</summary><p id="status"></p><p id="scope"></p><ul id="limits"></ul></details>
+</main><script nonce="${nonce}" src="${layout}"></script><script nonce="${nonce}" src="${visualState}"></script><script nonce="${nonce}" src="${svg}"></script><script nonce="${nonce}" src="${script}"></script></body></html>`;
 }
 
 export function registerBindMap(services: Services, context: vscode.ExtensionContext): void {
@@ -45,7 +55,21 @@ export function registerBindMap(services: Services, context: vscode.ExtensionCon
       : vscode.env.language.toLowerCase() === 'pt-br';
     const unavailable = !doc || doc.isClosed || doc.languageId !== 'cs2cfg';
     const oversized = !unavailable && doc.getText().length > MAX_DOCUMENT_LENGTH;
-    model = unavailable || oversized ? undefined : bindMapModel(services.effective(doc));
+    let failed = false;
+    try {
+      model =
+        unavailable || oversized
+          ? undefined
+          : bindMapModel(services.effective(doc), {
+              registry: services.registry,
+              source: doc.getText(),
+              language: pt ? 'pt-BR' : 'en',
+            });
+    } catch (error) {
+      model = undefined;
+      failed = true;
+      console.error('CS2 Config Tools: unable to build bind map.', error);
+    }
     version = doc?.version ?? -1;
     snapshot++;
     void panel.webview.postMessage({
@@ -57,6 +81,7 @@ export function registerBindMap(services: Services, context: vscode.ExtensionCon
       file: doc ? vscode.workspace.asRelativePath(doc.uri) : '',
       unavailable,
       oversized,
+      failed,
       model,
     });
     return model;
@@ -125,7 +150,9 @@ export function registerBindMap(services: Services, context: vscode.ExtensionCon
             const location =
               typeof message.target === 'number'
                 ? entry.changes[message.target]?.origin
-                : entry[message.target];
+                : message.target.startsWith('history:')
+                  ? entry.history[Number(message.target.slice(8))]?.origin
+                  : entry[message.target as 'origin' | 'definition'];
             if (!location) return;
             const editor = await vscode.window.showTextDocument(source, {
               viewColumn: vscode.ViewColumn.One,

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Redesigned the read-only bind map with reusable, proportional ANSI keyboard and interactive mouse SVGs, category/state filters, a source/history inspector and collapsed analysis details. Added curated category provenance, idle-key inspection, literal-name ambiguity indicators, keyboard activation and responsive theme-aware presentation. No CFG writing is enabled.
+
 - Added a keyboard button in the editor title bar for CS2 CFG documents to open the read-only bind map.
 
 - Added the supplied PNG icon under resources/icons and configured it for the extension listing. Isolated integration extensions to avoid loading the previous publisher's local copy alongside the package being tested.

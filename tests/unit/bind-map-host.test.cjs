@@ -1,8 +1,6 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const Module = require('node:module');
-const fs = require('node:fs');
-const vm = require('node:vm');
 const { parse } = require('../../dist/core/parser');
 const { effectiveConfig } = require('../../dist/core/effective');
 const { CommandRegistry } = require('../../dist/catalog/registry');
@@ -39,6 +37,7 @@ test('bind map host scopes resources, refreshes unsaved text, rejects stale navi
     },
   };
   let text = 'bind q slot1\n';
+  let failAnalysis = false;
   const doc = {
     uri: 'file:///test.cfg',
     version: 1,
@@ -106,8 +105,12 @@ test('bind map host scopes resources, refreshes unsaved text, rejects stale navi
   const context = { extensionUri: 'extension', subscriptions: [] };
   registerBindMap(
     {
+      registry,
       config: () => ({ get: (_key, fallback) => fallback }),
-      effective: (source) => effectiveConfig(parse(source.getText()), registry),
+      effective: (source) => {
+        if (failAnalysis) throw new Error('Synthetic analysis failure');
+        return effectiveConfig(parse(source.getText()), registry);
+      },
       range: (_doc, start, end) => ({ start, end }),
     },
     context,
@@ -209,6 +212,20 @@ test('bind map host scopes resources, refreshes unsaved text, rejects stale navi
   text = originalText;
   doc.version++;
   callbacks.command();
+  failAnalysis = true;
+  const previousError = console.error;
+  console.error = () => {};
+  try {
+    await callbacks.message({ type: 'ready' });
+  } finally {
+    console.error = previousError;
+  }
+  assert.equal(sent.at(-1).failed, true);
+  assert.equal(sent.at(-1).model, undefined, 'Failed analysis clears stale navigation');
+  failAnalysis = false;
+  await callbacks.message({ type: 'ready' });
+  assert.equal(sent.at(-1).failed, false);
+  assert.equal(sent.at(-1).model.entries.length, 2);
   doc.isClosed = true;
   callbacks.close(doc);
   assert.equal(sent.at(-1).unavailable, true);
@@ -224,92 +241,4 @@ test('bind map host scopes resources, refreshes unsaved text, rejects stale navi
   const count = sent.length;
   callbacks.view({ webviewPanel: { visible: true } });
   assert.equal(sent.length, count);
-});
-
-test('webview renders CFG text literally and exposes keyboard, mouse, numpad and other names', () => {
-  const nodes = new Map(),
-    messages = [];
-  class Node {
-    constructor(tag) {
-      this.tagName = tag.toUpperCase();
-      this.children = [];
-      this.textContent = '';
-      this.events = {};
-      this.dataset = {};
-    }
-    append(...children) {
-      this.children.push(...children);
-    }
-    replaceChildren(...children) {
-      this.children = children;
-    }
-    addEventListener(name, callback) {
-      this.events[name] = callback;
-    }
-    setAttribute() {}
-    focus() {}
-    set innerHTML(_value) {
-      throw new Error('Unsafe HTML assignment');
-    }
-  }
-  const doc = {
-    documentElement: {},
-    activeElement: undefined,
-    createElement: (tag) => new Node(tag),
-    getElementById: (id) => {
-      if (!nodes.has(id)) nodes.set(id, new Node('div'));
-      return nodes.get(id);
-    },
-    querySelectorAll: () => [],
-  };
-  let receive;
-  vm.runInNewContext(fs.readFileSync('resources/webview/bind-map.js', 'utf8'), {
-    document: doc,
-    window: {
-      addEventListener: (_name, callback) => {
-        receive = callback;
-      },
-    },
-    acquireVsCodeApi: () => ({ postMessage: (message) => messages.push(message) }),
-  });
-  assert.equal(messages[0].type, 'ready');
-  const action = '<img src=x onerror=alert(1)>';
-  receive({
-    data: {
-      type: 'state',
-      pt: true,
-      snapshot: 4,
-      source: 'test.cfg',
-      version: 4,
-      file: '<cfg>',
-      model: {
-        partial: false,
-        limits: [],
-        entries: ['q', 'mouse4', 'kp_home', 'CUSTOM'].map((key) => ({
-          key,
-          action,
-          certain: true,
-          origin: { start: 0 },
-          definition: { start: 0 },
-          changes: [],
-        })),
-      },
-    },
-  });
-  assert.equal(doc.documentElement.lang, 'pt-BR');
-  assert.equal(nodes.get('file').textContent, '<cfg>');
-  assert.equal(nodes.get('list').children.length, 4);
-  nodes.get('list').children[3].events.click();
-  const details = nodes.get('details');
-  assert.equal(details.children.find((node) => node.tagName === 'PRE').textContent, action);
-  details.children.at(-1).children[0].events.click();
-  assert.deepEqual(JSON.parse(JSON.stringify(messages.at(-1))), {
-    type: 'reveal',
-    snapshot: 4,
-    version: 4,
-    entry: 3,
-    target: 'origin',
-  });
-  receive({ data: { type: 'state', pt: false, file: '', unavailable: true } });
-  assert.equal(nodes.get('list').children.length, 0);
 });

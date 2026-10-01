@@ -6,6 +6,8 @@ CS2 Config Tools tem um protótipo local de edição e formatação. O catálogo
 
 ## Implementado
 
+- Redesign do mapa de binds com teclado ANSI e mouse interativos em SVG, proporções físicas, filtros de categoria/estado, inspector com descrição/origem/histórico e detalhes de análise recolhidos. Componentes visuais reutilizáveis; edição de binds continua planejada. Veja o [registro do redesign](bind-map-svg-redesign.md).
+
 - Mapa visual de binds somente leitura, com teclado de referência, mouse, numpad e lista de todos os nomes literais. Atualiza durante a edição, navega até origens/aliases/binds anteriores e preserva resultados parciais.
 
 - Validação de metadados e referências, origem preservada e trivia/parentesco no parser.

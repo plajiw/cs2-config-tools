@@ -42,7 +42,7 @@ test('partial and per-bind uncertainty survive projection; later literal writes 
 });
 test('webview protocol rejects paths, offsets, invalid IDs and arbitrary message shapes', () => {
   assert.equal(isBindMapMessage({ type: 'ready' }), true);
-  for (const target of ['origin', 'definition', 0])
+  for (const target of ['origin', 'definition', 0, 'history:0'])
     assert.equal(
       isBindMapMessage({ type: 'reveal', snapshot: 1, version: 1, entry: 0, target }),
       true,
@@ -58,7 +58,38 @@ test('webview protocol rejects paths, offsets, invalid IDs and arbitrary message
     { type: 'reveal', snapshot: 1, version: 1, entry: 0, target: -1 },
     { type: 'reveal', snapshot: 1, version: NaN, entry: 0, target: 'origin' },
     { type: 'reveal', snapshot: 1, version: 1, entry: 0, target: '../private.cfg' },
+    { type: 'reveal', snapshot: 1, version: 1, entry: 0, target: 'history:-1' },
+    { type: 'reveal', snapshot: 1, version: 1, entry: 0, target: 'history:1.5' },
     { type: 'reveal', snapshot: 1, version: 1, entry: 0, target: 'origin', start: 0 },
   ])
     assert.equal(isBindMapMessage(message), false);
+});
+
+test('bind presentation uses registry meaning, source lines and history without executing bodies', () => {
+  const source = 'bind q slot1\nbind q slot2\nbind q slot2\nbind w "+jump; +duck"';
+  const data = bindMapModel(effectiveConfig(parse(source), registry), {
+    registry,
+    source,
+    language: 'pt-BR',
+  });
+  assert.equal(data.mode, 'read');
+  assert.equal(data.entries[0].category, 'weapons');
+  assert.equal(data.entries[0].meaning, registry.get('slot2').editorial['pt-BR']);
+  assert.equal(data.entries[0].origin.line, 3);
+  assert.equal(data.entries[0].raw, 'bind q slot2');
+  assert.equal(data.entries[0].conflict, true);
+  assert.deepEqual(
+    data.entries[0].history.map((event) => event.effective),
+    [false, false, true],
+  );
+  assert.equal(data.entries[1].category, 'custom');
+  assert.equal(data.entries[1].action, '+jump; +duck');
+  assert.equal(
+    model('bind q slot1\nbind q slot2\nunbindall\nbind q slot3').entries[0].conflict,
+    false,
+  );
+  assert.equal(
+    model('bind q slot1\nbind q slot2\nunbind q\nbind q slot3').entries[0].conflict,
+    false,
+  );
 });

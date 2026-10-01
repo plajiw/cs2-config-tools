@@ -34,6 +34,7 @@ test('catalog validation rejects invalid defaults, enums, evidence and compatibi
   for (const change of [
     { compatibility: { replacement: 'missing' } },
     { compatibility: { replacement: entry.name } },
+    { editorial: { ...entry.editorial, category: 'unreviewed-category' } },
     { provenance: { kind: { source: 'missing', confidence: 'snapshot-verified' } } },
   ]) {
     const bad = {

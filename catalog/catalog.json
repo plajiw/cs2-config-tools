@@ -84,7 +84,8 @@
       "original": null,
       "editorial": {
         "en": "Request the primary attack.",
-        "pt-BR": "Solicita o ataque primário."
+        "pt-BR": "Solicita o ataque primário.",
+        "category": "weapons"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -101,6 +102,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -117,7 +122,8 @@
       "original": null,
       "editorial": {
         "en": "Request the secondary attack.",
-        "pt-BR": "Solicita o ataque secundário."
+        "pt-BR": "Solicita o ataque secundário.",
+        "category": "weapons"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -134,6 +140,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -150,7 +160,8 @@
       "original": null,
       "editorial": {
         "en": "Move backward while held.",
-        "pt-BR": "Move para trás enquanto pressionado."
+        "pt-BR": "Move para trás enquanto pressionado.",
+        "category": "movement"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -167,6 +178,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -447,7 +462,8 @@
       "original": null,
       "editorial": {
         "en": "Crouch while held.",
-        "pt-BR": "Agacha enquanto pressionado."
+        "pt-BR": "Agacha enquanto pressionado.",
+        "category": "movement"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -464,6 +480,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -480,7 +500,8 @@
       "original": null,
       "editorial": {
         "en": "Move forward while held.",
-        "pt-BR": "Move para frente enquanto pressionado."
+        "pt-BR": "Move para frente enquanto pressionado.",
+        "category": "movement"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -497,6 +518,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -513,7 +538,8 @@
       "original": null,
       "editorial": {
         "en": "Request a jump.",
-        "pt-BR": "Solicita um salto."
+        "pt-BR": "Solicita um salto.",
+        "category": "movement"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -530,6 +556,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -546,7 +576,8 @@
       "original": null,
       "editorial": {
         "en": "Move left while held.",
-        "pt-BR": "Move para a esquerda enquanto pressionado."
+        "pt-BR": "Move para a esquerda enquanto pressionado.",
+        "category": "movement"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -563,6 +594,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -1077,7 +1112,8 @@
       "original": null,
       "editorial": {
         "en": "Request weapon reload.",
-        "pt-BR": "Solicita recarga da arma."
+        "pt-BR": "Solicita recarga da arma.",
+        "category": "weapons"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -1094,6 +1130,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -1110,7 +1150,8 @@
       "original": null,
       "editorial": {
         "en": "Move right while held.",
-        "pt-BR": "Move para a direita enquanto pressionado."
+        "pt-BR": "Move para a direita enquanto pressionado.",
+        "category": "movement"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -1127,6 +1168,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -1205,7 +1250,8 @@
       "original": null,
       "editorial": {
         "en": "Request the walking action while held.",
-        "pt-BR": "Solicita caminhar enquanto pressionado."
+        "pt-BR": "Solicita caminhar enquanto pressionado.",
+        "category": "movement"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -1222,6 +1268,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -1271,7 +1321,8 @@
       "original": null,
       "editorial": {
         "en": "Transmit voice while held.",
-        "pt-BR": "Transmite voz enquanto pressionado."
+        "pt-BR": "Transmite voz enquanto pressionado.",
+        "category": "communication"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -1288,6 +1339,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -17198,7 +17253,8 @@
       },
       "editorial": {
         "en": "Request a bot on the Counter-Terrorist team.",
-        "pt-BR": "Solicita um bot na equipe Contra-Terrorista."
+        "pt-BR": "Solicita um bot na equipe Contra-Terrorista.",
+        "category": "utility"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -17217,6 +17273,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -17283,7 +17343,8 @@
       },
       "editorial": {
         "en": "Request a bot on the Terrorist team.",
-        "pt-BR": "Solicita um bot na equipe Terrorista."
+        "pt-BR": "Solicita um bot na equipe Terrorista.",
+        "category": "utility"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -17302,6 +17363,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -21283,7 +21348,8 @@
       },
       "editorial": {
         "en": "Request bot placement at the aimed position.",
-        "pt-BR": "Solicita posicionar um bot no local da mira."
+        "pt-BR": "Solicita posicionar um bot no local da mira.",
+        "category": "utility"
       },
       "verification": "pending",
       "requiresCheats": "flagged",
@@ -21302,6 +21368,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -23750,7 +23820,8 @@
       "original": null,
       "editorial": {
         "en": "Request an item purchase; availability depends on the match and loadout.",
-        "pt-BR": "Solicita a compra de um item; disponibilidade depende da partida e do loadout."
+        "pt-BR": "Solicita a compra de um item; disponibilidade depende da partida e do loadout.",
+        "category": "buy"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -23802,6 +23873,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -103633,7 +103708,8 @@
       "original": null,
       "editorial": {
         "en": "Drop the held item where permitted.",
-        "pt-BR": "Solta o item na mão quando permitido."
+        "pt-BR": "Solta o item na mão quando permitido.",
+        "category": "weapons"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -103650,6 +103726,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -154972,7 +155052,8 @@
       "original": null,
       "editorial": {
         "en": "Select the previously used item.",
-        "pt-BR": "Seleciona o item usado anteriormente."
+        "pt-BR": "Seleciona o item usado anteriormente.",
+        "category": "weapons"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -154991,6 +155072,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -170409,7 +170494,8 @@
       "original": null,
       "editorial": {
         "en": "Open public text chat.",
-        "pt-BR": "Abre o chat de texto público."
+        "pt-BR": "Abre o chat de texto público.",
+        "category": "communication"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -170426,6 +170512,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -170442,7 +170532,8 @@
       "original": null,
       "editorial": {
         "en": "Open team text chat.",
-        "pt-BR": "Abre o chat de texto da equipe."
+        "pt-BR": "Abre o chat de texto da equipe.",
+        "category": "communication"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -170459,6 +170550,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -221631,7 +221726,8 @@
       },
       "editorial": {
         "en": "Toggle collision-free movement in a permitted practice context.",
-        "pt-BR": "Alterna movimento sem colisão em um contexto de treino permitido."
+        "pt-BR": "Alterna movimento sem colisão em um contexto de treino permitido.",
+        "category": "utility"
       },
       "verification": "pending",
       "requiresCheats": "flagged",
@@ -221650,6 +221746,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -306425,7 +306525,8 @@
       "original": null,
       "editorial": {
         "en": "Select inventory slot 1; contents depend on the loadout.",
-        "pt-BR": "Seleciona o slot 1 do inventário; conteúdo depende do loadout."
+        "pt-BR": "Seleciona o slot 1 do inventário; conteúdo depende do loadout.",
+        "category": "weapons"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -306444,6 +306545,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -306500,7 +306605,8 @@
       "original": null,
       "editorial": {
         "en": "Select inventory slot 10; contents depend on the loadout.",
-        "pt-BR": "Seleciona o slot 10 do inventário; conteúdo depende do loadout."
+        "pt-BR": "Seleciona o slot 10 do inventário; conteúdo depende do loadout.",
+        "category": "grenades"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -306519,6 +306625,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -306761,7 +306871,8 @@
       "original": null,
       "editorial": {
         "en": "Select inventory slot 2; contents depend on the loadout.",
-        "pt-BR": "Seleciona o slot 2 do inventário; conteúdo depende do loadout."
+        "pt-BR": "Seleciona o slot 2 do inventário; conteúdo depende do loadout.",
+        "category": "weapons"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -306780,6 +306891,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -306836,7 +306951,8 @@
       "original": null,
       "editorial": {
         "en": "Select inventory slot 3; contents depend on the loadout.",
-        "pt-BR": "Seleciona o slot 3 do inventário; conteúdo depende do loadout."
+        "pt-BR": "Seleciona o slot 3 do inventário; conteúdo depende do loadout.",
+        "category": "weapons"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -306855,6 +306971,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -307123,7 +307243,8 @@
       "original": null,
       "editorial": {
         "en": "Select inventory slot 7; contents depend on the loadout.",
-        "pt-BR": "Seleciona o slot 7 do inventário; conteúdo depende do loadout."
+        "pt-BR": "Seleciona o slot 7 do inventário; conteúdo depende do loadout.",
+        "category": "grenades"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -307142,6 +307263,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -307198,7 +307323,8 @@
       "original": null,
       "editorial": {
         "en": "Select inventory slot 8; contents depend on the loadout.",
-        "pt-BR": "Seleciona o slot 8 do inventário; conteúdo depende do loadout."
+        "pt-BR": "Seleciona o slot 8 do inventário; conteúdo depende do loadout.",
+        "category": "grenades"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -307217,6 +307343,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -385955,7 +386085,8 @@
       },
       "editorial": {
         "en": "Cycle a console variable through values.",
-        "pt-BR": "Alterna uma variável entre valores."
+        "pt-BR": "Alterna uma variável entre valores.",
+        "category": "interface"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -385988,6 +386119,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -386116,7 +386251,8 @@
       },
       "editorial": {
         "en": "Toggle the console interface.",
-        "pt-BR": "Abre ou fecha o console."
+        "pt-BR": "Abre ou fecha o console.",
+        "category": "interface"
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -386135,6 +386271,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"

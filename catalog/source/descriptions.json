@@ -17,7 +17,8 @@
   },
   "toggle": {
     "en": "Cycle a console variable through values.",
-    "pt-BR": "Alterna uma variável entre valores."
+    "pt-BR": "Alterna uma variável entre valores.",
+    "category": "interface"
   },
   "echo": {
     "en": "Print literal text in the console.",
@@ -29,15 +30,18 @@
   },
   "buy": {
     "en": "Request an item purchase; availability depends on the match and loadout.",
-    "pt-BR": "Solicita a compra de um item; disponibilidade depende da partida e do loadout."
+    "pt-BR": "Solicita a compra de um item; disponibilidade depende da partida e do loadout.",
+    "category": "buy"
   },
   "toggleconsole": {
     "en": "Toggle the console interface.",
-    "pt-BR": "Abre ou fecha o console."
+    "pt-BR": "Abre ou fecha o console.",
+    "category": "interface"
   },
   "noclip": {
     "en": "Toggle collision-free movement in a permitted practice context.",
-    "pt-BR": "Alterna movimento sem colisão em um contexto de treino permitido."
+    "pt-BR": "Alterna movimento sem colisão em um contexto de treino permitido.",
+    "category": "utility"
   },
   "ent_fire": {
     "en": "Send an input to entities matching a target.",
@@ -49,11 +53,13 @@
   },
   "lastinv": {
     "en": "Select the previously used item.",
-    "pt-BR": "Seleciona o item usado anteriormente."
+    "pt-BR": "Seleciona o item usado anteriormente.",
+    "category": "weapons"
   },
   "drop": {
     "en": "Drop the held item where permitted.",
-    "pt-BR": "Solta o item na mão quando permitido."
+    "pt-BR": "Solta o item na mão quando permitido.",
+    "category": "weapons"
   },
   "player_ping": {
     "en": "Place a player ping.",
@@ -61,11 +67,13 @@
   },
   "messagemode": {
     "en": "Open public text chat.",
-    "pt-BR": "Abre o chat de texto público."
+    "pt-BR": "Abre o chat de texto público.",
+    "category": "communication"
   },
   "messagemode2": {
     "en": "Open team text chat.",
-    "pt-BR": "Abre o chat de texto da equipe."
+    "pt-BR": "Abre o chat de texto da equipe.",
+    "category": "communication"
   },
   "sv_cheats": {
     "en": "Control cheat-protected commands on a server you control.",
@@ -117,15 +125,18 @@
   },
   "bot_add_t": {
     "en": "Request a bot on the Terrorist team.",
-    "pt-BR": "Solicita um bot na equipe Terrorista."
+    "pt-BR": "Solicita um bot na equipe Terrorista.",
+    "category": "utility"
   },
   "bot_add_ct": {
     "en": "Request a bot on the Counter-Terrorist team.",
-    "pt-BR": "Solicita um bot na equipe Contra-Terrorista."
+    "pt-BR": "Solicita um bot na equipe Contra-Terrorista.",
+    "category": "utility"
   },
   "bot_place": {
     "en": "Request bot placement at the aimed position.",
-    "pt-BR": "Solicita posicionar um bot no local da mira."
+    "pt-BR": "Solicita posicionar um bot no local da mira.",
+    "category": "utility"
   },
   "bot_stop": {
     "en": "Configure whether bots stop moving.",
@@ -485,43 +496,53 @@
   },
   "+forward": {
     "en": "Move forward while held.",
-    "pt-BR": "Move para frente enquanto pressionado."
+    "pt-BR": "Move para frente enquanto pressionado.",
+    "category": "movement"
   },
   "+back": {
     "en": "Move backward while held.",
-    "pt-BR": "Move para trás enquanto pressionado."
+    "pt-BR": "Move para trás enquanto pressionado.",
+    "category": "movement"
   },
   "+left": {
     "en": "Move left while held.",
-    "pt-BR": "Move para a esquerda enquanto pressionado."
+    "pt-BR": "Move para a esquerda enquanto pressionado.",
+    "category": "movement"
   },
   "+right": {
     "en": "Move right while held.",
-    "pt-BR": "Move para a direita enquanto pressionado."
+    "pt-BR": "Move para a direita enquanto pressionado.",
+    "category": "movement"
   },
   "+duck": {
     "en": "Crouch while held.",
-    "pt-BR": "Agacha enquanto pressionado."
+    "pt-BR": "Agacha enquanto pressionado.",
+    "category": "movement"
   },
   "+sprint": {
     "en": "Request the walking action while held.",
-    "pt-BR": "Solicita caminhar enquanto pressionado."
+    "pt-BR": "Solicita caminhar enquanto pressionado.",
+    "category": "movement"
   },
   "+jump": {
     "en": "Request a jump.",
-    "pt-BR": "Solicita um salto."
+    "pt-BR": "Solicita um salto.",
+    "category": "movement"
   },
   "+attack": {
     "en": "Request the primary attack.",
-    "pt-BR": "Solicita o ataque primário."
+    "pt-BR": "Solicita o ataque primário.",
+    "category": "weapons"
   },
   "+attack2": {
     "en": "Request the secondary attack.",
-    "pt-BR": "Solicita o ataque secundário."
+    "pt-BR": "Solicita o ataque secundário.",
+    "category": "weapons"
   },
   "+reload": {
     "en": "Request weapon reload.",
-    "pt-BR": "Solicita recarga da arma."
+    "pt-BR": "Solicita recarga da arma.",
+    "category": "weapons"
   },
   "+use": {
     "en": "Request the use action.",
@@ -529,19 +550,23 @@
   },
   "+voicerecord": {
     "en": "Transmit voice while held.",
-    "pt-BR": "Transmite voz enquanto pressionado."
+    "pt-BR": "Transmite voz enquanto pressionado.",
+    "category": "communication"
   },
   "slot1": {
     "en": "Select inventory slot 1; contents depend on the loadout.",
-    "pt-BR": "Seleciona o slot 1 do inventário; conteúdo depende do loadout."
+    "pt-BR": "Seleciona o slot 1 do inventário; conteúdo depende do loadout.",
+    "category": "weapons"
   },
   "slot2": {
     "en": "Select inventory slot 2; contents depend on the loadout.",
-    "pt-BR": "Seleciona o slot 2 do inventário; conteúdo depende do loadout."
+    "pt-BR": "Seleciona o slot 2 do inventário; conteúdo depende do loadout.",
+    "category": "weapons"
   },
   "slot3": {
     "en": "Select inventory slot 3; contents depend on the loadout.",
-    "pt-BR": "Seleciona o slot 3 do inventário; conteúdo depende do loadout."
+    "pt-BR": "Seleciona o slot 3 do inventário; conteúdo depende do loadout.",
+    "category": "weapons"
   },
   "slot4": {
     "en": "Select inventory slot 4; contents depend on the loadout.",
@@ -553,15 +578,18 @@
   },
   "slot7": {
     "en": "Select inventory slot 7; contents depend on the loadout.",
-    "pt-BR": "Seleciona o slot 7 do inventário; conteúdo depende do loadout."
+    "pt-BR": "Seleciona o slot 7 do inventário; conteúdo depende do loadout.",
+    "category": "grenades"
   },
   "slot8": {
     "en": "Select inventory slot 8; contents depend on the loadout.",
-    "pt-BR": "Seleciona o slot 8 do inventário; conteúdo depende do loadout."
+    "pt-BR": "Seleciona o slot 8 do inventário; conteúdo depende do loadout.",
+    "category": "grenades"
   },
   "slot10": {
     "en": "Select inventory slot 10; contents depend on the loadout.",
-    "pt-BR": "Seleciona o slot 10 do inventário; conteúdo depende do loadout."
+    "pt-BR": "Seleciona o slot 10 do inventário; conteúdo depende do loadout.",
+    "category": "grenades"
   },
   "cl_crosshair_length": {
     "en": "Crosshair bar length; scales with resolution.",

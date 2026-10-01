@@ -22,9 +22,6 @@
     "Programming Languages"
   ],
   "main": "./dist/extension.js",
-  "activationEvents": [
-    "onLanguage:cs2cfg"
-  ],
   "capabilities": {
     "untrustedWorkspaces": {
       "supported": true

@@ -23,7 +23,12 @@ export interface CatalogEntry {
     sourceId: string;
   };
   original: { text: string } | null;
-  editorial: { en: string; 'pt-BR'?: string };
+  editorial: {
+    en: string;
+    'pt-BR'?: string;
+    category?:
+      'movement' | 'weapons' | 'grenades' | 'communication' | 'buy' | 'utility' | 'interface';
+  };
   verification: string;
   requiresCheats: string;
   examples: string[][];

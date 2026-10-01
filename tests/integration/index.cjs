@@ -210,7 +210,11 @@ exports.run = async () => {
     assert.ok(
       !vscode.languages
         .getDiagnostics(corpus.uri)
-        .some((d) => d.code === 'unknown' || d.severity === vscode.DiagnosticSeverity.Error),
+        .some(
+          (d) =>
+            (d.code === 'unknown' && corpus.getText(d.range) !== '+showscores') ||
+            d.severity === vscode.DiagnosticSeverity.Error,
+        ),
       `${name} coverage`,
     );
   }

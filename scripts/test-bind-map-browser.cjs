@@ -38,21 +38,20 @@ async function run() {
   const assets = pathToFileURL(path.join(root, 'resources', 'webview') + path.sep).href;
   let html = bindMapPage({ cspSource: 'file:', asWebviewUri: (uri) => uri }, assets);
   const nonce = /script-src 'nonce-([a-f0-9]+)'/.exec(html)[1];
-  const model = bindMapModel(
-    effectiveConfig(
-      parse(
-        [
-          'bind q slot1',
-          'bind q slot2',
-          'exec external',
-          'bind mouse4 +jump',
-          'bind kp_home slot3',
-          'bind CUSTOM "echo <img src=x onerror=alert(1)>"',
-        ].join('\n'),
-      ),
-      new CommandRegistry(require('../catalog/catalog.json')),
-    ),
-  );
+  const source = [
+    'bind q slot1',
+    'bind q slot2',
+    'exec external',
+    'bind mouse4 +jump',
+    'bind kp_home slot3',
+    'bind CUSTOM "echo <img src=x onerror=alert(1)>"',
+  ].join('\n');
+  const registry = new CommandRegistry(require('../catalog/catalog.json'));
+  const model = bindMapModel(effectiveConfig(parse(source), registry), {
+    registry,
+    source,
+    language: 'en',
+  });
   const initial = {
     type: 'state',
     snapshot: 1,
@@ -168,6 +167,38 @@ window.acquireVsCodeApi = () => ({ postMessage: m => { window.smoke.messages.pus
     await send('Runtime.enable');
     await send('Page.bringToFront');
     await waitFor("document.querySelectorAll('#list button').length === 4");
+    assert.equal(
+      await evaluate("document.querySelectorAll('#keyboard g[role=button]').length"),
+      104,
+    );
+    assert.equal(await evaluate("document.querySelectorAll('#mouse g[role=button]').length"), 7);
+    await evaluate(
+      "window.originalKeyboard=document.querySelector('#keyboard svg'); document.querySelector('#keyboard [data-key=z]').dispatchEvent(new MouseEvent('click')); true",
+    );
+    assert.ok(
+      await evaluate("document.querySelector('#details').textContent.includes('No binding found')"),
+    );
+    await evaluate(
+      "document.querySelector('#category').value='movement'; document.querySelector('#category').dispatchEvent(new Event('change')); true",
+    );
+    assert.ok(
+      await evaluate(
+        "document.querySelector('#keyboard [data-key=q]').classList.contains('muted')",
+      ),
+    );
+    assert.ok(
+      await evaluate(
+        "!document.querySelector('#mouse [data-key=mouse4]').classList.contains('muted')",
+      ),
+    );
+    assert.equal(
+      await evaluate("document.querySelectorAll('#keyboard g[role=button]').length"),
+      104,
+    );
+    await evaluate(
+      "document.querySelector('#category').value='all'; document.querySelector('#category').dispatchEvent(new Event('change')); document.querySelector('#mouse [data-key=mouse4]').dispatchEvent(new MouseEvent('click')); true",
+    );
+    assert.equal(await evaluate("document.querySelector('#details h3').textContent"), 'mouse4');
     // Representative VS Code theme variables; these are reference colors, not the user's theme.
     await evaluate(`Object.entries({
       '--vscode-font-family':'Segoe UI, sans-serif', '--vscode-editor-background':'#1e1e1e',
@@ -177,12 +208,12 @@ window.acquireVsCodeApi = () => ({ postMessage: m => { window.smoke.messages.pus
       '--vscode-editorWarning-foreground':'#cca700', '--vscode-textCodeBlock-background':'#252526'
     }).forEach(([name,value]) => document.documentElement.style.setProperty(name,value)); true`);
     await send('Emulation.setDeviceMetricsOverride', {
-      width: 1100,
+      width: 1500,
       height: 850,
       deviceScaleFactor: 1,
       mobile: false,
     });
-    await evaluate("document.querySelector('#layout button').focus(); true");
+    await evaluate("document.querySelector('#keyboard [data-key=q]').focus(); true");
     await key('Enter', 13);
     assert.equal(await evaluate('document.activeElement.id'), 'detail-title');
     await key('Tab', 9);
@@ -191,10 +222,18 @@ window.acquireVsCodeApi = () => ({ postMessage: m => { window.smoke.messages.pus
     assert.equal(await evaluate('window.smoke.messages.at(-1).type'), 'reveal');
     assert.equal(await evaluate('window.smoke.messages.at(-1).snapshot'), 1);
     await evaluate(
-      `document.querySelector('[data-focus-id="list:mouse4"]').focus(); window.smoke.state.model.entries[1].action='+duck'; window.smoke.state.snapshot=2; window.postMessage(window.smoke.state,'*'); true`,
+      "document.querySelector('#details details:last-child').open=true; document.querySelector('[data-focus-id=\"detail:q:history:0\"]').click(); true",
+    );
+    assert.equal(await evaluate('window.smoke.messages.at(-1).target'), 'history:0');
+    await evaluate(
+      `document.querySelector('#bind-list').open=true; document.querySelector('[data-focus-id="list:mouse4"]').focus(); window.smoke.state.model.entries[1].action='+duck'; window.smoke.state.snapshot=2; window.postMessage(window.smoke.state,'*'); true`,
     );
     await waitFor(
       "document.activeElement.dataset.focusId === 'list:mouse4' && document.activeElement.textContent.includes('+duck')",
+    );
+    assert.ok(
+      await evaluate("document.querySelector('#keyboard svg') === window.originalKeyboard"),
+      'Selection and snapshots preserve SVG geometry',
     );
     await key(' ', 32);
     assert.equal(await evaluate('document.activeElement.id'), 'detail-title');
@@ -222,6 +261,10 @@ window.acquireVsCodeApi = () => ({ postMessage: m => { window.smoke.messages.pus
       [
         'high-contrast',
         ['#000000', '#ffffff', '#000000', '#ffffff', '#ffffff', '#ffff00', '#ffff00', '#000000'],
+      ],
+      [
+        'high-contrast-light',
+        ['#ffffff', '#000000', '#ffffff', '#000000', '#000000', '#0000aa', '#7a2900', '#ffffff'],
       ],
     ]) {
       await evaluate(
@@ -268,6 +311,7 @@ window.acquireVsCodeApi = () => ({ postMessage: m => { window.smoke.messages.pus
             'English/pt-BR',
             'narrow layout',
             'reference dark/light/high-contrast themes',
+            'SVG geometry, idle selection, mouse selection, filters and history navigation',
           ],
           scope:
             'Standalone Chromium with a simulated VS Code bridge; not Extension Host or game validation.',

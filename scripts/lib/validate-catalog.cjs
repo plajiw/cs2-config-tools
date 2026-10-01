@@ -54,6 +54,13 @@ function validateCatalog(catalog) {
       .filter(Boolean),
   ]);
   for (const entry of catalog.entries) {
+    if (
+      entry.editorial?.category !== undefined &&
+      !['movement', 'weapons', 'grenades', 'communication', 'buy', 'utility', 'interface'].includes(
+        entry.editorial.category,
+      )
+    )
+      throw new Error(`Invalid editorial category: ${entry.name}`);
     if (!entry.name || /\s/.test(entry.name) || names.has(entry.name))
       throw new Error(`Duplicate/invalid identity: ${entry.name}`);
     names.add(entry.name);

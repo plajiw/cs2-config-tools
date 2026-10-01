@@ -1,248 +1,355 @@
-/* global acquireVsCodeApi */
+/* global acquireVsCodeApi, CS2InputLayout, CS2InputState, CS2InputSvg */
 (() => {
   const vscode = acquireVsCodeApi();
-  let state;
-  let selected;
-  const element = (tag, text, className) => {
-    const node = document.createElement(tag);
-    if (text !== undefined) node.textContent = text;
-    if (className) node.className = className;
-    return node;
-  };
+  let state = { pt: false },
+    selected,
+    visual;
+  const $ = (id) => document.getElementById(id);
   const text = (en, pt) => (state.pt ? pt : en);
-  const label = (entry) =>
-    entry.certain ? text('Modeled', 'Modelado') : text('Uncertain', 'Incerto');
-  function revealButton(title, index, target) {
-    const button = element('button', title);
-    button.dataset.focusId = `detail:${selected}:${target}`;
-    button.type = 'button';
-    button.addEventListener('click', () => {
-      vscode.postMessage({
-        type: 'reveal',
-        snapshot: state.snapshot,
-        version: state.version,
-        entry: index,
-        target,
-      });
-    });
-    return button;
+  const node = (tag, content, className) => {
+    const el = document.createElement(tag);
+    if (content !== undefined) el.textContent = content;
+    if (className) el.className = className;
+    return el;
+  };
+  const categories = {
+    all: ['All categories', 'Todas as categorias'],
+    movement: ['Movement', 'Movimento'],
+    weapons: ['Weapons', 'Armas'],
+    grenades: ['Grenades', 'Granadas'],
+    communication: ['Communication', 'Comunicação'],
+    buy: ['Buy', 'Compras'],
+    utility: ['Utility', 'Utilitários'],
+    interface: ['Interface', 'Interface'],
+    custom: ['Custom / unknown', 'Personalizado / desconhecido'],
+  };
+  const states = {
+    all: ['All states', 'Todos os estados'],
+    assigned: ['Assigned', 'Com bind'],
+    idle: ['No data', 'Sem dados'],
+    conflict: ['Reassigned / ambiguous', 'Reatribuído / ambíguo'],
+    uncertain: ['Uncertain', 'Incerto'],
+  };
+  const entries = () => state.model?.entries ?? [];
+  const status = (entry) =>
+    !entry.certain ? text('Uncertain', 'Incerto') : text('Modeled', 'Modelado');
+  const passes = (entry, conflict) => {
+    const category = $('category').value;
+    const filter = $('state-filter').value;
+    return CS2InputState.matchesFilters(entry, conflict, category, filter);
+  };
+  function button(label, callback, focusId) {
+    const el = node('button', label);
+    el.type = 'button';
+    if (focusId) el.dataset.focusId = focusId;
+    el.addEventListener('click', callback);
+    return el;
   }
-  function details(index) {
-    const container = document.getElementById('details');
-    container.replaceChildren();
-    const entry = state.model?.entries[index];
+  function reveal(index, target, label) {
+    return button(
+      label,
+      () =>
+        vscode.postMessage({
+          type: 'reveal',
+          snapshot: state.snapshot,
+          version: state.version,
+          entry: index,
+          target,
+        }),
+      `detail:${selected}:${target}`,
+    );
+  }
+  function inspector() {
+    const root = $('details');
+    root.replaceChildren();
+    const index = entries().findIndex((entry) => entry.key === selected);
+    const entry = entries()[index];
+    const def = [...CS2InputLayout.keys, ...CS2InputLayout.mouse].find(
+      (item) => item.id === visual,
+    );
+    $('detail-title').textContent = text('Selected input', 'Entrada selecionada');
     if (!entry) {
-      container.append(
-        element(
+      if (def) root.append(node('h3', def.label));
+      root.append(
+        node(
+          'p',
+          def
+            ? text('No binding found in this analysis.', 'Nenhum bind encontrado nesta análise.')
+            : text(
+                'Select a key or mouse control to inspect its bind.',
+                'Selecione uma tecla ou controle do mouse para consultar seu bind.',
+              ),
+        ),
+      );
+      return;
+    }
+    root.append(
+      node('h3', entry.key),
+      node(
+        'p',
+        `${text(...(categories[entry.category] ?? categories.custom))} · ${status(entry)}`,
+        'metadata',
+      ),
+      node('pre', entry.action),
+    );
+    if (entry.meaning) root.append(node('p', entry.meaning));
+    else
+      root.append(
+        node(
           'p',
           text(
-            'Select a modeled key to inspect its bind.',
-            'Selecione uma tecla modelada para consultar seu bind.',
+            'Custom action or sequence; inspect the literal command below.',
+            'Ação personalizada ou sequência; consulte o comando literal abaixo.',
           ),
         ),
       );
-      return;
-    }
-    selected = entry.key;
-    container.append(
-      element('h3', entry.key),
-      element('p', label(entry)),
-      element('pre', entry.action),
-    );
-    const actions = element('div', undefined, 'actions');
-    actions.append(revealButton(text('Open source', 'Abrir origem'), index, 'origin'));
-    if (entry.definition.start !== entry.origin.start)
-      actions.append(
-        revealButton(
-          text('Open alias definition', 'Abrir definição do alias'),
-          index,
-          'definition',
+    if (entry.conflict)
+      root.append(
+        node(
+          'p',
+          text(
+            '! Reassigned in this file. The last modeled bind is shown; replacement can be intentional.',
+            '! Reatribuído neste arquivo. O último bind modelado é exibido; a substituição pode ser intencional.',
+          ),
+          'notice',
         ),
       );
-    entry.changes.forEach((change, i) => {
-      const title =
-        change.kind === 'redundant'
-          ? text('Previous repeated bind', 'Bind anterior repetido')
-          : text('Previous replaced bind', 'Bind anterior substituído');
-      actions.append(revealButton(`${title} ${i + 1}`, index, i));
-    });
-    container.append(actions);
-  }
-  function select(index) {
-    details(index);
-    document.getElementById('detail-title').focus();
-  }
-  // A reference layout, never a validator or a source of command semantics.
-  const groups = [
-    [
-      'Keyboard · QWERTY reference',
-      'Teclado · referência QWERTY',
-      [
-        ['escape', 'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'f10', 'f11', 'f12'],
-        ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'backspace'],
-        ['tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\'],
-        ['capslock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", 'enter'],
-        ['shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'rshift'],
-        ['ctrl', 'alt', 'space', 'ralt', 'rctrl'],
-        [
-          'ins',
-          'home',
-          'pgup',
-          'del',
-          'end',
-          'pgdn',
-          'leftarrow',
-          'uparrow',
-          'downarrow',
-          'rightarrow',
-        ],
-      ],
-    ],
-    [
-      'Mouse',
-      'Mouse',
-      [
-        ['mouse1', 'mouse2', 'mouse3', 'mouse4', 'mouse5'],
-        ['mwheelup', 'mwheeldown'],
-      ],
-    ],
-    [
-      'Numpad',
-      'Teclado numérico',
-      [
-        ['numlock', 'kp_divide', 'kp_multiply', 'kp_minus'],
-        ['kp_home', 'kp_uparrow', 'kp_pgup', 'kp_plus'],
-        ['kp_leftarrow', 'kp_5', 'kp_rightarrow'],
-        ['kp_end', 'kp_downarrow', 'kp_pgdn', 'kp_enter'],
-        ['kp_ins', 'kp_del'],
-      ],
-    ],
-  ];
-  function render() {
-    document.documentElement.lang = state.pt ? 'pt-BR' : 'en';
-    document.getElementById('title').textContent = text('Visual bind map', 'Mapa visual de binds');
-    document.getElementById('file').textContent = state.file;
-    document.getElementById('scope').textContent = text(
-      'Read-only, single-file static model. Keys without data are not necessarily unbound. Literal key names are preserved; this layout does not validate game key names.',
-      'Modelo estático de arquivo único, somente leitura. Teclas sem informação podem ter binds no jogo. Nomes literais são preservados; o desenho não valida nomes de teclas do jogo.',
-    );
-    document.getElementById('legend').textContent = text(
-      'Modeled: literal bind recorded. Uncertain: unresolved effects may have changed it. No information: absent from this model.',
-      'Modelado: bind literal registrado. Incerto: efeitos não resolvidos podem tê-lo alterado. Sem informação: ausente deste modelo.',
-    );
-    document.getElementById('list-title').textContent = text(
-      'All modeled binds',
-      'Todos os binds modelados',
-    );
-    document.getElementById('detail-title').textContent = text('Selected bind', 'Bind selecionado');
-    const status = document.getElementById('status');
-    status.textContent = state.unavailable
-      ? text(
-          'Source closed. Open a CFG and run the bind map command again.',
-          'Origem fechada. Abra uma CFG e execute o comando do mapa novamente.',
-        )
-      : state.oversized
-        ? text(
-            'Analysis paused: document exceeds the analysis limit.',
-            'Análise pausada: documento excede o limite de análise.',
-          )
-        : state.model.partial
-          ? text(
-              'Partial result: unresolved effects may change binds.',
-              'Resultado parcial: efeitos não resolvidos podem alterar os binds.',
-            )
-          : text(
-              'No unresolved effects in the modeled subset.',
-              'Nenhum efeito não resolvido no subconjunto modelado.',
-            );
-    status.className = state.model?.partial ? 'uncertain' : '';
-    const layout = document.getElementById('layout');
-    const list = document.getElementById('list');
-    layout.replaceChildren();
-    list.replaceChildren();
-    if (!state.model) {
-      details(-1);
-      return;
-    }
-    if (state.model.limits.length) {
-      const limits = element('ul');
-      const meanings = {
-        exec: text('External CFG unresolved', 'CFG externa não resolvida'),
-        dynamic: text('Unknown or unsupported effect', 'Efeito desconhecido ou não suportado'),
-        syntax: text('Incomplete or invalid syntax', 'Sintaxe incompleta ou inválida'),
-        'alias-cycle': text(
-          'Alias cycle or depth limit',
-          'Ciclo de alias ou limite de profundidade',
+    if (!entry.certain)
+      root.append(
+        node(
+          'p',
+          text(
+            '? Unresolved effects may have changed this bind. See analysis details.',
+            '? Efeitos não resolvidos podem ter alterado este bind. Consulte os detalhes da análise.',
+          ),
+          'notice',
         ),
-        budget: text('Analysis budget reached', 'Limite de análise atingido'),
-      };
-      for (const limit of state.model.limits)
-        limits.append(
-          element(
-            'li',
-            `${meanings[limit.code] ?? limit.code}${limit.name ? ` · ${limit.name}` : ''}`,
+      );
+    root.append(reveal(index, 'origin', text('Open source', 'Abrir origem')));
+    root.append(
+      node('p', `${state.file}${entry.origin.line ? `:${entry.origin.line}` : ''}`, 'metadata'),
+    );
+    if (entry.definition.start !== entry.origin.start)
+      root.append(
+        reveal(index, 'definition', text('Open alias definition', 'Abrir definição do alias')),
+      );
+    if (entry.raw) {
+      const raw = node('details');
+      raw.append(node('summary', text('Raw command', 'Comando original')), node('pre', entry.raw));
+      root.append(raw);
+    }
+    if (def) {
+      const candidates = CS2InputLayout.matches(def, entries());
+      if (candidates.length > 1) {
+        root.append(
+          node(
+            'p',
+            text(
+              'Multiple literal names map to this reference key. Inspect each separately:',
+              'Mais de um nome literal corresponde a esta tecla de referência. Consulte cada um separadamente:',
+            ),
           ),
         );
-      layout.append(limits);
-    }
-    const entries = state.model.entries;
-    for (const [en, pt, rows] of groups) {
-      const section = element('section');
-      section.append(element('h2', text(en, pt)));
-      for (const keys of rows) {
-        const row = element('div', undefined, 'key-row');
-        for (const key of keys) {
-          const index = entries.findIndex((entry) => entry.key === key);
-          const entry = entries[index];
-          const keycap = element(
-            entry ? 'button' : 'span',
-            key,
-            `key ${entry ? (entry.certain ? 'modeled' : 'uncertain') : 'empty'}`,
-          );
-          if (entry) {
-            keycap.type = 'button';
-            keycap.dataset.focusId = `key:${entry.key}`;
-            keycap.title = `${key}: ${entry.action}`;
-            keycap.setAttribute('aria-label', `${key}: ${entry.action} · ${label(entry)}`);
-            keycap.addEventListener('click', () => select(index));
-          } else keycap.title = text('No information in this model', 'Sem informação neste modelo');
-          row.append(keycap);
-        }
-        section.append(row);
+        for (const candidate of candidates)
+          root.append(button(candidate.key, () => select(candidate.key, def.id)));
       }
-      layout.append(section);
     }
-    // Every literal name remains reachable, including uppercase and custom names.
-    entries.forEach((entry, index) => {
-      const button = element(
-        'button',
-        `${entry.key} · ${entry.action} · ${label(entry)}${entry.changes.length ? ` · ${text('changes', 'alterações')}: ${entry.changes.length}` : ''}`,
-        'bind-item',
+    if (entry.history?.length) {
+      const history = node('details');
+      history.append(
+        node(
+          'summary',
+          `${text('Source history', 'Histórico de origem')} (${entry.history.length})`,
+        ),
       );
-      button.type = 'button';
-      button.dataset.focusId = `list:${entry.key}`;
-      button.addEventListener('click', () => select(index));
-      list.append(button);
-    });
-    if (!entries.length)
-      list.append(element('p', text('No binds modeled.', 'Nenhum bind modelado.')));
-    details(entries.findIndex((entry) => entry.key === selected));
+      const list = node('ol');
+      entry.history.forEach((event, i) => {
+        const item = node('li');
+        item.append(
+          node('code', event.action),
+          node(
+            'p',
+            event.effective
+              ? text('Current modeled bind', 'Bind modelado atual')
+              : text('Earlier assignment', 'Atribuição anterior'),
+          ),
+          reveal(
+            index,
+            `history:${i}`,
+            `${text('Open line', 'Abrir linha')} ${event.origin.line ?? i + 1}`,
+          ),
+        );
+        list.append(item);
+      });
+      history.append(list);
+      root.append(history);
+    }
   }
+  function refreshSurfaces() {
+    const labels = {
+      empty: text('No data in this analysis', 'Sem dados nesta análise'),
+      conflict: text('Reassigned / ambiguous', 'Reatribuído / ambíguo'),
+      uncertain: text('Uncertain', 'Incerto'),
+    };
+    keyboard.update(entries(), visual, passes, labels);
+    mouse.update(entries(), visual, passes, labels);
+  }
+  function select(key, id) {
+    selected = key;
+    visual = id;
+    refreshSurfaces();
+    inspector();
+    $('detail-title').focus();
+  }
+  const callbacks = {
+    select: (def) => {
+      const selection = CS2InputState.select(def, CS2InputLayout.matches(def, entries()));
+      select(selection.key, selection.visualId);
+    },
+    tooltip: (def) => {
+      const entry = CS2InputLayout.matches(def, entries())[0];
+      $('tooltip').textContent =
+        `${def.label} · ${entry ? `${entry.action} · ${status(entry)}` : text('No data in this analysis', 'Sem dados nesta análise')}`;
+      $('tooltip').hidden = false;
+    },
+    hideTooltip: () => {
+      $('tooltip').hidden = true;
+    },
+  };
+  const keyboard = CS2InputSvg.keyboard(callbacks),
+    mouse = CS2InputSvg.mouse(callbacks);
+  const narrow = window.matchMedia('(max-width: 700px)');
+  const collapseFilters = () => {
+    $('filter-panel').open = !narrow.matches;
+  };
+  collapseFilters();
+  narrow.addEventListener('change', collapseFilters);
+  $('keyboard').append(keyboard.svg);
+  $('mouse').append(mouse.svg);
+  function filters(id, options) {
+    const el = $(id),
+      previous = el.value || 'all';
+    el.replaceChildren(
+      ...Object.entries(options).map(([value, label]) => {
+        const option = node('option', text(...label));
+        option.value = value;
+        return option;
+      }),
+    );
+    el.value = previous;
+  }
+  function renderList() {
+    const root = $('list');
+    root.replaceChildren();
+    entries().forEach((entry, index) => {
+      if (!passes(entry, entry.conflict)) return;
+      root.append(
+        button(
+          `${entry.key} · ${entry.action}`,
+          () => {
+            const def = [...CS2InputLayout.keys, ...CS2InputLayout.mouse].find((item) =>
+              item.tokens.includes(entry.key),
+            );
+            select(entries()[index].key, def?.id);
+          },
+          `list:${entry.key}`,
+        ),
+      );
+    });
+    if (!root.children.length)
+      root.append(node('p', text('No matching binds.', 'Nenhum bind corresponde ao filtro.')));
+  }
+  function render() {
+    document.documentElement.lang = state.pt ? 'pt-BR' : 'en';
+    const copy = {
+      title: ['Visual bind map', 'Mapa visual de binds'],
+      mode: ['Read-only · Single file', 'Somente leitura · Arquivo único'],
+      'filters-title': ['Explore', 'Explorar'],
+      'category-label': ['Category', 'Categoria'],
+      'state-label': ['State', 'Estado'],
+      'keyboard-title': ['ANSI keyboard', 'Teclado ANSI'],
+      'mouse-title': ['Mouse', 'Mouse'],
+      'mouse-note': ['Five buttons and scroll directions.', 'Cinco botões e direções de rolagem.'],
+      'selection-help': [
+        'Select any input. Enter or Space opens its details. Filters dim the layout without hiding keys.',
+        'Selecione uma entrada. Enter ou Espaço abre seus detalhes. Os filtros atenuam o desenho sem ocultar teclas.',
+      ],
+      legend: [
+        '● Assigned   ! Reassigned / ambiguous   ? Uncertain\nUnmarked: no data in this analysis.',
+        '● Com bind   ! Reatribuído / ambíguo   ? Incerto\nSem marca: sem dados nesta análise.',
+      ],
+      'list-title': ['All literal binds', 'Todos os binds literais'],
+      'analysis-title': ['Analysis details', 'Detalhes da análise'],
+      scope: [
+        'Single-file static analysis. Execs and unknown effects remain unresolved. Idle inputs can still have binds in the game. This physical reference does not validate CS2 key tokens. History includes assignments before explicit resets.',
+        'Análise estática de arquivo único. Execs e efeitos desconhecidos permanecem não resolvidos. Entradas sem dados podem ter binds no jogo. Esta referência física não valida tokens de teclas do CS2. O histórico inclui atribuições anteriores a limpezas explícitas.',
+      ],
+    };
+    for (const [id, label] of Object.entries(copy)) $(id).textContent = text(...label);
+    $('file').textContent = state.file ?? '';
+    filters('category', categories);
+    filters('state-filter', states);
+    const uncertain = entries().filter((entry) => !entry.certain).length;
+    $('retry').hidden = !state.failed;
+    $('retry').textContent = text('Retry', 'Tentar novamente');
+    $('summary').textContent = state.failed
+      ? text(
+          'Unable to build bind map. Retry or inspect the Extension Host log.',
+          'Não foi possível gerar o mapa. Tente novamente ou consulte o log do Extension Host.',
+        )
+      : state.unavailable
+        ? text(
+            'Source closed. Open a CFG and reopen the map.',
+            'Origem fechada. Abra uma CFG e reabra o mapa.',
+          )
+        : state.oversized
+          ? text(
+              'Analysis paused: file exceeds the size limit.',
+              'Análise pausada: arquivo excede o limite de tamanho.',
+            )
+          : `${entries().length} ${text('modeled binds', 'binds modelados')} · ${entries().filter((entry) => entry.conflict).length} ${text('reassigned', 'reatribuídos')} · ${uncertain} ${text('uncertain', 'incertos')} · ${state.model?.partial ? text('Partial analysis', 'Análise parcial') : text('Modeled subset complete', 'Subconjunto modelado completo')}`;
+    $('status').textContent = state.model?.partial
+      ? text(
+          'Unresolved effects may change the result.',
+          'Efeitos não resolvidos podem alterar o resultado.',
+        )
+      : text(
+          'No unresolved effects in the modeled subset.',
+          'Nenhum efeito não resolvido no subconjunto modelado.',
+        );
+    $('limits').replaceChildren(
+      ...(state.model?.limits ?? []).map((limit) =>
+        node('li', `${limit.code}${limit.name ? ` · ${limit.name}` : ''}`),
+      ),
+    );
+    refreshSurfaces();
+    renderList();
+    inspector();
+  }
+  for (const id of ['category', 'state-filter'])
+    $(id).addEventListener('change', () => {
+      refreshSurfaces();
+      renderList();
+    });
+  $('retry').addEventListener('click', () => vscode.postMessage({ type: 'ready' }));
   window.addEventListener('message', (event) => {
     if (event.data?.type !== 'state') return;
-    const focus = document.activeElement;
-    const focusedId = focus?.dataset?.focusId;
-    const sameSource = state?.source === event.data.source;
-    if (!sameSource || !event.data.model) selected = undefined;
+    const focusedId = document.activeElement?.dataset?.focusId;
+    const sameSource = state.source === event.data.source;
+    if (!sameSource || !event.data.model) {
+      selected = undefined;
+      visual = undefined;
+    }
     state = event.data;
+    callbacks.hideTooltip();
     render();
     if (focusedId) {
       const replacement = sameSource
-        ? [...document.querySelectorAll('button')].find(
-            (button) => button.dataset.focusId === focusedId,
+        ? [...document.querySelectorAll('[data-focus-id]')].find(
+            (el) => el.dataset.focusId === focusedId,
           )
         : undefined;
-      (replacement ?? document.getElementById('detail-title')).focus();
+      (replacement ?? $('detail-title')).focus();
     }
   });
   vscode.postMessage({ type: 'ready' });

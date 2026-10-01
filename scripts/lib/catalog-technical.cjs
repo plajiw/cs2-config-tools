@@ -20,6 +20,9 @@ function technicalSources(snapshot) {
 function attachTechnical(entry, technical, snapshot) {
   const human = Boolean(entry.editorial.en);
   const provenance = {
+    ...(entry.editorial.category
+      ? { 'editorial.category': { source: 'project-curation', confidence: 'community' } }
+      : {}),
     ...(human
       ? {
           'editorial.en': { source: 'project-curation', confidence: 'community' },

@@ -11,24 +11,25 @@ export function bindMapPage(webview: vscode.Webview, root: vscode.Uri): string {
   const layout = webview.asWebviewUri(vscode.Uri.joinPath(root, 'visual-input', 'layout.js'));
   const svg = webview.asWebviewUri(vscode.Uri.joinPath(root, 'visual-input', 'svg.js'));
   const visualState = webview.asWebviewUri(vscode.Uri.joinPath(root, 'visual-input', 'state.js'));
+  const picker = webview.asWebviewUri(vscode.Uri.joinPath(root, 'visual-input', 'picker.js'));
   return `<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource}; script-src 'nonce-${nonce}';">
 <link rel="stylesheet" href="${css}"><title>CS2 Config Tools</title></head>
-<body><main><header><div><h1 id="title">Bind map</h1><p id="file"></p></div><span id="mode"></span></header>
+<body><main><header><div class="header-source"><h1 id="title">Bind map</h1><div class="file-identity"><span class="file-icon" aria-hidden="true">CFG</span><code id="file"></code></div></div><span id="mode"></span></header>
 <p id="summary" role="status" aria-live="polite"></p>
 <button id="retry" type="button" hidden>Retry</button>
 <div class="workspace"><aside aria-labelledby="filters-title"><details id="filter-panel" open><summary id="filters-title">Filters</summary><div class="filter-controls">
-<label id="category-label" for="category">Category</label><select id="category"></select>
+<div class="category-field"><label id="category-label" for="category">Category</label><div class="category-picker"><button id="category" type="button" value="all" aria-haspopup="listbox" aria-expanded="false" aria-controls="category-menu" aria-labelledby="category-label category-value"></button><div id="category-menu" role="listbox" aria-labelledby="category-label" hidden></div></div></div>
 <label id="state-label" for="state-filter">State</label><select id="state-filter"></select>
-<p id="legend"></p><details id="bind-list"><summary id="list-title">All modeled binds</summary><div id="list"></div></details></div></details></aside>
-<section class="canvas" id="layout" aria-labelledby="keyboard-title"><h2 id="keyboard-title">Keyboard</h2><div id="keyboard"></div>
-<div class="mouse-area"><div><h2 id="mouse-title">Mouse</h2><p id="mouse-note"></p></div><div id="mouse"></div></div>
+<h2 id="legend-title">Status</h2><ul id="legend"></ul><details id="bind-list"><summary id="list-title">Literal binds</summary><div id="list"></div></details></div></details></aside>
+<section class="canvas" id="layout" aria-labelledby="keyboard-title"><h2 id="keyboard-title">Keyboard</h2><div id="keyboard" tabindex="0" role="region" aria-labelledby="keyboard-title"></div>
+<div class="mouse-area"><h2 id="mouse-title">Mouse</h2><div class="mouse-content"><div id="mouse"></div><p id="mouse-note"></p></div></div>
 <p id="selection-help"></p><div id="tooltip" role="tooltip" hidden></div></section>
 <section class="inspector" aria-labelledby="detail-title"><h2 id="detail-title" tabindex="-1">Selected bind</h2><div id="details"></div></section></div>
 <details class="analysis"><summary id="analysis-title">Analysis details</summary><p id="status"></p><p id="scope"></p><ul id="limits"></ul></details>
-</main><script nonce="${nonce}" src="${layout}"></script><script nonce="${nonce}" src="${visualState}"></script><script nonce="${nonce}" src="${svg}"></script><script nonce="${nonce}" src="${script}"></script></body></html>`;
+</main><script nonce="${nonce}" src="${layout}"></script><script nonce="${nonce}" src="${visualState}"></script><script nonce="${nonce}" src="${svg}"></script><script nonce="${nonce}" src="${picker}"></script><script nonce="${nonce}" src="${script}"></script></body></html>`;
 }
 
 export function registerBindMap(services: Services, context: vscode.ExtensionContext): void {

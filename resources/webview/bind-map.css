@@ -13,7 +13,7 @@ body {
 main {
   max-width: 1800px;
   margin: auto;
-  padding: 24px;
+  padding: 16px;
 }
 header {
   display: flex;
@@ -22,7 +22,7 @@ header {
   gap: 16px;
 }
 h1 {
-  font-size: 22px;
+  font-size: 19px;
   margin: 0;
   font-weight: 600;
 }
@@ -56,13 +56,135 @@ p {
 }
 #summary {
   border-bottom: 1px solid var(--vscode-panel-border, #777);
-  padding-bottom: 16px;
-  margin-bottom: 20px;
+  padding-bottom: 10px;
+  margin: 8px 0 14px;
+}
+#file {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-size: 12px;
+  color: var(--vscode-editor-foreground, #d4d4d4);
+}
+.header-source {
+  min-width: 0;
+}
+.file-identity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 6px 9px;
+  background: var(--vscode-textCodeBlock-background, #252526);
+  border: 1px solid var(--vscode-panel-border, #777);
+  border-radius: 4px;
+  width: fit-content;
+  max-width: 100%;
+}
+.file-icon {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 3px;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  color: var(--vscode-descriptionForeground, #aaa);
+  flex-shrink: 0;
+}
+.category-picker {
+  position: relative;
+}
+#category {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  text-align: left;
+}
+.filter-value {
+  min-width: 0;
+  flex: 1;
+}
+.filter-caret {
+  flex-shrink: 0;
+}
+.category-dot {
+  flex-shrink: 0;
+  color: var(--vscode-descriptionForeground, #aaa);
+}
+.category-dot[data-category='movement'],
+.assigned[data-category='movement'] .state-marker {
+  color: var(--vscode-charts-green, #89c48a);
+  fill: var(--vscode-charts-green, #89c48a);
+}
+.category-dot[data-category='weapons'],
+.assigned[data-category='weapons'] .state-marker {
+  color: var(--vscode-charts-blue, #75b7e5);
+  fill: var(--vscode-charts-blue, #75b7e5);
+}
+.category-dot[data-category='grenades'],
+.assigned[data-category='grenades'] .state-marker {
+  color: var(--vscode-charts-orange, #e5b075);
+  fill: var(--vscode-charts-orange, #e5b075);
+}
+.category-dot[data-category='communication'],
+.assigned[data-category='communication'] .state-marker {
+  color: var(--vscode-charts-purple, #b995dc);
+  fill: var(--vscode-charts-purple, #b995dc);
+}
+.category-dot[data-category='buy'],
+.assigned[data-category='buy'] .state-marker {
+  color: var(--vscode-charts-yellow, #dbc572);
+  fill: var(--vscode-charts-yellow, #dbc572);
+}
+.category-dot[data-category='utility'],
+.assigned[data-category='utility'] .state-marker {
+  color: var(--vscode-charts-red, #df8888);
+  fill: var(--vscode-charts-red, #df8888);
+}
+.category-dot[data-category='interface'],
+.assigned[data-category='interface'] .state-marker {
+  color: var(--vscode-charts-blue, #75b7e5);
+  fill: var(--vscode-charts-blue, #75b7e5);
+}
+#category-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 100%;
+  width: max-content;
+  max-width: 240px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 4px;
+  background: var(--vscode-dropdown-background, #252526);
+  color: var(--vscode-dropdown-foreground, #d4d4d4);
+  border: 1px solid var(--vscode-dropdown-border, #777);
+  border-radius: 4px;
+  z-index: 5;
+  box-shadow: 0 4px 12px var(--vscode-widget-shadow, #0005);
+}
+#category-menu .filter-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  color: inherit;
+  border: 0;
+  margin: 0;
+}
+#category-menu .filter-option[aria-selected='true'] {
+  box-shadow: inset 2px 0 var(--vscode-focusBorder, #007fd4);
+  font-weight: 600;
+}
+#category-menu .filter-option:hover {
+  background: var(--vscode-list-hoverBackground, #454545);
 }
 .workspace {
   display: grid;
-  grid-template-columns: 180px minmax(0, 1fr) 270px;
-  gap: 20px;
+  grid-template-columns: 160px minmax(0, 1fr) 260px;
+  gap: 14px;
   align-items: start;
 }
 aside,
@@ -109,6 +231,22 @@ svg {
   width: 100%;
   overflow: visible;
 }
+#keyboard {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 6px 3px 10px;
+}
+#keyboard svg {
+  width: 1080px;
+  min-width: 1080px;
+  height: 320px;
+}
+#keyboard .key-label {
+  font-size: 12px;
+}
+#keyboard:focus-visible {
+  outline-offset: -2px;
+}
 .device-shell {
   fill: var(--vscode-textCodeBlock-background, #252526);
   stroke: var(--vscode-panel-border, #777);
@@ -137,21 +275,6 @@ svg {
 .assigned .key-face {
   stroke: var(--vscode-focusBorder, #007fd4);
   stroke-width: 2;
-}
-.assigned[data-category='movement'] .state-marker {
-  fill: var(--vscode-charts-green, #89c48a);
-}
-.assigned[data-category='weapons'] .state-marker {
-  fill: var(--vscode-charts-blue, #75b7e5);
-}
-.assigned[data-category='grenades'] .state-marker {
-  fill: var(--vscode-charts-orange, #e5b075);
-}
-.assigned[data-category='communication'] .state-marker {
-  fill: var(--vscode-charts-purple, #b995dc);
-}
-.assigned[data-category='buy'] .state-marker {
-  fill: var(--vscode-charts-yellow, #dbc572);
 }
 #mouse .key-label {
   font-size: 14px;
@@ -183,15 +306,22 @@ svg {
   opacity: 1;
 }
 .mouse-area {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--vscode-panel-border, #777);
+}
+.mouse-content {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 32px;
-  margin-top: 24px;
+  align-items: flex-start;
+  gap: 16px;
+}
+#mouse-note {
+  max-width: 210px;
+  margin: 0;
 }
 #mouse {
-  width: 160px;
-  flex: 0 0 160px;
+  width: 130px;
+  flex: 0 0 130px;
 }
 #tooltip {
   position: absolute;
@@ -208,8 +338,26 @@ svg {
   z-index: 1;
 }
 .inspector {
-  padding: 18px;
+  padding: 12px;
   border-left: 1px solid var(--vscode-panel-border, #777);
+  position: sticky;
+  top: 12px;
+  max-height: calc(100vh - 24px);
+  overflow-y: auto;
+}
+.meaning {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 8px 0;
+}
+#details > pre {
+  font-size: 12px;
+  padding: 8px;
+  margin: 8px 0;
+}
+#details > details {
+  border-top: 1px solid var(--vscode-panel-border, #777);
+  margin-top: 12px;
 }
 pre {
   white-space: pre-wrap;
@@ -231,13 +379,70 @@ summary {
   font-weight: 600;
 }
 #legend {
-  white-space: pre-line;
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+}
+#legend li {
+  margin: 6px 0;
+}
+#legend-title {
+  margin: 18px 0 8px;
+}
+#selection-help {
+  font-size: 11px;
+  margin-bottom: 0;
 }
 #list button {
   display: block;
   width: 100%;
   text-align: left;
   margin: 8px 0;
+}
+#list .bind-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 8px;
+  border: 0;
+  border-bottom: 1px solid var(--vscode-panel-border, #777);
+  border-radius: 0;
+  padding: 8px 0;
+  background: transparent;
+  color: var(--vscode-editor-foreground, #d4d4d4);
+}
+#list .bind-item:hover {
+  background: var(--vscode-list-hoverBackground, #454545);
+}
+.bind-key {
+  padding: 3px 5px;
+  border: 1px solid var(--vscode-contrastBorder, #777);
+  border-radius: 3px;
+  background: var(--vscode-textCodeBlock-background, #252526);
+  font-size: 11px;
+  font-weight: 600;
+  max-width: 68px;
+  overflow-wrap: anywhere;
+}
+.bind-action {
+  min-width: 0;
+}
+.bind-name {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.bind-command {
+  display: block;
+  font-size: 11px;
+  margin-top: 4px;
+  color: var(--vscode-descriptionForeground, #aaa);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 ol {
   padding-left: 20px;
@@ -249,17 +454,19 @@ li {
   margin-top: 20px;
   border-top: 1px solid var(--vscode-panel-border, #777);
 }
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
   .workspace {
-    grid-template-columns: 150px minmax(0, 1fr);
+    grid-template-columns: 130px minmax(0, 1fr);
   }
   .inspector {
     grid-column: 2;
     border-left: 0;
     border-top: 1px solid var(--vscode-panel-border, #777);
+    position: static;
+    max-height: none;
   }
 }
-@media (max-width: 700px) {
+@media (max-width: 899px) {
   main {
     padding: 14px;
   }
@@ -278,6 +485,7 @@ li {
     gap: 8px;
   }
   #legend,
+  #legend-title,
   #bind-list {
     grid-column: 1 / -1;
   }
@@ -288,14 +496,15 @@ li {
     grid-column: 1;
     grid-row: 1;
   }
+  .category-field {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
   #state-label {
     grid-column: 2;
     grid-row: 1;
   }
   .canvas {
     padding: 12px;
-  }
-  .mouse-area {
-    gap: 16px;
   }
 }

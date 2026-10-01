@@ -3,7 +3,7 @@
   "displayName": "CS2 Config Tools",
   "icon": "resources/icons/cs2-config-tools.png",
   "description": "Write, understand and organize Counter-Strike 2 CFG files in VS Code.",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "preview": true,
   "publisher": "plajiw",
   "license": "MIT",
@@ -39,7 +39,8 @@
     "format:source": "prettier --write src scripts tests resources catalog/source package*.json tsconfig.json .vscode/*.json",
     "check:style": "prettier --check src scripts tests resources catalog/source package*.json tsconfig.json .vscode/*.json",
     "package": "npm run catalog:check && npm run build && node scripts/package.cjs",
-    "test:webview": "npm run build && node scripts/test-bind-map-browser.cjs"
+    "test:webview": "npm run build && node scripts/test-bind-map-browser.cjs",
+    "test:hub-webview": "npm run build && node scripts/test-config-hub-browser.cjs"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
@@ -68,6 +69,42 @@
     ],
     "commands": [
       {
+        "command": "cs2Config.home",
+        "title": "%command.home%",
+        "icon": "$(home)"
+      },
+      {
+        "command": "cs2Config.chooseFolder",
+        "title": "%command.chooseFolder%",
+        "icon": "$(folder-opened)"
+      },
+      {
+        "command": "cs2Config.detectFolder",
+        "title": "%command.detectFolder%"
+      },
+      {
+        "command": "cs2Config.refreshFolder",
+        "title": "%command.refreshFolder%",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "cs2Config.newConfig",
+        "title": "%command.newConfig%",
+        "icon": "$(new-file)"
+      },
+      {
+        "command": "cs2Config.openConfig",
+        "title": "%command.openConfig%"
+      },
+      {
+        "command": "cs2Config.hubBindMap",
+        "title": "%command.hubBindMap%"
+      },
+      {
+        "command": "cs2Config.hubHealth",
+        "title": "%command.hubHealth%"
+      },
+      {
         "command": "cs2Config.selectLanguage",
         "title": "%command.selectLanguage%"
       },
@@ -84,6 +121,28 @@
       }
     ],
     "menus": {
+      "view/title": [
+        {
+          "command": "cs2Config.home",
+          "when": "view == cs2Config.workspace",
+          "group": "navigation@1"
+        },
+        {
+          "command": "cs2Config.chooseFolder",
+          "when": "view == cs2Config.workspace",
+          "group": "navigation@2"
+        },
+        {
+          "command": "cs2Config.refreshFolder",
+          "when": "view == cs2Config.configs",
+          "group": "navigation@1"
+        },
+        {
+          "command": "cs2Config.newConfig",
+          "when": "view == cs2Config.configs",
+          "group": "navigation@2"
+        }
+      ],
       "editor/title": [
         {
           "command": "cs2Config.bindMap",
@@ -92,6 +151,37 @@
         }
       ]
     },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "cs2Config",
+          "title": "CS2 Config Tools",
+          "icon": "resources/icons/activity.svg"
+        }
+      ]
+    },
+    "views": {
+      "cs2Config": [
+        {
+          "id": "cs2Config.workspace",
+          "name": "%view.workspace%"
+        },
+        {
+          "id": "cs2Config.configs",
+          "name": "%view.configs%"
+        },
+        {
+          "id": "cs2Config.tools",
+          "name": "%view.tools%"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "cs2Config.configs",
+        "contents": "%view.welcome%"
+      }
+    ],
     "configuration": {
       "title": "CS2 Config Tools",
       "properties": {

@@ -1,4 +1,4 @@
-/* global acquireVsCodeApi, CS2InputLayout, CS2InputState, CS2InputSvg */
+/* global acquireVsCodeApi, CS2InputLayout, CS2InputState, CS2InputSvg, CS2ChoicePicker */
 (() => {
   const vscode = acquireVsCodeApi();
   let state = { pt: false },
@@ -32,7 +32,15 @@
   };
   const entries = () => state.model?.entries ?? [];
   const status = (entry) =>
-    !entry.certain ? text('Uncertain', 'Incerto') : text('Modeled', 'Modelado');
+    !entry.certain ? text('Uncertain', 'Incerto') : text('Assigned', 'Com bind');
+  const inputName = (def) =>
+    def?.cs2Key === 'mouse3'
+      ? text('Wheel click', 'Clique da roda')
+      : def?.cs2Key === 'mwheelup'
+        ? text('Wheel up', 'Rolar para cima')
+        : def?.cs2Key === 'mwheeldown'
+          ? text('Wheel down', 'Rolar para baixo')
+          : def?.label;
   const passes = (entry, conflict) => {
     const category = $('category').value;
     const filter = $('state-filter').value;
@@ -69,7 +77,7 @@
     );
     $('detail-title').textContent = text('Selected input', 'Entrada selecionada');
     if (!entry) {
-      if (def) root.append(node('h3', def.label));
+      if (def) root.append(node('h3', inputName(def)));
       root.append(
         node(
           'p',
@@ -84,25 +92,11 @@
       return;
     }
     root.append(
-      node('h3', entry.key),
-      node(
-        'p',
-        `${text(...(categories[entry.category] ?? categories.custom))} · ${status(entry)}`,
-        'metadata',
-      ),
+      node('h3', inputName(def) ?? entry.key),
+      node('p', entry.meaning ?? text('Custom action', 'Ação personalizada'), 'meaning'),
+      node('p', text(...(categories[entry.category] ?? categories.custom)), 'metadata'),
       node('pre', entry.action),
     );
-    if (entry.meaning) root.append(node('p', entry.meaning));
-    else
-      root.append(
-        node(
-          'p',
-          text(
-            'Custom action or sequence; inspect the literal command below.',
-            'Ação personalizada ou sequência; consulte o comando literal abaixo.',
-          ),
-        ),
-      );
     if (entry.conflict)
       root.append(
         node(
@@ -127,7 +121,11 @@
       );
     root.append(reveal(index, 'origin', text('Open source', 'Abrir origem')));
     root.append(
-      node('p', `${state.file}${entry.origin.line ? `:${entry.origin.line}` : ''}`, 'metadata'),
+      node(
+        'p',
+        `${(state.file ?? '').split(/[/\\]/).pop()}${entry.origin.line ? `:${entry.origin.line}` : ''}`,
+        'metadata',
+      ),
     );
     if (entry.definition.start !== entry.origin.start)
       root.append(
@@ -135,7 +133,7 @@
       );
     if (entry.raw) {
       const raw = node('details');
-      raw.append(node('summary', text('Raw command', 'Comando original')), node('pre', entry.raw));
+      raw.append(node('summary', text('Raw bind', 'Bind original')), node('pre', entry.raw));
       root.append(raw);
     }
     if (def) {
@@ -154,12 +152,12 @@
           root.append(button(candidate.key, () => select(candidate.key, def.id)));
       }
     }
-    if (entry.history?.length) {
+    if (entry.history?.length > 1) {
       const history = node('details');
       history.append(
         node(
           'summary',
-          `${text('Source history', 'Histórico de origem')} (${entry.history.length})`,
+          `${text('Binding history', 'Histórico de binds')} (${entry.history.length})`,
         ),
       );
       const list = node('ol');
@@ -170,7 +168,7 @@
           node(
             'p',
             event.effective
-              ? text('Current modeled bind', 'Bind modelado atual')
+              ? text('Current assignment', 'Atribuição atual')
               : text('Earlier assignment', 'Atribuição anterior'),
           ),
           reveal(
@@ -209,7 +207,7 @@
     tooltip: (def) => {
       const entry = CS2InputLayout.matches(def, entries())[0];
       $('tooltip').textContent =
-        `${def.label} · ${entry ? `${entry.action} · ${status(entry)}` : text('No data in this analysis', 'Sem dados nesta análise')}`;
+        `${inputName(def)} · ${entry ? `${entry.meaning ?? entry.action} · ${status(entry)}` : text('No data in this analysis', 'Sem dados nesta análise')}`;
       $('tooltip').hidden = false;
     },
     hideTooltip: () => {
@@ -218,7 +216,7 @@
   };
   const keyboard = CS2InputSvg.keyboard(callbacks),
     mouse = CS2InputSvg.mouse(callbacks);
-  const narrow = window.matchMedia('(max-width: 700px)');
+  const narrow = window.matchMedia('(max-width: 899px)');
   const collapseFilters = () => {
     $('filter-panel').open = !narrow.matches;
   };
@@ -226,6 +224,15 @@
   narrow.addEventListener('change', collapseFilters);
   $('keyboard').append(keyboard.svg);
   $('mouse').append(mouse.svg);
+  const categoryPicker = CS2ChoicePicker(
+    $('category'),
+    $('category-menu'),
+    'category-value',
+    () => {
+      refreshSurfaces();
+      renderList();
+    },
+  );
   function filters(id, options) {
     const el = $(id),
       previous = el.value || 'all';
@@ -243,18 +250,25 @@
     root.replaceChildren();
     entries().forEach((entry, index) => {
       if (!passes(entry, entry.conflict)) return;
-      root.append(
-        button(
-          `${entry.key} · ${entry.action}`,
-          () => {
-            const def = [...CS2InputLayout.keys, ...CS2InputLayout.mouse].find((item) =>
-              item.tokens.includes(entry.key),
-            );
-            select(entries()[index].key, def?.id);
-          },
-          `list:${entry.key}`,
-        ),
+      const item = button(
+        undefined,
+        () => {
+          const def = [...CS2InputLayout.keys, ...CS2InputLayout.mouse].find((item) =>
+            item.tokens.includes(entry.key),
+          );
+          select(entries()[index].key, def?.id);
+        },
+        `list:${entry.key}`,
       );
+      item.className = 'bind-item';
+      item.title = `${entry.key}: ${entry.action}`;
+      const action = node('span', undefined, 'bind-action');
+      action.append(
+        node('span', entry.meaning ?? text('Custom action', 'Ação personalizada'), 'bind-name'),
+        node('code', entry.action, 'bind-command'),
+      );
+      item.append(node('kbd', entry.key, 'bind-key'), action);
+      root.append(item);
     });
     if (!root.children.length)
       root.append(node('p', text('No matching binds.', 'Nenhum bind corresponde ao filtro.')));
@@ -264,21 +278,18 @@
     const copy = {
       title: ['Visual bind map', 'Mapa visual de binds'],
       mode: ['Read-only · Single file', 'Somente leitura · Arquivo único'],
-      'filters-title': ['Explore', 'Explorar'],
+      'filters-title': ['Filters', 'Filtros'],
       'category-label': ['Category', 'Categoria'],
       'state-label': ['State', 'Estado'],
       'keyboard-title': ['ANSI keyboard', 'Teclado ANSI'],
       'mouse-title': ['Mouse', 'Mouse'],
       'mouse-note': ['Five buttons and scroll directions.', 'Cinco botões e direções de rolagem.'],
       'selection-help': [
-        'Select any input. Enter or Space opens its details. Filters dim the layout without hiding keys.',
-        'Selecione uma entrada. Enter ou Espaço abre seus detalhes. Os filtros atenuam o desenho sem ocultar teclas.',
+        'Select an input to inspect it. Scroll horizontally to reach more keys.',
+        'Selecione uma entrada para consultá-la. Role na horizontal para acessar mais teclas.',
       ],
-      legend: [
-        '● Assigned   ! Reassigned / ambiguous   ? Uncertain\nUnmarked: no data in this analysis.',
-        '● Com bind   ! Reatribuído / ambíguo   ? Incerto\nSem marca: sem dados nesta análise.',
-      ],
-      'list-title': ['All literal binds', 'Todos os binds literais'],
+      'legend-title': ['Status', 'Estado'],
+      'list-title': ['Literal binds', 'Binds literais'],
       'analysis-title': ['Analysis details', 'Detalhes da análise'],
       scope: [
         'Single-file static analysis. Execs and unknown effects remain unresolved. Idle inputs can still have binds in the game. This physical reference does not validate CS2 key tokens. History includes assignments before explicit resets.',
@@ -287,7 +298,18 @@
     };
     for (const [id, label] of Object.entries(copy)) $(id).textContent = text(...label);
     $('file').textContent = state.file ?? '';
-    filters('category', categories);
+    $('file').title = state.file ?? '';
+    $('legend').replaceChildren(
+      ...[
+        ['●', text('Assigned', 'Com bind')],
+        ['!', text('Reassigned / ambiguous', 'Reatribuído / ambíguo')],
+        ['?', text('Uncertain', 'Incerto')],
+        ['○', text('No data', 'Sem dados')],
+      ].map(([symbol, label]) => node('li', `${symbol} ${label}`)),
+    );
+    categoryPicker.update(
+      Object.entries(categories).map(([value, label]) => [value, text(...label)]),
+    );
     filters('state-filter', states);
     const uncertain = entries().filter((entry) => !entry.certain).length;
     $('retry').hidden = !state.failed;
@@ -307,16 +329,13 @@
               'Analysis paused: file exceeds the size limit.',
               'Análise pausada: arquivo excede o limite de tamanho.',
             )
-          : `${entries().length} ${text('modeled binds', 'binds modelados')} · ${entries().filter((entry) => entry.conflict).length} ${text('reassigned', 'reatribuídos')} · ${uncertain} ${text('uncertain', 'incertos')} · ${state.model?.partial ? text('Partial analysis', 'Análise parcial') : text('Modeled subset complete', 'Subconjunto modelado completo')}`;
+          : `${entries().length} ${text('binds', 'binds')} · ${entries().filter((entry) => entry.conflict).length} ${text('reassigned', 'reatribuídos')} · ${uncertain} ${text('uncertain', 'incertos')}${state.model?.partial ? ` · ${text('Some effects unresolved', 'Há efeitos não resolvidos')}` : ''}`;
     $('status').textContent = state.model?.partial
       ? text(
           'Unresolved effects may change the result.',
           'Efeitos não resolvidos podem alterar o resultado.',
         )
-      : text(
-          'No unresolved effects in the modeled subset.',
-          'Nenhum efeito não resolvido no subconjunto modelado.',
-        );
+      : text('No unresolved effects.', 'Nenhum efeito não resolvido.');
     $('limits').replaceChildren(
       ...(state.model?.limits ?? []).map((limit) =>
         node('li', `${limit.code}${limit.name ? ` · ${limit.name}` : ''}`),

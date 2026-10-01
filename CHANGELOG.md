@@ -2,7 +2,18 @@
 
 ## Unreleased
 
-- Added release-impact guidance and packaging checks for numeric MAJOR.MINOR.PATCH versions and downgrade prevention. These development guardrails apply to future packages; existing VSIX files remain unchanged.
+- Added a Config Hub MVP with native Activity Bar navigation, a responsive Home, explicit folder consent/persistence, Steam library detection, file listing and registry-backed single-file summaries. Existing bind-map and health actions open from the hub; unsaved editor changes are included. Empty CFG creation reviews the destination and refuses overwrites. Builder cards are explicitly planned and disabled.
+
+## 0.0.4 — 2026-10-01
+
+- Refined bind-map category filtering with an accessible color-coded listbox, lighter keycap/action rows with registry explanations and literal commands, and a distinct CFG source-path badge in the header.
+- Clarified release guardrails: versions and packages require an explicit request; the increment is chosen from accumulated changes since the previous release.
+
+## 0.0.3 — 2026-10-01
+
+- Fixed bind-map readability with a fixed-scale horizontally scrollable keyboard, priority-based responsive columns and earlier filter collapse. Compacted the header, aligned the mouse, integrated side buttons, simplified status text/legend and placed catalog meanings before actions in the inspector. Single-assignment histories are hidden; source navigation and uncertainty remain available.
+
+- Added release-impact guidance and packaging checks for numeric MAJOR.MINOR.PATCH versions and downgrade prevention. Existing VSIX files remain unchanged.
 
 ## 0.0.2 — 2026-10-01
 

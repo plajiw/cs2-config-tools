@@ -105,7 +105,7 @@
           );
           marker.textContent = conflict ? '!' : uncertain ? '?' : entry ? '•' : '';
           group.setAttribute('aria-pressed', String(selected));
-          const description = `${def.label} · ${entry ? entry.action : labels.empty}${conflict ? ` · ${labels.conflict}` : ''}${uncertain ? ` · ${labels.uncertain}` : ''}`;
+          const description = `${def.cs2Key ?? def.label} · ${entry ? entry.action : labels.empty}${conflict ? ` · ${labels.conflict}` : ''}${uncertain ? ` · ${labels.uncertain}` : ''}`;
           group.setAttribute('aria-label', description);
           title.textContent = description;
         }

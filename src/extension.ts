@@ -7,6 +7,7 @@ import { registerNavigation } from './vscode/navigation';
 import { registerInlays } from './vscode/inlays';
 import { registerHealth } from './vscode/health';
 import { registerBindMap } from './vscode/bind-map';
+import { registerConfigHub } from './vscode/config-hub';
 
 export function activate(context: vscode.ExtensionContext): void {
   const services = createServices(context);
@@ -17,4 +18,5 @@ export function activate(context: vscode.ExtensionContext): void {
   registerInlays(services, context);
   registerHealth(services, context);
   registerBindMap(services, context);
+  registerConfigHub(services, context);
 }

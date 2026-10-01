@@ -57,7 +57,7 @@ async function run() {
     snapshot: 1,
     version: 1,
     source: 'synthetic.cfg',
-    file: 'synthetic.cfg',
+    file: 'tests/fixtures/synthetic.cfg',
     pt: false,
     model,
   };
@@ -179,8 +179,48 @@ window.acquireVsCodeApi = () => ({ postMessage: m => { window.smoke.messages.pus
       await evaluate("document.querySelector('#details').textContent.includes('No binding found')"),
     );
     await evaluate(
-      "document.querySelector('#category').value='movement'; document.querySelector('#category').dispatchEvent(new Event('change')); true",
+      "document.querySelector('#filter-panel').open=true; document.querySelector('#category').focus(); true",
     );
+    await key('ArrowDown', 40);
+    assert.equal(
+      await evaluate("document.querySelector('#category').getAttribute('aria-expanded')"),
+      'true',
+    );
+    await key('ArrowDown', 40);
+    await key('Enter', 13);
+    assert.equal(await evaluate("document.querySelector('#category').value"), 'movement');
+    assert.equal(await evaluate('document.activeElement.id'), 'category');
+    assert.equal(
+      await evaluate("document.querySelector('#category-value').textContent"),
+      'Movement',
+    );
+    assert.ok(
+      await evaluate(
+        "getComputedStyle(document.querySelector('#category .category-dot')).color === getComputedStyle(document.querySelector('#mouse [data-key=mouse4] .state-marker')).fill",
+      ),
+      'Filter dots use the same category palette as the input map',
+    );
+    await key('ArrowDown', 40);
+    await key('End', 35);
+    assert.equal(await evaluate('document.activeElement.dataset.value'), 'custom');
+    await key('Home', 36);
+    assert.equal(await evaluate('document.activeElement.dataset.value'), 'all');
+    await key('g', 71);
+    assert.equal(await evaluate('document.activeElement.dataset.value'), 'grenades');
+    await key('Escape', 27);
+    assert.equal(await evaluate('document.activeElement.id'), 'category');
+    assert.equal(await evaluate("document.querySelector('#category').value"), 'movement');
+    await key('ArrowDown', 40);
+    await key('Tab', 9);
+    assert.equal(await evaluate('document.activeElement.id'), 'state-filter');
+    assert.equal(await evaluate("document.querySelector('#category-menu').hidden"), true);
+    await evaluate(
+      "document.querySelector('#category').click(); window.postMessage(window.smoke.state,'*'); true",
+    );
+    await waitFor(
+      "document.activeElement.id === 'category' && document.querySelector('#category-menu').hidden",
+    );
+    assert.equal(await evaluate("document.querySelector('#category').value"), 'movement');
     assert.ok(
       await evaluate(
         "document.querySelector('#keyboard [data-key=q]').classList.contains('muted')",
@@ -198,7 +238,14 @@ window.acquireVsCodeApi = () => ({ postMessage: m => { window.smoke.messages.pus
     await evaluate(
       "document.querySelector('#category').value='all'; document.querySelector('#category').dispatchEvent(new Event('change')); document.querySelector('#mouse [data-key=mouse4]').dispatchEvent(new MouseEvent('click')); true",
     );
-    assert.equal(await evaluate("document.querySelector('#details h3').textContent"), 'mouse4');
+    assert.equal(await evaluate("document.querySelector('#details h3').textContent"), 'M4');
+    assert.equal(
+      await evaluate("document.querySelectorAll('#details ol').length"),
+      0,
+      'Single assignments do not show redundant history',
+    );
+    assert.ok(await evaluate("document.querySelector('#details .meaning').textContent.length > 0"));
+    assert.equal(await evaluate("document.querySelectorAll('#legend li').length"), 4);
     // Representative VS Code theme variables; these are reference colors, not the user's theme.
     await evaluate(`Object.entries({
       '--vscode-font-family':'Segoe UI, sans-serif', '--vscode-editor-background':'#1e1e1e',
@@ -213,6 +260,12 @@ window.acquireVsCodeApi = () => ({ postMessage: m => { window.smoke.messages.pus
       deviceScaleFactor: 1,
       mobile: false,
     });
+    assert.ok(
+      await evaluate(
+        "document.querySelector('.inspector').getBoundingClientRect().left > document.querySelector('.canvas').getBoundingClientRect().right",
+      ),
+      'Desktop inspector remains beside the map',
+    );
     await evaluate("document.querySelector('#keyboard [data-key=q]').focus(); true");
     await key('Enter', 13);
     assert.equal(await evaluate('document.activeElement.id'), 'detail-title');
@@ -226,7 +279,7 @@ window.acquireVsCodeApi = () => ({ postMessage: m => { window.smoke.messages.pus
     );
     assert.equal(await evaluate('window.smoke.messages.at(-1).target'), 'history:0');
     await evaluate(
-      `document.querySelector('#bind-list').open=true; document.querySelector('[data-focus-id="list:mouse4"]').focus(); window.smoke.state.model.entries[1].action='+duck'; window.smoke.state.snapshot=2; window.postMessage(window.smoke.state,'*'); true`,
+      `document.querySelector('#bind-list').open=true; document.querySelector('[data-focus-id="list:mouse4"]').focus(); window.smoke.state.model.entries[1].action='+duck'; window.smoke.state.model.entries[1].meaning=${JSON.stringify(registry.get('+duck').editorial.en)}; window.smoke.state.snapshot=2; window.postMessage(window.smoke.state,'*'); true`,
     );
     await waitFor(
       "document.activeElement.dataset.focusId === 'list:mouse4' && document.activeElement.textContent.includes('+duck')",
@@ -243,6 +296,26 @@ window.acquireVsCodeApi = () => ({ postMessage: m => { window.smoke.messages.pus
       'echo <img src=x onerror=alert(1)>',
     );
     assert.equal(await evaluate('document.querySelectorAll("img").length'), 0);
+    assert.equal(
+      await evaluate('document.querySelector(\'[data-focus-id="list:mouse4"] kbd\').textContent'),
+      'mouse4',
+    );
+    assert.equal(
+      await evaluate(
+        'document.querySelector(\'[data-focus-id="list:mouse4"] .bind-command\').textContent',
+      ),
+      '+duck',
+    );
+    assert.ok(
+      await evaluate(
+        'document.querySelector(\'[data-focus-id="list:mouse4"] .bind-name\').textContent.length > 0',
+      ),
+    );
+    assert.equal(
+      await evaluate("document.querySelector('.file-identity code').textContent"),
+      'tests/fixtures/synthetic.cfg',
+    );
+    assert.equal(await evaluate("document.querySelector('.file-icon').textContent"), 'CFG');
     const shot = async (name) => {
       await evaluate('window.scrollTo(0,0); true');
       const picture = await send('Page.captureScreenshot', {
@@ -252,6 +325,11 @@ window.acquireVsCodeApi = () => ({ postMessage: m => { window.smoke.messages.pus
       fs.writeFileSync(path.join(output, name), Buffer.from(picture.data, 'base64'));
     };
     await shot('desktop.png');
+    await evaluate(
+      "document.querySelector('#category').click(); document.querySelector('#category-menu [data-value=movement]').click(); document.querySelector('#category').click(); true",
+    );
+    await shot('category-menu.png');
+    await evaluate("document.querySelector('#category-menu [data-value=all]').click(); true");
     // Review light and high-contrast reference themes as well as the initial dark theme.
     for (const [name, values] of [
       [
@@ -272,6 +350,26 @@ window.acquireVsCodeApi = () => ({ postMessage: m => { window.smoke.messages.pus
       );
       await shot(`${name}.png`);
     }
+    await send('Emulation.setDeviceMetricsOverride', {
+      width: 1050,
+      height: 850,
+      deviceScaleFactor: 1,
+      mobile: false,
+    });
+    assert.ok(await evaluate('document.documentElement.scrollWidth <= 1050'));
+    assert.ok(
+      await evaluate(
+        "document.querySelector('.inspector').getBoundingClientRect().top >= document.querySelector('.canvas').getBoundingClientRect().bottom",
+      ),
+    );
+    assert.equal(await evaluate("document.querySelector('#filter-panel').open"), true);
+    assert.equal(
+      await evaluate(
+        "Math.round(document.querySelector('#keyboard svg').getBoundingClientRect().width)",
+      ),
+      1080,
+    );
+    await shot('medium.png');
     await evaluate("window.smoke.state.pt=true; window.postMessage(window.smoke.state,'*'); true");
     await waitFor("document.documentElement.lang === 'pt-BR'");
     await send('Emulation.setDeviceMetricsOverride', {
@@ -284,6 +382,33 @@ window.acquireVsCodeApi = () => ({ postMessage: m => { window.smoke.messages.pus
       await evaluate('document.documentElement.scrollWidth <= 420'),
       'Narrow viewport has no horizontal overflow',
     );
+    assert.equal(
+      await evaluate(
+        "Math.round(document.querySelector('#keyboard svg').getBoundingClientRect().width)",
+      ),
+      1080,
+      'Narrow views preserve readable key scale',
+    );
+    assert.ok(
+      await evaluate(
+        "document.querySelector('#keyboard').scrollWidth > document.querySelector('#keyboard').clientWidth",
+      ),
+      'Only the keyboard region scrolls horizontally',
+    );
+    await waitFor("document.querySelector('#filter-panel').open === false");
+    assert.ok(
+      await evaluate(
+        "document.querySelector('.inspector').getBoundingClientRect().top >= document.querySelector('.canvas').getBoundingClientRect().bottom",
+      ),
+    );
+    await evaluate("document.querySelector('#keyboard [data-key=kp_enter]').focus(); true");
+    assert.ok(
+      await evaluate("document.querySelector('#keyboard').scrollLeft > 0"),
+      'Focusing an offscreen key reveals it inside the scroll region',
+    );
+    await key('Enter', 13);
+    assert.equal(await evaluate("document.querySelector('#details h3').textContent"), 'Enter');
+    await evaluate("document.querySelector('#keyboard').scrollLeft=0; true");
     await shot('narrow.png');
     await evaluate(
       "window.smoke.state.source='other.cfg'; window.smoke.state.snapshot=3; window.postMessage(window.smoke.state,'*'); true",
@@ -310,8 +435,12 @@ window.acquireVsCodeApi = () => ({ postMessage: m => { window.smoke.messages.pus
             'source close',
             'English/pt-BR',
             'narrow layout',
+            'fixed keyboard scale and local horizontal scrolling at narrow/medium widths',
+            'offscreen key focus, responsive inspector and single-assignment history suppression',
             'reference dark/light/high-contrast themes',
             'SVG geometry, idle selection, mouse selection, filters and history navigation',
+            'category listbox keyboard interaction, palette consistency and focus across snapshots',
+            'literal keycaps, registry action descriptions and file identity badge',
           ],
           scope:
             'Standalone Chromium with a simulated VS Code bridge; not Extension Host or game validation.',

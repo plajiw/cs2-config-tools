@@ -4,6 +4,7 @@ Write, understand and organize Counter-Strike 2 CFG files in VS Code.
 
 ## What it offers
 
+- **Config hub:** connect a CFG folder, browse its files and open the bind map or health report from one Home screen. Includes Steam folder detection and safe creation of empty CFGs.
 - **Command checking:** spot unknown names, unfinished quotes and values outside documented types, choices or ranges.
 - **Bind health checks:** identify repeated key bindings and replacements, with links to the previous binding and relevant local alias definitions.
 - **Visual bind map:** inspect keyboard, mouse and numpad binds, review literal actions and jump to their source or previous bindings. Supports keyboard navigation, keeps focus during updates and identifies uncertain results.

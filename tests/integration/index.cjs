@@ -391,7 +391,79 @@ exports.run = async () => {
       .every((d) => d.severity === vscode.DiagnosticSeverity.Warning),
   );
   await bindSettings.update('bindDiagnostics', 'information', vscode.ConfigurationTarget.Global);
+  // Folder access is exercised against synthetic files, never the game installation.
+  const { ConfigFolder } = require(path.join(extension.extensionPath, 'dist/vscode/config-folder'));
+  const { createServices } = require(path.join(extension.extensionPath, 'dist/vscode/services'));
+  const stored = new Map();
+  const memory = {
+    get: (key) => stored.get(key),
+    update: async (key, value) =>
+      value === undefined ? stored.delete(key) : stored.set(key, value),
+  };
+  const subscriptions = [];
+  const folderServices = createServices({ extensionPath: extension.extensionPath, subscriptions });
+  const configFolder = new ConfigFolder(memory, folderServices);
+  const temporary = fs.mkdtempSync(path.join(directory, 'hub-'));
+  const synthetic = path.join(temporary, 'autoexec.cfg');
+  fs.writeFileSync(synthetic, 'bind q slot1\nexec missing\n');
+  fs.writeFileSync(path.join(temporary, 'notes.txt'), 'not a CFG');
+  const nested = path.join(temporary, 'nested');
+  fs.mkdirSync(nested);
+  fs.writeFileSync(path.join(nested, 'hidden.cfg'), 'bind q slot2');
+  try {
+    await configFolder.connect(temporary);
+    assert.equal(configFolder.snapshot.connected, true);
+    assert.deepEqual(
+      configFolder.snapshot.files.map((file) => file.name),
+      ['autoexec.cfg'],
+    );
+    assert.equal(configFolder.snapshot.files[0].summary.binds, 1);
+    assert.equal(configFolder.snapshot.files[0].summary.partial, true);
+    const original = fs.readFileSync(synthetic, 'utf8');
+    await assert.rejects(configFolder.createEmpty('autoexec.cfg', configFolder.snapshot.folder));
+    assert.equal(
+      fs.readFileSync(synthetic, 'utf8'),
+      original,
+      'Exclusive creation preserves existing CFG',
+    );
+    await assert.rejects(configFolder.createEmpty('../outside.cfg', configFolder.snapshot.folder));
+    const openHubDoc = await vscode.workspace.openTextDocument(vscode.Uri.file(synthetic));
+    const edit = new vscode.WorkspaceEdit();
+    edit.insert(openHubDoc.uri, new vscode.Position(0, 0), 'bind w slot2\n');
+    assert.ok(await vscode.workspace.applyEdit(edit));
+    await configFolder.refresh();
+    assert.equal(configFolder.snapshot.files[0].summary.binds, 2, 'Hub includes unsaved text');
+    assert.equal(
+      fs.readFileSync(synthetic, 'utf8'),
+      original,
+      'Analysis never writes unsaved text',
+    );
+    const newCfg = await configFolder.createEmpty('new.cfg', configFolder.snapshot.folder);
+    assert.equal(fs.readFileSync(newCfg.fsPath, 'utf8'), '');
+    assert.equal(configFolder.snapshot.files.length, 2);
+    const restored = new ConfigFolder(memory, folderServices);
+    await restored.restore();
+    assert.equal(restored.snapshot.folder, configFolder.snapshot.folder);
+    restored.dispose();
+    await configFolder.disconnect();
+    assert.equal(configFolder.snapshot.files.length, 0);
+    assert.equal(stored.size, 0);
+    const home = await vscode.commands.executeCommand('cs2Config.home');
+    assert.ok(home && Array.isArray(home.files), 'Home command opens a functional WebView');
+    await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
+  } finally {
+    configFolder.dispose();
+    subscriptions.forEach((subscription) => subscription.dispose());
+    // Only known synthetic files created by this test are removed.
+    for (const name of ['autoexec.cfg', 'notes.txt', 'new.cfg']) {
+      const target = path.join(temporary, name);
+      if (fs.existsSync(target)) fs.unlinkSync(target);
+    }
+    fs.unlinkSync(path.join(nested, 'hidden.cfg'));
+    fs.rmdirSync(nested);
+    fs.rmdirSync(temporary);
+  }
   console.log(
-    'PASS: Extension Host integration: completion, bilingual hover, definitions, links, diagnostics, CFG coverage, document and selection formatting.',
+    'PASS: Extension Host integration: completion, bilingual hover, definitions, links, diagnostics, CFG coverage, formatting, config hub, folder persistence, unsaved analysis and exclusive creation.',
   );
 };

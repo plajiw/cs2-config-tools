@@ -6,6 +6,11 @@ CS2 Config Tools tem um protótipo local de edição e formatação. O catálogo
 
 ## Implementado
 
+- Config Hub MVP em desenvolvimento: Activity Bar, Home, pasta autorizada/persistida, detecção Steam, listagem, resumos independentes, atalhos para mapa/health e criação exclusiva de CFG vazia. Builders aparecem como planejados; análise multiarquivo continua pendente. Veja [FEATURES](../../FEATURES.md).
+- Filtro de categorias com menu colorido acessível, lista de binds com keycaps/descrições/comandos separados e identificação visual do caminho da CFG. Incluídos na distribuição solicitada; veja o [changelog](../../CHANGELOG.md).
+
+- Refinamento do mapa visual: teclado com escala fixa e rolagem local, filtros recolhidos em painéis menores, mouse alinhado à esquerda e inspector com descrição primeiro e histórico apenas para múltiplas atribuições.
+
 - Redesign do mapa de binds com teclado ANSI e mouse interativos em SVG, proporções físicas, filtros de categoria/estado, inspector com descrição/origem/histórico e detalhes de análise recolhidos. Componentes visuais reutilizáveis; edição de binds continua planejada. Veja o [registro do redesign](bind-map-svg-redesign.md).
 
 - Mapa visual de binds somente leitura, com teclado de referência, mouse, numpad e lista de todos os nomes literais. Atualiza durante a edição, navega até origens/aliases/binds anteriores e preserva resultados parciais.

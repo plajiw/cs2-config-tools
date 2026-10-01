@@ -6,6 +6,7 @@ Uma extensão comunitária para escrever, entender e organizar CFGs de Counter-S
 
 ## O que a extensão oferece
 
+- **Hub de configurações:** conecta uma pasta de CFGs, lista seus arquivos e reúne o mapa de binds e a verificação em uma tela inicial. Inclui detecção de pastas Steam e criação segura de CFGs vazias.
 - **Verificação de comandos:** identifica nomes desconhecidos, aspas sem fechamento e valores fora dos tipos, opções ou intervalos documentados.
 - **Health check de binds:** aponta binds repetidos ou substituídos, com links para o bind anterior e aliases locais envolvidos.
 - **Mapa visual de binds:** permite consultar binds de teclado, mouse e numpad, ver suas ações e abrir a origem ou binds anteriores. Oferece navegação por teclado, mantém o foco durante atualizações e identifica resultados incertos.

@@ -23,6 +23,20 @@ CFG is used by many applications, so associate files explicitly in your CS2 work
 
 The version in `package.json` identifies the current extension build. The project and catalog will grow as contributors add evidence and features.
 
+## Config hub
+
+Click **CS2 Config Tools** in the Activity Bar and choose **Home**, or run **CS2 Config: Open Home**. Use **Detect automatically** to search common Steam locations and the libraries declared by Steam, including other drives. **Choose folder** always allows manual selection.
+
+Before listing CFGs, the extension asks you to allow the selected directory. A custom folder outside `game/csgo/cfg` is supported and labeled accordingly. The canonical folder is remembered locally for the next session; **Disconnect** removes that choice. Connected means the directory is accessible, not that CS2 is running or its build was verified.
+
+The sidebar lists CFG files and the Home offers file opening, the read-only **Visual Bind Map** and **Health Check**. Files opened through the hub use CS2 CFG language mode. Analysis includes unsaved text from open editors and refreshes after edits or file changes. **Refresh** retries an unavailable folder. **Open in Explorer** reveals the connected directory.
+
+**New CFG** creates an empty file after you review its name and destination. Existing files are never overwritten, even if another process creates the same name during the dialog. Creation requires a trusted workspace. Edit existing configurations in VS Code's text editor; the hub does not execute commands or save your edits automatically.
+
+Overview counts are sums of independent single-file analyses, not a merged configuration or the running game's state. Each row distinguishes a partial result from the modeled subset. No “Valid” certification is shown. Only the first 100 regular CFG files directly in the folder are listed; nested directories and symbolic links are excluded. Files exceeding the existing analysis limit or inaccessible files have no summary and are excluded from analyzed totals. The hub's selected directory does not change the `cs2Config.cfgRoot` setting used by exec links.
+
+Autoexec, Practice, Alias Builder and Command Explorer cards are labeled **Planned** and disabled. They illustrate the next interfaces; visual bind editing and configuration generation are not available in this MVP. See [feature status](../FEATURES.md).
+
 ## Formatting
 
 Use **Format Document** (Shift+Alt+F on Windows) or **Format Selection**. The formatter normalizes spaces outside quotes, spaces semicolon separators, reduces repeated blank lines and can separate comment section headers.
@@ -84,11 +98,11 @@ Comparisons stop at unresolved effects and restart after explicit writes. `unbin
 With a CS2 CFG active, click the keyboard icon in the editor title bar, or run **CS2 Config: Open Bind Map**. Select the **CS2 CFG** language first if the file opened as plain text. The panel follows that file, including unsaved changes; activate another CFG and run the command again to switch sources.
 
 - **Explore your inputs:** select any key on the proportional ANSI keyboard, its numpad or the mouse. The mouse includes five buttons and both scroll directions. Inputs missing from this analysis show "No binding found"; they may still have bindings in the game.
-- **Understand a bind:** the inspector shows its literal action, available catalog explanation/category, source line, original statement and assignment history. Descriptions follow cs2Config.descriptionLanguage, with English fallback. Aliases and sequences that cannot be safely classified appear as custom.
+- **Understand a bind:** the inspector puts the available catalog explanation before the literal action, then shows its category and source line. Expand **Raw bind** for the original statement. **Binding history** appears only when there are multiple assignments. Descriptions follow cs2Config.descriptionLanguage, with English fallback. Aliases and sequences that cannot be safely classified appear as custom; slot names retain generic explanations when a specific item mapping is undocumented.
 - **Find the source:** use **Open source**, **Open alias definition** or a history link. Earlier assignments can precede an unbind/reset. A reassignment marker is informational: replacements can be intentional.
-- **Focus your search:** category and state filters dim the physical layout. Expand **All literal binds** for names outside the reference layout. Lowercase and uppercase literals can share a visual key, but remain independent; inspect each through the inspector or list.
+- **Focus your search:** category and state filters dim the physical layout. The category menu uses matching color dots in its selected value and options. Arrow keys, Home/End and initial letters move through options; Enter/Space selects, Escape cancels and Tab continues to the next control. Expand **Literal binds** to browse keycaps paired with catalog explanations and secondary literal commands, including names outside the reference layout. Literal names retain their original case and remain independent.
 - **Read the analysis:** ! marks reassignment/ambiguity; ? and a dashed border mark uncertainty. Expand **Analysis details** for unresolved effects such as external execs, unsupported actions and syntax/budget limits. These results describe a single-file static model, not verified game behavior.
 
-The panel is read-only. Tab moves through controls; Enter or Space selects an input. Selecting moves focus to the inspector. Updates preserve focus by stable input/literal identity, and switching sources clears selection. Dark, light and high-contrast themes use VS Code colors; narrow panels stack the inspector below the canvas while retaining physical proportions.
+The panel is read-only. Tab moves through controls; Enter or Space selects an input. Selecting moves focus to the inspector. Updates preserve focus by stable input/literal identity, and switching sources clears selection. Dark, light and high-contrast themes use VS Code colors. The keyboard stays 1080 pixels wide: scroll its region horizontally or Tab to an offscreen key to reveal it. The page itself fits the panel. Below 1200 pixels the inspector sits below the canvas; below 900 pixels filters collapse and the canvas takes the full width. The header identifies the source with a CFG badge and its path in monospace. Analysis scope explanations stay in the collapsed details.
 
 Closing the source clears the result. Oversized files pause analysis. If analysis fails, **Retry** requests a fresh snapshot; technical errors go to the Extension Host log. Navigation from stale snapshots is rejected. The map does not expand external CFGs, execute bind bodies or write bindings.

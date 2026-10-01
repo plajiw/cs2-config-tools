@@ -25,8 +25,9 @@ npm run catalog
 npm run format:source
 npm test
 npm run check:style
-npm run package
 ```
+
+Packaging is separate release work and requires an explicit request; see the release rules below.
 
 `npm run catalog:check` catches changes to catalog sources that were not regenerated. Tests check behavior rather than an exact catalog size, so adding commands does not require updating arbitrary totals.
 
@@ -35,6 +36,8 @@ Use F5 after building for a manual review. On Windows, `npm run test:integration
 Set `CS2_CFG_VSCODE` to an isolated VS Code executable when the installed editor is unavailable. Set `CS2_CFG_EXTENSION_PATH` to the extracted `extension/` folder of a VSIX to run the same integration suite against the packaged files. The workspace fixtures and test profile remain separate from the game installation.
 
 For the bind map renderer, `npm run test:webview` uses a local Chromium browser (Microsoft Edge on Windows by default). Set `CS2_CFG_BROWSER` to another Chromium executable if needed. It creates an isolated browser profile and writes screenshots/report under `.test-output/bind-map-browser/`. This checks real DOM, keyboard input and reference themes with a simulated VS Code bridge; still run the Extension Host integration for editor behavior. See the [validation record](docs/planning/bind-map-validation.md).
+
+For the Config Hub, run `npm run test:hub-webview` to check the production Home in Chromium with a simulated editor bridge. Captures in `.test-output/config-hub-browser/` cover dark/light themes and desktop/narrow layouts. Folder persistence, unsaved-buffer analysis and exclusive creation are also covered in Extension Host integration using temporary synthetic CFGs, never the game directory.
 
 ## Commands and translations
 
@@ -58,7 +61,9 @@ Add a regression example. Check that formatting twice gives the same result and 
 
 Treat generated releases as immutable. Increment the version in `package.json` and `package-lock.json`, regenerate the catalog and record the release in `CHANGELOG.md` before distributing another package. `npm run package` writes a new versioned VSIX under `artifacts/` and refuses to overwrite an existing file. Keep older packages; do not delete one to rebuild the same version.
 
-Choose `MAJOR.MINOR.PATCH` by impact: patch for compatible fixes/refinements, minor for new capabilities or substantial compatible expansion, and major for incompatible public behavior/settings/formats. Minor resets patch; major resets both. Use the highest impact in a combined release, not its line count. Before `1.0.0`, breaking changes and a stable-release declaration need an explicit product decision and migration notes. Local edits do not each need a release. Document shipped changes in a dated changelog section; never rebuild an old version to add them. See [agent release rules](AGENTS.md#version-and-release-guardrails).
+Always generate a distribution or bump its version only when explicitly requested. Requests to implement, fix, test or finish work do not authorize a release. Otherwise keep changes in development and Unreleased, verify through builds/tests or the Extension Development Host, and leave existing packages untouched. Once a release is requested, the agent chooses the numerical increment from the accumulated diff since the previous release, including staged/unstaged/untracked changes, relevant commits and Unreleased notes. Do not assume HEAD is the released baseline.
+
+Choose `MAJOR.MINOR.PATCH` by impact: patch for compatible fixes/refinements, minor for new capabilities or substantial compatible expansion, and major for incompatible public behavior/settings/formats. Minor resets patch; major resets both. Use the highest impact in a combined release, not its line count. Document migration needs for breaking changes; a major number does not authorize removing preview status or declaring production readiness. Explain the chosen increment before generating the requested package. Local edits do not each need a release. Document shipped changes in a dated changelog section; never rebuild an old version to add them. See [agent release rules](AGENTS.md#version-and-release-guardrails).
 
 Document every added, changed or removed user-facing feature in the same change:
 

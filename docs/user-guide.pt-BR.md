@@ -21,6 +21,20 @@ Instale o VSIX da pasta `artifacts/` em **Extensões → … → Instalar do VSI
 
 A associação fica no workspace porque outros programas também usam arquivos `.cfg`.
 
+## Hub de configurações
+
+Clique em **CS2 Config Tools** na Activity Bar e escolha **Início/Home**, ou execute **CS2 Config: Abrir início/Open Home**. **Detectar automaticamente** procura locais comuns do Steam e bibliotecas declaradas por ele, inclusive em outros discos. **Escolher pasta** permite a seleção manual.
+
+A extensão pede consentimento antes de listar as CFGs. Pastas personalizadas fora de `game/csgo/cfg` também são aceitas e identificadas. A pasta fica lembrada localmente para a próxima sessão; **Desconectar** remove a escolha. “Conectado” significa que o diretório está acessível, sem afirmar que o CS2 está aberto ou que a build foi verificada.
+
+A barra lateral lista os arquivos, e a Home reúne abertura no editor, **Mapa visual de binds** somente leitura e **Verificação da CFG**. Arquivos abertos pelo hub recebem o modo CS2 CFG. A análise inclui texto não salvo de editores abertos e atualiza após alterações. **Atualizar** tenta acessar novamente uma pasta indisponível. **Abrir no explorador** revela o diretório conectado. O idioma da Home acompanha `cs2Config.descriptionLanguage`, com inglês como padrão.
+
+**Nova CFG** cria um arquivo vazio após a revisão do nome e destino. Arquivos existentes nunca são substituídos, mesmo se outro processo criar o mesmo nome durante o diálogo. A criação exige um workspace confiável. Edite CFGs existentes no editor de texto; o hub não executa comandos nem salva suas alterações automaticamente.
+
+As contagens somam análises independentes por arquivo, sem combinar as CFGs ou representar o jogo em execução. Cada linha distingue resultado parcial de subconjunto modelado, sem certificação de “válido”. São listados até 100 arquivos CFG regulares diretamente na pasta; subpastas e links simbólicos ficam de fora. Arquivos inacessíveis ou acima do limite de análise não têm resumo e ficam fora dos totais analisados. A pasta do hub não altera `cs2Config.cfgRoot`, usado pelos links de exec.
+
+Autoexec, Practice, Alias Builder e Command Explorer aparecem como **Planejados**, com cards desativados. Edição visual de binds e geração de configurações ainda não fazem parte deste MVP. Veja o [estado dos recursos](../FEATURES.md).
+
 ## Configurações
 
 Procure por **CS2 Config** nas configurações do VS Code. Todas as opções abaixo usam o prefixo `cs2Config.`.
@@ -86,11 +100,11 @@ O perfil opcional do console registra rejeições de mira em uma build não iden
 Com uma CS2 CFG ativa, clique no ícone de teclado na barra superior do editor ou execute **CS2 Config: Abrir mapa de binds**. Se o arquivo abrir como texto simples, selecione primeiro a linguagem **CS2 CFG**. O painel acompanha aquele arquivo, inclusive alterações não salvas; para trocar a origem, ative outra CFG e execute o comando novamente.
 
 - **Explore suas entradas:** selecione qualquer tecla do teclado ANSI proporcional, do numpad ou do mouse. O mouse inclui cinco botões e as duas direções de rolagem. Entradas ausentes desta análise mostram "Nenhum bind encontrado"; elas ainda podem ter binds no jogo.
-- **Entenda o bind:** o inspector mostra a ação literal, explicação/categoria disponível no catálogo, linha de origem, comando original e histórico de atribuições. As descrições seguem cs2Config.descriptionLanguage, com inglês como fallback. Aliases e sequências sem classificação segura aparecem como personalizados.
+- **Entenda o bind:** o inspector destaca a explicação disponível no catálogo antes da ação literal, seguida da categoria e linha de origem. Expanda **Bind original** para consultar o comando escrito. **Histórico de binds** aparece somente quando há múltiplas atribuições. As descrições seguem cs2Config.descriptionLanguage, com inglês como fallback. Aliases e sequências sem classificação segura aparecem como personalizados; slots preservam explicações genéricas quando não há correspondência documentada com um item específico.
 - **Encontre a origem:** use **Abrir origem**, **Abrir definição do alias** ou um link do histórico. Atribuições anteriores podem preceder um unbind/reset. O marcador de reatribuição é informativo: substituições podem ser intencionais.
-- **Filtre a consulta:** filtros de categoria e estado atenuam o desenho físico. Expanda **Todos os binds literais** para nomes fora da referência. Nomes em maiúsculas e minúsculas podem compartilhar uma tecla visual, mas continuam independentes; consulte cada um pelo inspector ou pela lista.
+- **Filtre a consulta:** filtros de categoria e estado atenuam o desenho físico. O menu de categorias mostra uma bolinha da mesma cor no valor selecionado e nas opções. Setas, Home/End e letras iniciais percorrem as opções; Enter/Espaço seleciona, Escape cancela e Tab segue ao próximo controle. Expanda **Binds literais** para consultar keycaps com explicações do catálogo e comandos literais secundários, inclusive nomes fora da referência. Os nomes mantêm maiúsculas/minúsculas originais e continuam independentes.
 - **Consulte a análise:** ! indica reatribuição/ambiguidade; ? e borda tracejada indicam incerteza. Expanda **Detalhes da análise** para efeitos não resolvidos, como execs externos, ações não suportadas e limites de sintaxe/análise. O resultado descreve um modelo estático de arquivo único, não comportamento confirmado no jogo.
 
-O painel é somente leitura. Tab percorre os controles; Enter ou Espaço seleciona uma entrada. A seleção leva o foco ao inspector. Atualizações preservam o foco pela identidade da entrada/nome literal; trocar a origem limpa a seleção. Temas claro, escuro e de alto contraste usam as cores do VS Code. Em painéis estreitos, o inspector fica abaixo do desenho, mantendo as proporções físicas.
+O painel é somente leitura. Tab percorre os controles; Enter ou Espaço seleciona uma entrada. A seleção leva o foco ao inspector. Atualizações preservam o foco pela identidade da entrada/nome literal; trocar a origem limpa a seleção. Temas claro, escuro e de alto contraste usam as cores do VS Code. O teclado mantém 1080 pixels de largura: role sua região na horizontal ou use Tab para revelar uma tecla fora da área visível. A página permanece dentro do painel. Abaixo de 1200 pixels o inspector fica abaixo do desenho; abaixo de 900 pixels os filtros se recolhem e o desenho ocupa a largura disponível. O header identifica a origem com um selo CFG e o caminho em fonte de código. Explicações do escopo ficam nos detalhes recolhidos.
 
 Fechar a origem limpa o resultado. Arquivos grandes pausam a análise. Se a análise falhar, **Tentar novamente** solicita outra visualização; erros técnicos ficam no log do Extension Host. Links de visualizações antigas são rejeitados. O mapa não expande CFGs externas, executa corpos de binds ou grava bindings.

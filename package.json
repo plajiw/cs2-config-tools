@@ -82,9 +82,19 @@
       {
         "command": "cs2Config.bindMap",
         "title": "%command.bindMap%",
+        "icon": "$(keyboard)",
         "enablement": "editorLangId == cs2cfg"
       }
     ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "cs2Config.bindMap",
+          "when": "editorLangId == cs2cfg",
+          "group": "navigation@10"
+        }
+      ]
+    },
     "configuration": {
       "title": "CS2 Config Tools",
       "properties": {

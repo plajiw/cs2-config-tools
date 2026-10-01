@@ -83,7 +83,7 @@ O perfil opcional do console registra rejeições de mira em uma build não iden
 
 ## Mapa visual de binds
 
-Com uma CS2 CFG ativa, execute **CS2 Config: Abrir mapa de binds** na Paleta de Comandos. O painel fica vinculado àquele arquivo e acompanha alterações, inclusive não salvas. Para consultar outra CFG, ative-a e execute o comando novamente. Fechar a origem limpa o mapa.
+Com uma CS2 CFG ativa, clique no ícone de teclado na barra superior do editor ou execute **CS2 Config: Abrir mapa de binds** na Paleta de Comandos. O botão aparece quando a linguagem é **CS2 CFG**; selecione essa linguagem se sua .cfg abrir como texto simples. O painel fica vinculado àquele arquivo e acompanha alterações, inclusive não salvas. Para consultar outra CFG, ative-a e use o botão ou comando novamente. Fechar a origem limpa o mapa.
 
 - Selecione uma tecla modelada de teclado, mouse ou numpad para consultar a ação literal. A lista oferece todos os nomes modelados, inclusive os que não aparecem no desenho.
 - **Abrir origem** leva ao bind ou à chamada do alias que o estabeleceu. **Abrir definição do alias** leva à definição quando aplicável. Os botões de binds anteriores mostram substituições ou repetições registradas na análise; esse histórico pode incluir mudanças anteriores a um unbind/reset.

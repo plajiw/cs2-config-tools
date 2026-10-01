@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Added a keyboard button in the editor title bar for CS2 CFG documents to open the read-only bind map.
+
 - Added the supplied PNG icon under resources/icons and configured it for the extension listing. Isolated integration extensions to avoid loading the previous publisher's local copy alongside the package being tested.
 
 - Corrected the Marketplace publisher to plajiw and updated formatter examples; integration now reads the extension identifier from the manifest.

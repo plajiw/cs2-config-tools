@@ -81,7 +81,7 @@ Comparisons stop at unresolved effects and restart after explicit writes. `unbin
 
 ## Visual bind map
 
-With a CS2 CFG active, run **CS2 Config: Open Bind Map** from the Command Palette. The panel stays attached to that file and refreshes after edits, including unsaved changes. To inspect another CFG, activate it and run the command again. Closing the source clears the map.
+With a CS2 CFG active, click the keyboard icon in the editor title bar, or run **CS2 Config: Open Bind Map** from the Command Palette. The button appears when the editor language is **CS2 CFG**; select that language if your .cfg opened as plain text. The panel stays attached to that file and refreshes after edits, including unsaved changes. To inspect another CFG, activate it and use the button or command again. Closing the source clears the map.
 
 - Select a modeled keyboard, mouse or numpad key to see its literal action. All modeled names are also available in the list, including names outside the reference layout.
 - Use **Open source** to navigate to the bind or the alias invocation that established it. **Open alias definition** leads to the deferred definition when applicable. Previous bind buttons show earlier replacements or repetitions recorded in this analysis. Those historical changes can precede an unbind/reset.

@@ -1,0 +1,18 @@
+{
+  "command.selectLanguage": "CS2 Config: Selecionar idioma das descrições",
+  "command.healthCheck": "CS2 Config: Verificar CFG",
+  "setting.descriptionLanguage": "Idioma da documentação do catálogo. Auto acompanha o editor; outros idiomas usam inglês.",
+  "setting.completionMode": "Normal oculta símbolos com flags hidden, developmentonly ou internal. Advanced inclui esses símbolos. Ambos reconhecem todos os símbolos indexados.",
+  "setting.parameterValidation": "Avisar sobre valores fora dos intervalos documentados ou dos tipos e opções revisados. Isso não verifica a build instalada do jogo.",
+  "setting.bindDiagnostics": "Informar binds repetidos ou substituídos em uma sequência resolvida. Substituições podem ser intencionais; efeitos desconhecidos interrompem a comparação. O relatório de saúde inclui esses achados mesmo com os avisos do editor desativados.",
+  "setting.inlayHints": "Mostrar significados revisados de parâmetros ao lado dos valores. Desativado por padrão.",
+  "setting.showOriginal": "Mostrar também a descrição original em inglês quando disponível.",
+  "setting.hoverDetails": "Standard mostra uso, significados dos parâmetros e fontes. Advanced inclui tipos técnicos e proveniência por campo.",
+  "setting.cfgRoot": "Pasta CFG absoluta opcional para resolver referências exec. Por padrão, usa a pasta do arquivo atual.",
+  "setting.consoleEvidence": "Perfil opcional de evidência do console. O relato marca quatro comandos de mira rejeitados em uma build não identificada; não afirma remoção global.",
+  "setting.unknownCommands": "Severidade para comandos ausentes deste catálogo comunitário incompleto.",
+  "setting.maxBlankLines": "Máximo de linhas vazias consecutivas mantidas pelo formatter.",
+  "setting.separateSections": "Adicionar uma linha vazia antes de cabeçalhos de comentário com separadores.",
+  "setting.insertFinalNewline": "Terminar documentos formatados com uma quebra de linha.",
+  "command.bindMap": "CS2 Config: Abrir mapa de binds"
+}

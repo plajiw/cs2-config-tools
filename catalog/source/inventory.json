@@ -1,0 +1,2407 @@
+﻿{
+  "release": "0.0.1",
+  "purpose": "Scope inventory, not a verified game catalog",
+  "sources": [
+    {
+      "file": "autoexec.cfg",
+      "sourcePath": "D:\\SteamLibrary\\steamapps\\common\\Counter-Strike Global Offensive\\game\\csgo\\cfg\\autoexec.cfg",
+      "sha256": "73aff11582e28cabbb9fe35b0fed76131450b480a5a30d7c130ba8ce74a0886d"
+    },
+    {
+      "file": "practice.cfg",
+      "sourcePath": "D:\\SteamLibrary\\steamapps\\common\\Counter-Strike Global Offensive\\game\\csgo\\cfg\\practice.cfg",
+      "sha256": "0192b8cdef1efc799ab6f920e44e520cf8dd822cde14eb5f8f6a238c1f9eb889"
+    }
+  ],
+  "nativeCandidates": [
+    {
+      "name": "+attack",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "+attack2",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "+back",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "+duck",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "+forward",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "+jump",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "+left",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "+reload",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "+right",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "+sprint",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "+use",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "+voicerecord",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "alias",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["ammo_infinite", "sv_infinite_ammo 1; echo [PRACTICE] Infinite ammo"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [
+            "ammo_reload",
+            "sv_infinite_ammo 2; echo [PRACTICE] Infinite reserve + reload"
+          ]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["ammo_normal", "sv_infinite_ammo 0; echo [PRACTICE] Normal ammo"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["bots_freeze", "bot_stop 1; bot_dont_shoot 1; echo [PRACTICE] Bots frozen"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["bots_move", "bot_stop 0; bot_dont_shoot 1; echo [PRACTICE] Bots moving"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["bots_combat", "bot_stop 0; bot_dont_shoot 0; echo [PRACTICE] Bots enabled"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["bots_clear", "bot_kick; echo [PRACTICE] Bots removed"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["bot_t", "bot_add_t; echo [PRACTICE] T bot added"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["bot_ct", "bot_add_ct; echo [PRACTICE] CT bot added"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["impacts_on", "sv_showimpacts 1; echo [PRACTICE] Bullet impacts ON"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["impacts_off", "sv_showimpacts 0; echo [PRACTICE] Bullet impacts OFF"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [
+            "trajectory_on",
+            "sv_grenade_trajectory_prac_pipreview 1; echo [PRACTICE] Grenade preview ON"
+          ]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [
+            "trajectory_off",
+            "sv_grenade_trajectory_prac_pipreview 0; echo [PRACTICE] Grenade preview OFF"
+          ]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [
+            "immortal",
+            "buddha 1; sv_regeneration_force_on 1; echo [PRACTICE] Damage protection ON"
+          ]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [
+            "mortal",
+            "buddha 0; sv_regeneration_force_on 0; echo [PRACTICE] Damage protection OFF"
+          ]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "ammo_grenade_limit_flashbang",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["2"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "ammo_grenade_limit_total",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["5"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "bind",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["w", "+forward"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["a", "+left"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["s", "+back"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["d", "+right"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["CTRL", "+duck"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["SHIFT", "+sprint"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["MWHEELUP", "+jump"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["MWHEELDOWN", "+jump"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["SPACE", "+jump"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["MOUSE1", "+attack"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["MOUSE2", "+attack2"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["MOUSE3", "player_ping"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["q", "lastinv"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["r", "+reload"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["e", "+use"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["g", "drop"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["1", "slot1"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["2", "slot2"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["3", "slot3"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["4", "slot4"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["5", "slot5"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["z", "slot10"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["x", "slot8"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["c", "slot7"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["v", "+voicerecord"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["o", "messagemode2"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["p", "messagemode"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["kp_1", "buy deagle"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["kp_0", "buy vest"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["kp_divide", "buy smokegrenade"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["kp_2", "buy m4a1; buy ak47"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["kp_multiply", "buy hegrenade"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["kp_3", "buy awp"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["kp_del", "buy vesthelm; buy vest"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["kp_minus", "buy flashbang"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["kp_plus", "buy molotov; buy incgrenade"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["kp_enter", "buy defuser"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["k", "exec practice.cfg"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["`", "toggleconsole"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["ALT", "noclip"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["F1", "bot_place"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["F2", "bot_add_t"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["F3", "bot_add_ct"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["F4", "toggle bot_stop 0 1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["F5", "toggle sv_showimpacts 0 1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["F6", "toggle sv_grenade_trajectory_prac_pipreview 0 1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["F7", "sv_rethrow_last_grenade"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["F8", "ent_fire smokegrenade_projectile kill; stopsound"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["F9", "sv_infinite_ammo 1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["F10", "sv_infinite_ammo 2"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["F11", "mp_restartgame 1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["F12", "exec autoexec"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "bot_add_ct",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": []
+        },
+        {
+          "file": "practice.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "bot_add_t",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": []
+        },
+        {
+          "file": "practice.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "bot_difficulty",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["3"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "bot_dont_shoot",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["0"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "bot_kick",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": []
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "bot_place",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "bot_stop",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["0"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["0"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "buddha",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["0"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "buddha_ignore_bots",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["1"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "buy",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": ["deagle"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": ["vest"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": ["smokegrenade"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": ["m4a1"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": ["ak47"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": ["hegrenade"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": ["awp"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": ["vesthelm"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": ["vest"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": ["flashbang"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": ["molotov"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": ["incgrenade"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": ["defuser"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_allow_animated_avatars",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["false"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_autohelp",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["0"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_crosshair_drawoutline",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["false"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_crosshair_recoil",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["false"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_crosshair_t",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["false"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_crosshairalpha",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["255"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_crosshaircolor",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["2"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_crosshairgap",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["-3"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_crosshairgap_useweaponvalue",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["false"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_crosshairsize",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["2"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_crosshairstyle",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["4"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_crosshairthickness",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["1"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_crosshairusealpha",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["true"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_hud_color",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["2"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_hud_radar_scale",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["1.15"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_hud_telemetry_frametime_show",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["2"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_hud_telemetry_net_misdelivery_show",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["1"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_hud_telemetry_ping_show",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["2"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_prefer_lefthanded",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["false"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_radar_always_centered",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["0"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_radar_icon_scale_min",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["0.5"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_radar_rotate",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["1"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_radar_scale",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["0.45"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_radar_square_with_scoreboard",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["1"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_showloadout",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["1"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_silencer_mode",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["false"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_sniper_auto_rezoom",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["true"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_teamcounter_playercount_instead_of_avatars",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["true"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_teamid_overhead_colors_show",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["1"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_teamid_overhead_maxdist",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["6000"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "cl_use_opens_buy_menu",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["false"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "clear",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": []
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "con_enable",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["true"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "drop",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "echo",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["============================================================"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["  plajiw autoexec loaded"]
+        },
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["============================================================"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["[PRACTICE]", "Infinite", "ammo"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["[PRACTICE]", "Infinite", "reserve", "+", "reload"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["[PRACTICE]", "Normal", "ammo"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["[PRACTICE]", "Bots", "frozen"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["[PRACTICE]", "Bots", "moving"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["[PRACTICE]", "Bots", "enabled"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["[PRACTICE]", "Bots", "removed"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["[PRACTICE]", "T", "bot", "added"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["[PRACTICE]", "CT", "bot", "added"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["[PRACTICE]", "Bullet", "impacts", "ON"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["[PRACTICE]", "Bullet", "impacts", "OFF"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["[PRACTICE]", "Grenade", "preview", "ON"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["[PRACTICE]", "Grenade", "preview", "OFF"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["[PRACTICE]", "Damage", "protection", "ON"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["[PRACTICE]", "Damage", "protection", "OFF"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [""]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["============================================================"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["                 PLAJIW - PRACTICE MODE"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["============================================================"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [""]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" ALT  -\u003e Noclip"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [""]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" F1   -\u003e Place bot"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" F2   -\u003e Add T bot"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" F3   -\u003e Add CT bot"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" F4   -\u003e Freeze / release bots"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [""]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" F5   -\u003e Bullet impacts"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" F6   -\u003e Grenade trajectory preview"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" F7   -\u003e Rethrow last grenade"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" F8   -\u003e Remove smoke"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [""]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" F9   -\u003e Infinite ammo / no reload"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" F10  -\u003e Infinite reserve / normal reload"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [""]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" F11  -\u003e Restart round"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" F12  -\u003e Restore autoexec"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [""]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" Additional aliases:"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" bots_freeze"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" bots_move"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" bots_combat"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" bots_clear"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" bot_t"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" bot_ct"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" ammo_infinite"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" ammo_reload"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" ammo_normal"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" impacts_on / impacts_off"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" trajectory_on / trajectory_off"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [" immortal / mortal"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [""]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["============================================================"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["               PRACTICE CONFIG LOADED"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["============================================================"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": [""]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "ent_fire",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "bind-body",
+          "arguments": ["smokegrenade_projectile", "kill"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "exec",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": ["practice.cfg"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "bind-body",
+          "arguments": ["autoexec"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "fps_max",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["0"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "fps_max_ui",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["60"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "gameinstructor_enable",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["0"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "hud_scaling",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["0.90"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "lastinv",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "messagemode",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "messagemode2",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "mm_dedicated_search_maxping",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["40"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "mp_afterroundmoney",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["60000"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "mp_autoteambalance",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["0"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "mp_buy_anywhere",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["1"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "mp_buytime",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["9999"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "mp_c4timer",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["40"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "mp_free_armor",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["2"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "mp_freezetime",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["0"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "mp_ignore_round_win_conditions",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["1"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "mp_limitteams",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["0"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "mp_maxmoney",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["60000"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "mp_respawn_on_death_ct",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["1"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "mp_respawn_on_death_t",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["1"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "mp_restartgame",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "bind-body",
+          "arguments": ["1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["1"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "mp_round_restart_delay",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["1"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "mp_roundtime",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["60"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "mp_roundtime_defuse",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["60"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "mp_roundtime_hostage",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["60"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "mp_startmoney",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["60000"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "mp_team_intro_time",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["0"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "mp_warmup_end",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "noclip",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "option_duck_method",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["false"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "option_speed_method",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["false"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "player_ping",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "r_drawtracers_firstperson",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["true"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "r_fullscreen_gamma",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["2.5"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "r_player_visibility_mode",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["true"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "r_show_build_info",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["false"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "rate",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["1000000"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "sensitivity",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["1.40"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "slot1",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "slot10",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "slot2",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "slot3",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "slot4",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "slot5",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "slot7",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "slot8",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "snd_mapobjective_volume",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["0.04"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "snd_menumusic_volume",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["0"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "snd_mute_losefocus",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["false"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "snd_mvp_volume",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["0.16"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "snd_roundaction_volume",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["0"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "snd_roundend_volume",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["0.16"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "snd_roundstart_volume",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["0"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "snd_tensecondwarning_volume",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["0.04"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "snd_voipvolume",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["0.5"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "stopsound",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "sv_cheats",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["1"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "sv_grenade_trajectory_prac_pipreview",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["0"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "sv_grenade_trajectory_prac_trailtime",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["8"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "sv_infinite_ammo",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["2"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["0"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "bind-body",
+          "arguments": ["1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "bind-body",
+          "arguments": ["2"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "sv_regeneration_force_on",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["0"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "sv_rethrow_last_grenade",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "sv_showimpacts",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "alias-body",
+          "arguments": ["0"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "sv_showimpacts_time",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "top-level",
+          "arguments": ["5"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "toggle",
+      "occurrences": [
+        {
+          "file": "practice.cfg",
+          "context": "bind-body",
+          "arguments": ["bot_stop", "0", "1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "bind-body",
+          "arguments": ["sv_showimpacts", "0", "1"]
+        },
+        {
+          "file": "practice.cfg",
+          "context": "bind-body",
+          "arguments": ["sv_grenade_trajectory_prac_pipreview", "0", "1"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "toggleconsole",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "bind-body",
+          "arguments": []
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "viewmodel_fov",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["68"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "viewmodel_offset_x",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["2.5"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "viewmodel_offset_y",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["0"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "viewmodel_offset_z",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["-2"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "viewmodel_presetpos",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["3"]
+        }
+      ],
+      "verification": "pending"
+    },
+    {
+      "name": "zoom_sensitivity_ratio",
+      "occurrences": [
+        {
+          "file": "autoexec.cfg",
+          "context": "top-level",
+          "arguments": ["1.0"]
+        }
+      ],
+      "verification": "pending"
+    }
+  ],
+  "localAliases": {
+    "immortal": {
+      "file": "practice.cfg",
+      "body": "buddha 1; sv_regeneration_force_on 1; echo [PRACTICE] Damage protection ON"
+    },
+    "bots_move": {
+      "file": "practice.cfg",
+      "body": "bot_stop 0; bot_dont_shoot 1; echo [PRACTICE] Bots moving"
+    },
+    "bots_clear": {
+      "file": "practice.cfg",
+      "body": "bot_kick; echo [PRACTICE] Bots removed"
+    },
+    "trajectory_on": {
+      "file": "practice.cfg",
+      "body": "sv_grenade_trajectory_prac_pipreview 1; echo [PRACTICE] Grenade preview ON"
+    },
+    "bots_freeze": {
+      "file": "practice.cfg",
+      "body": "bot_stop 1; bot_dont_shoot 1; echo [PRACTICE] Bots frozen"
+    },
+    "impacts_on": {
+      "file": "practice.cfg",
+      "body": "sv_showimpacts 1; echo [PRACTICE] Bullet impacts ON"
+    },
+    "ammo_normal": {
+      "file": "practice.cfg",
+      "body": "sv_infinite_ammo 0; echo [PRACTICE] Normal ammo"
+    },
+    "trajectory_off": {
+      "file": "practice.cfg",
+      "body": "sv_grenade_trajectory_prac_pipreview 0; echo [PRACTICE] Grenade preview OFF"
+    },
+    "bot_ct": {
+      "file": "practice.cfg",
+      "body": "bot_add_ct; echo [PRACTICE] CT bot added"
+    },
+    "bot_t": {
+      "file": "practice.cfg",
+      "body": "bot_add_t; echo [PRACTICE] T bot added"
+    },
+    "mortal": {
+      "file": "practice.cfg",
+      "body": "buddha 0; sv_regeneration_force_on 0; echo [PRACTICE] Damage protection OFF"
+    },
+    "impacts_off": {
+      "file": "practice.cfg",
+      "body": "sv_showimpacts 0; echo [PRACTICE] Bullet impacts OFF"
+    },
+    "bots_combat": {
+      "file": "practice.cfg",
+      "body": "bot_stop 0; bot_dont_shoot 0; echo [PRACTICE] Bots enabled"
+    },
+    "ammo_reload": {
+      "file": "practice.cfg",
+      "body": "sv_infinite_ammo 2; echo [PRACTICE] Infinite reserve + reload"
+    },
+    "ammo_infinite": {
+      "file": "practice.cfg",
+      "body": "sv_infinite_ammo 1; echo [PRACTICE] Infinite ammo"
+    }
+  },
+  "commentOnlyCandidates": [
+    "bot_crouch",
+    "bot_kill",
+    "bot_mimic",
+    "bot_mimic_yaw_offset",
+    "weapon_accuracy_nospread"
+  ]
+}

@@ -1,0 +1,642 @@
+{
+  "alias": {
+    "en": "Define a local console alias.",
+    "pt-BR": "Define um alias local do console."
+  },
+  "bind": {
+    "en": "Assign a console command sequence to a key.",
+    "pt-BR": "Associa uma sequência de comandos a uma tecla."
+  },
+  "unbindall": {
+    "en": "Remove all key bindings; later CFG lines must restore desired bindings.",
+    "pt-BR": "Remove todos os binds; linhas seguintes da CFG devem restaurar os binds desejados."
+  },
+  "exec": {
+    "en": "Execute a CFG file.",
+    "pt-BR": "Executa um arquivo CFG."
+  },
+  "toggle": {
+    "en": "Cycle a console variable through values.",
+    "pt-BR": "Alterna uma variável entre valores."
+  },
+  "echo": {
+    "en": "Print literal text in the console.",
+    "pt-BR": "Exibe texto literal no console."
+  },
+  "clear": {
+    "en": "Clear console output.",
+    "pt-BR": "Limpa a saída do console."
+  },
+  "buy": {
+    "en": "Request an item purchase; availability depends on the match and loadout.",
+    "pt-BR": "Solicita a compra de um item; disponibilidade depende da partida e do loadout."
+  },
+  "toggleconsole": {
+    "en": "Toggle the console interface.",
+    "pt-BR": "Abre ou fecha o console."
+  },
+  "noclip": {
+    "en": "Toggle collision-free movement in a permitted practice context.",
+    "pt-BR": "Alterna movimento sem colisão em um contexto de treino permitido."
+  },
+  "ent_fire": {
+    "en": "Send an input to entities matching a target.",
+    "pt-BR": "Envia uma ação para entidades correspondentes a um alvo."
+  },
+  "stopsound": {
+    "en": "Request that currently playing sounds stop.",
+    "pt-BR": "Solicita a interrupção dos sons em reprodução."
+  },
+  "lastinv": {
+    "en": "Select the previously used item.",
+    "pt-BR": "Seleciona o item usado anteriormente."
+  },
+  "drop": {
+    "en": "Drop the held item where permitted.",
+    "pt-BR": "Solta o item na mão quando permitido."
+  },
+  "player_ping": {
+    "en": "Place a player ping.",
+    "pt-BR": "Marca uma posição com ping."
+  },
+  "messagemode": {
+    "en": "Open public text chat.",
+    "pt-BR": "Abre o chat de texto público."
+  },
+  "messagemode2": {
+    "en": "Open team text chat.",
+    "pt-BR": "Abre o chat de texto da equipe."
+  },
+  "sv_cheats": {
+    "en": "Control cheat-protected commands on a server you control.",
+    "pt-BR": "Controla comandos restritos por cheats em um servidor sob seu controle."
+  },
+  "sv_infinite_ammo": {
+    "en": "Configure the practice ammunition mode.",
+    "pt-BR": "Configura o modo de munição de treino."
+  },
+  "sv_showimpacts": {
+    "en": "Configure bullet impact visualization.",
+    "pt-BR": "Configura a visualização dos impactos de balas."
+  },
+  "sv_showimpacts_time": {
+    "en": "Configure how long impact markers remain visible.",
+    "pt-BR": "Configura a duração dos marcadores de impacto."
+  },
+  "sv_regeneration_force_on": {
+    "en": "Request forced player health regeneration.",
+    "pt-BR": "Solicita regeneração forçada da vida dos jogadores."
+  },
+  "sv_rethrow_last_grenade": {
+    "en": "Request another throw of the last recorded grenade.",
+    "pt-BR": "Solicita repetir o último lançamento de granada registrado."
+  },
+  "sv_grenade_trajectory_prac_pipreview": {
+    "en": "Configure the grenade practice picture-in-picture preview.",
+    "pt-BR": "Configura a prévia de granadas em janela de treino."
+  },
+  "sv_grenade_trajectory_prac_trailtime": {
+    "en": "Configure grenade trajectory trail duration.",
+    "pt-BR": "Configura a duração do rastro da trajetória de granadas."
+  },
+  "buddha": {
+    "en": "Configure Buddha damage protection; do not assume complete invulnerability.",
+    "pt-BR": "Configura proteção de dano Buddha; não pressupõe invulnerabilidade completa."
+  },
+  "buddha_ignore_bots": {
+    "en": "Configure how Buddha protection treats bots.",
+    "pt-BR": "Configura como a proteção Buddha trata bots."
+  },
+  "bot_kick": {
+    "en": "Remove bots from the session.",
+    "pt-BR": "Remove bots da sessão."
+  },
+  "bot_kill": {
+    "en": "Request bot deaths.",
+    "pt-BR": "Solicita a morte dos bots."
+  },
+  "bot_add_t": {
+    "en": "Request a bot on the Terrorist team.",
+    "pt-BR": "Solicita um bot na equipe Terrorista."
+  },
+  "bot_add_ct": {
+    "en": "Request a bot on the Counter-Terrorist team.",
+    "pt-BR": "Solicita um bot na equipe Contra-Terrorista."
+  },
+  "bot_place": {
+    "en": "Request bot placement at the aimed position.",
+    "pt-BR": "Solicita posicionar um bot no local da mira."
+  },
+  "bot_stop": {
+    "en": "Configure whether bots stop moving.",
+    "pt-BR": "Configura se os bots param de se mover."
+  },
+  "bot_dont_shoot": {
+    "en": "Configure whether bots refrain from shooting.",
+    "pt-BR": "Configura se os bots deixam de atirar."
+  },
+  "bot_difficulty": {
+    "en": "Configure bot difficulty.",
+    "pt-BR": "Configura a dificuldade dos bots."
+  },
+  "bot_mimic": {
+    "en": "Configure bot movement imitation.",
+    "pt-BR": "Configura a imitação de movimentos pelos bots."
+  },
+  "bot_mimic_yaw_offset": {
+    "en": "Configure the yaw offset for bot imitation.",
+    "pt-BR": "Configura o deslocamento de rotação na imitação dos bots."
+  },
+  "bot_crouch": {
+    "en": "Configure forced bot crouching.",
+    "pt-BR": "Configura agachamento forçado dos bots."
+  },
+  "weapon_accuracy_nospread": {
+    "en": "Configure removal of random weapon spread for controlled tests.",
+    "pt-BR": "Configura remoção da dispersão aleatória em testes controlados."
+  },
+  "ammo_grenade_limit_total": {
+    "en": "Configure the total grenade carrying limit.",
+    "pt-BR": "Configura o limite total de granadas carregadas."
+  },
+  "ammo_grenade_limit_flashbang": {
+    "en": "Configure the flashbang carrying limit.",
+    "pt-BR": "Configura o limite de granadas de luz carregadas."
+  },
+  "fps_max": {
+    "en": "Configure the in-game frame rate limit.",
+    "pt-BR": "Configura o limite de quadros durante o jogo."
+  },
+  "fps_max_ui": {
+    "en": "Configure the menu frame rate limit.",
+    "pt-BR": "Configura o limite de quadros do menu."
+  },
+  "rate": {
+    "en": "Configure the requested network data rate.",
+    "pt-BR": "Configura a taxa de dados de rede solicitada."
+  },
+  "mm_dedicated_search_maxping": {
+    "en": "Configure the matchmaking search ping threshold.",
+    "pt-BR": "Configura o limite de ping na busca de partidas."
+  },
+  "sensitivity": {
+    "en": "Configure mouse sensitivity.",
+    "pt-BR": "Configura a sensibilidade do mouse."
+  },
+  "zoom_sensitivity_ratio": {
+    "en": "Configure the sensitivity ratio when zoomed.",
+    "pt-BR": "Configura a proporção de sensibilidade ao usar zoom."
+  },
+  "con_enable": {
+    "en": "Configure console availability.",
+    "pt-BR": "Configura a disponibilidade do console."
+  },
+  "r_fullscreen_gamma": {
+    "en": "Configure fullscreen gamma.",
+    "pt-BR": "Configura o gamma em tela cheia."
+  },
+  "r_player_visibility_mode": {
+    "en": "Configure the player visibility rendering mode.",
+    "pt-BR": "Configura o modo de renderização da visibilidade dos jogadores."
+  },
+  "r_drawtracers_firstperson": {
+    "en": "Configure first-person bullet tracers.",
+    "pt-BR": "Configura rastros de balas em primeira pessoa."
+  },
+  "r_show_build_info": {
+    "en": "Configure the on-screen build information.",
+    "pt-BR": "Configura a informação de build exibida na tela."
+  },
+  "cl_prefer_lefthanded": {
+    "en": "Configure preferred left-handed weapon presentation.",
+    "pt-BR": "Configura preferência pela arma na mão esquerda."
+  },
+  "cl_sniper_auto_rezoom": {
+    "en": "Configure automatic sniper scope re-entry.",
+    "pt-BR": "Configura retorno automático à mira de sniper."
+  },
+  "cl_use_opens_buy_menu": {
+    "en": "Configure whether the use action opens the buy menu.",
+    "pt-BR": "Configura se a ação de usar abre o menu de compra."
+  },
+  "cl_silencer_mode": {
+    "en": "Configure the weapon silencer interaction mode.",
+    "pt-BR": "Configura o modo de interação com silenciadores."
+  },
+  "option_duck_method": {
+    "en": "Configure the crouch input method.",
+    "pt-BR": "Configura o método de entrada para agachar."
+  },
+  "option_speed_method": {
+    "en": "Configure the walk input method.",
+    "pt-BR": "Configura o método de entrada para caminhar."
+  },
+  "cl_crosshairstyle": {
+    "en": "Crosshair shape and movement.",
+    "pt-BR": "Formato e movimento da mira."
+  },
+  "cl_crosshairsize": {
+    "en": "Hidden historical size setting.",
+    "pt-BR": "Configuração histórica oculta de tamanho."
+  },
+  "cl_crosshairthickness": {
+    "en": "Hidden historical thickness setting.",
+    "pt-BR": "Configuração histórica oculta de espessura."
+  },
+  "cl_crosshairgap": {
+    "en": "Historical crosshair gap setting; rejected in the supplied console report.",
+    "pt-BR": "Configuração histórica do espaço da mira; rejeitada no relato de console fornecido."
+  },
+  "cl_crosshairgap_useweaponvalue": {
+    "en": "Historical weapon-dependent gap setting; rejected in the supplied console report.",
+    "pt-BR": "Configuração histórica do espaço por arma; rejeitada no relato de console fornecido."
+  },
+  "cl_crosshaircolor": {
+    "en": "Historical crosshair color preset; rejected in the supplied console report.",
+    "pt-BR": "Preset histórico de cor da mira; rejeitado no relato de console fornecido."
+  },
+  "cl_crosshairusealpha": {
+    "en": "Historical crosshair alpha enable switch; rejected in the supplied console report.",
+    "pt-BR": "Opção histórica para habilitar transparência da mira; rejeitada no relato de console fornecido."
+  },
+  "cl_crosshairalpha": {
+    "en": "Hidden historical opacity setting.",
+    "pt-BR": "Configuração histórica oculta de opacidade."
+  },
+  "cl_crosshair_t": {
+    "en": "Hide the top bar for a T shape.",
+    "pt-BR": "Oculta a barra superior para formar um T."
+  },
+  "cl_crosshair_recoil": {
+    "en": "Follow predicted weapon recoil.",
+    "pt-BR": "Acompanha o recuo previsto da arma."
+  },
+  "cl_crosshair_drawoutline": {
+    "en": "Crosshair outline mode.",
+    "pt-BR": "Modo de contorno da mira."
+  },
+  "viewmodel_presetpos": {
+    "en": "Select a weapon viewmodel position preset.",
+    "pt-BR": "Seleciona um preset de posição da arma em primeira pessoa."
+  },
+  "viewmodel_fov": {
+    "en": "Configure the viewmodel field of view.",
+    "pt-BR": "Configura o campo de visão da arma em primeira pessoa."
+  },
+  "viewmodel_offset_x": {
+    "en": "Moves the viewmodel left or right on the screen.",
+    "pt-BR": "Move a posição visual da arma para a esquerda ou para a direita na tela."
+  },
+  "viewmodel_offset_y": {
+    "en": "Moves the viewmodel forward or backward.",
+    "pt-BR": "Move a posição visual da arma para a frente ou para trás."
+  },
+  "viewmodel_offset_z": {
+    "en": "Moves the viewmodel up or down on the screen.",
+    "pt-BR": "Move a posição visual da arma para cima ou para baixo na tela."
+  },
+  "cl_hud_radar_scale": {
+    "en": "Configure radar size in the HUD.",
+    "pt-BR": "Configura o tamanho do radar no HUD."
+  },
+  "cl_radar_always_centered": {
+    "en": "Configure whether the radar stays centered on the player.",
+    "pt-BR": "Configura se o radar fica centralizado no jogador."
+  },
+  "cl_radar_icon_scale_min": {
+    "en": "Configure the minimum radar icon scale.",
+    "pt-BR": "Configura a escala mínima dos ícones do radar."
+  },
+  "cl_radar_rotate": {
+    "en": "Configure radar rotation.",
+    "pt-BR": "Configura a rotação do radar."
+  },
+  "cl_radar_scale": {
+    "en": "Configure radar map scale.",
+    "pt-BR": "Configura a escala do mapa no radar."
+  },
+  "cl_radar_square_with_scoreboard": {
+    "en": "Configure square radar presentation with the scoreboard.",
+    "pt-BR": "Configura radar quadrado junto ao placar."
+  },
+  "hud_scaling": {
+    "en": "Configure HUD scale.",
+    "pt-BR": "Configura a escala do HUD."
+  },
+  "cl_allow_animated_avatars": {
+    "en": "Configure animated avatar display.",
+    "pt-BR": "Configura exibição de avatares animados."
+  },
+  "cl_autohelp": {
+    "en": "Configure automatic game hints.",
+    "pt-BR": "Configura dicas automáticas do jogo."
+  },
+  "cl_hud_color": {
+    "en": "Configure the HUD color selection.",
+    "pt-BR": "Configura a seleção de cor do HUD."
+  },
+  "cl_showloadout": {
+    "en": "Configure loadout display.",
+    "pt-BR": "Configura exibição do loadout."
+  },
+  "cl_teamcounter_playercount_instead_of_avatars": {
+    "en": "Configure player counts instead of team avatars.",
+    "pt-BR": "Configura contagem de jogadores no lugar dos avatares."
+  },
+  "cl_teamid_overhead_colors_show": {
+    "en": "Configure overhead teammate identification colors.",
+    "pt-BR": "Configura cores na identificação dos aliados."
+  },
+  "cl_teamid_overhead_maxdist": {
+    "en": "Configure the maximum overhead teammate identification distance.",
+    "pt-BR": "Configura distância máxima de identificação dos aliados."
+  },
+  "gameinstructor_enable": {
+    "en": "Configure game instructor hints.",
+    "pt-BR": "Configura dicas do instrutor do jogo."
+  },
+  "cl_hud_telemetry_frametime_show": {
+    "en": "Configure frame-time telemetry visibility.",
+    "pt-BR": "Configura visibilidade da telemetria de tempo de quadro."
+  },
+  "cl_hud_telemetry_ping_show": {
+    "en": "Configure ping telemetry visibility.",
+    "pt-BR": "Configura visibilidade da telemetria de ping."
+  },
+  "cl_hud_telemetry_net_misdelivery_show": {
+    "en": "Configure network delivery telemetry visibility.",
+    "pt-BR": "Configura visibilidade da telemetria de entrega de rede."
+  },
+  "snd_mute_losefocus": {
+    "en": "Configure audio muting when the game loses focus.",
+    "pt-BR": "Configura silenciamento quando o jogo perde o foco."
+  },
+  "snd_voipvolume": {
+    "en": "Configure voice chat volume.",
+    "pt-BR": "Configura volume do chat de voz."
+  },
+  "snd_menumusic_volume": {
+    "en": "Configure menu music volume.",
+    "pt-BR": "Configura volume da música do menu."
+  },
+  "snd_roundstart_volume": {
+    "en": "Configure round-start music volume.",
+    "pt-BR": "Configura volume da música de início de rodada."
+  },
+  "snd_roundaction_volume": {
+    "en": "Configure round-action music volume.",
+    "pt-BR": "Configura volume da música de ação da rodada."
+  },
+  "snd_roundend_volume": {
+    "en": "Configure round-end music volume.",
+    "pt-BR": "Configura volume da música de fim de rodada."
+  },
+  "snd_mvp_volume": {
+    "en": "Configure MVP music volume.",
+    "pt-BR": "Configura volume da música de MVP."
+  },
+  "snd_tensecondwarning_volume": {
+    "en": "Configure the ten-second warning music volume.",
+    "pt-BR": "Configura volume da música de aviso de dez segundos."
+  },
+  "snd_mapobjective_volume": {
+    "en": "Configure map objective music volume.",
+    "pt-BR": "Configura volume da música de objetivo do mapa."
+  },
+  "mp_limitteams": {
+    "en": "Configure the team size difference limit.",
+    "pt-BR": "Configura o limite de diferença no tamanho das equipes."
+  },
+  "mp_autoteambalance": {
+    "en": "Configure automatic team balancing.",
+    "pt-BR": "Configura balanceamento automático das equipes."
+  },
+  "mp_ignore_round_win_conditions": {
+    "en": "Configure whether round win conditions are ignored.",
+    "pt-BR": "Configura se as condições de vitória da rodada são ignoradas."
+  },
+  "mp_team_intro_time": {
+    "en": "Configure team introduction duration.",
+    "pt-BR": "Configura duração da introdução das equipes."
+  },
+  "mp_freezetime": {
+    "en": "Configure the freeze period at round start.",
+    "pt-BR": "Configura período de congelamento no início da rodada."
+  },
+  "mp_round_restart_delay": {
+    "en": "Configure the delay between rounds.",
+    "pt-BR": "Configura atraso entre rodadas."
+  },
+  "mp_warmup_end": {
+    "en": "Request the end of warmup.",
+    "pt-BR": "Solicita o fim do aquecimento."
+  },
+  "mp_roundtime": {
+    "en": "Configure the general round duration.",
+    "pt-BR": "Configura duração geral da rodada."
+  },
+  "mp_roundtime_defuse": {
+    "en": "Configure round duration for bomb defusal.",
+    "pt-BR": "Configura duração da rodada de desarme de bomba."
+  },
+  "mp_roundtime_hostage": {
+    "en": "Configure round duration for hostage rescue.",
+    "pt-BR": "Configura duração da rodada de resgate de reféns."
+  },
+  "mp_c4timer": {
+    "en": "Configure the bomb detonation timer.",
+    "pt-BR": "Configura tempo de detonação da bomba."
+  },
+  "mp_maxmoney": {
+    "en": "Configure the maximum player money.",
+    "pt-BR": "Configura dinheiro máximo por jogador."
+  },
+  "mp_startmoney": {
+    "en": "Configure starting player money.",
+    "pt-BR": "Configura dinheiro inicial dos jogadores."
+  },
+  "mp_afterroundmoney": {
+    "en": "Configure post-round money.",
+    "pt-BR": "Configura dinheiro após a rodada."
+  },
+  "mp_buytime": {
+    "en": "Configure the buying period.",
+    "pt-BR": "Configura duração do período de compra."
+  },
+  "mp_buy_anywhere": {
+    "en": "Configure whether purchases are allowed outside buy zones.",
+    "pt-BR": "Configura compras fora das zonas de compra."
+  },
+  "mp_free_armor": {
+    "en": "Configure automatically supplied armor.",
+    "pt-BR": "Configura armadura fornecida automaticamente."
+  },
+  "mp_respawn_on_death_ct": {
+    "en": "Configure Counter-Terrorist respawning after death.",
+    "pt-BR": "Configura reaparecimento dos Contra-Terroristas após morrer."
+  },
+  "mp_respawn_on_death_t": {
+    "en": "Configure Terrorist respawning after death.",
+    "pt-BR": "Configura reaparecimento dos Terroristas após morrer."
+  },
+  "mp_restartgame": {
+    "en": "Request a game restart after a delay.",
+    "pt-BR": "Solicita reinício do jogo após um atraso."
+  },
+  "+forward": {
+    "en": "Move forward while held.",
+    "pt-BR": "Move para frente enquanto pressionado."
+  },
+  "+back": {
+    "en": "Move backward while held.",
+    "pt-BR": "Move para trás enquanto pressionado."
+  },
+  "+left": {
+    "en": "Move left while held.",
+    "pt-BR": "Move para a esquerda enquanto pressionado."
+  },
+  "+right": {
+    "en": "Move right while held.",
+    "pt-BR": "Move para a direita enquanto pressionado."
+  },
+  "+duck": {
+    "en": "Crouch while held.",
+    "pt-BR": "Agacha enquanto pressionado."
+  },
+  "+sprint": {
+    "en": "Request the walking action while held.",
+    "pt-BR": "Solicita caminhar enquanto pressionado."
+  },
+  "+jump": {
+    "en": "Request a jump.",
+    "pt-BR": "Solicita um salto."
+  },
+  "+attack": {
+    "en": "Request the primary attack.",
+    "pt-BR": "Solicita o ataque primário."
+  },
+  "+attack2": {
+    "en": "Request the secondary attack.",
+    "pt-BR": "Solicita o ataque secundário."
+  },
+  "+reload": {
+    "en": "Request weapon reload.",
+    "pt-BR": "Solicita recarga da arma."
+  },
+  "+use": {
+    "en": "Request the use action.",
+    "pt-BR": "Solicita a ação de usar."
+  },
+  "+voicerecord": {
+    "en": "Transmit voice while held.",
+    "pt-BR": "Transmite voz enquanto pressionado."
+  },
+  "slot1": {
+    "en": "Select inventory slot 1; contents depend on the loadout.",
+    "pt-BR": "Seleciona o slot 1 do inventário; conteúdo depende do loadout."
+  },
+  "slot2": {
+    "en": "Select inventory slot 2; contents depend on the loadout.",
+    "pt-BR": "Seleciona o slot 2 do inventário; conteúdo depende do loadout."
+  },
+  "slot3": {
+    "en": "Select inventory slot 3; contents depend on the loadout.",
+    "pt-BR": "Seleciona o slot 3 do inventário; conteúdo depende do loadout."
+  },
+  "slot4": {
+    "en": "Select inventory slot 4; contents depend on the loadout.",
+    "pt-BR": "Seleciona o slot 4 do inventário; conteúdo depende do loadout."
+  },
+  "slot5": {
+    "en": "Select inventory slot 5; contents depend on the loadout.",
+    "pt-BR": "Seleciona o slot 5 do inventário; conteúdo depende do loadout."
+  },
+  "slot7": {
+    "en": "Select inventory slot 7; contents depend on the loadout.",
+    "pt-BR": "Seleciona o slot 7 do inventário; conteúdo depende do loadout."
+  },
+  "slot8": {
+    "en": "Select inventory slot 8; contents depend on the loadout.",
+    "pt-BR": "Seleciona o slot 8 do inventário; conteúdo depende do loadout."
+  },
+  "slot10": {
+    "en": "Select inventory slot 10; contents depend on the loadout.",
+    "pt-BR": "Seleciona o slot 10 do inventário; conteúdo depende do loadout."
+  },
+  "cl_crosshair_length": {
+    "en": "Crosshair bar length; scales with resolution.",
+    "pt-BR": "Comprimento das barras; acompanha a escala da resolução."
+  },
+  "cl_crosshair_thickness": {
+    "en": "Bar thickness; scales with resolution.",
+    "pt-BR": "Espessura das barras; acompanha a escala da resolução."
+  },
+  "cl_crosshair_gap": {
+    "en": "Offset between the center and bars.",
+    "pt-BR": "Deslocamento entre o centro e as barras."
+  },
+  "cl_crosshairdot": {
+    "en": "Center dot visibility.",
+    "pt-BR": "Visibilidade do ponto central."
+  },
+  "cl_crosshair_sniper_width": {
+    "en": "Scope line width; 1 is a single-pixel line.",
+    "pt-BR": "Largura das linhas da luneta; 1 representa um pixel."
+  },
+  "cl_ironsight_usecrosshaircolor": {
+    "en": "Match scope dot color to the crosshair.",
+    "pt-BR": "Usa a cor da mira no ponto da luneta."
+  },
+  "cl_crosshair_dynamic_splitdist": {
+    "en": "Style 2: threshold for splitting bars.",
+    "pt-BR": "Estilo 2: distância para dividir as barras."
+  },
+  "cl_crosshair_dynamic_maxdist_splitratio": {
+    "en": "Style 2: outer-bar share after splitting.",
+    "pt-BR": "Estilo 2: proporção das barras externas após divisão."
+  },
+  "cl_crosshair_dynamic_splitalpha_innermod": {
+    "en": "Style 2: inner-bar opacity multiplier.",
+    "pt-BR": "Estilo 2: multiplicador de opacidade das barras internas."
+  },
+  "cl_crosshair_dynamic_splitalpha_outermod": {
+    "en": "Style 2: outer-bar opacity multiplier.",
+    "pt-BR": "Estilo 2: multiplicador de opacidade das barras externas."
+  },
+  "cl_crosshair_dynamic_spread_limit": {
+    "en": "Maximum extra dynamic spread distance.",
+    "pt-BR": "Distância adicional máxima da expansão dinâmica."
+  },
+  "cl_crosshaircolor_r": {
+    "en": "Red: crosshair channel.",
+    "pt-BR": "Vermelho: canal da mira."
+  },
+  "cl_crosshaircolor_g": {
+    "en": "Green: crosshair channel.",
+    "pt-BR": "Verde: canal da mira."
+  },
+  "cl_crosshaircolor_b": {
+    "en": "Blue: crosshair channel.",
+    "pt-BR": "Azul: canal da mira."
+  },
+  "cl_crosshaircolor_a": {
+    "en": "Opacity: crosshair channel.",
+    "pt-BR": "Opacidade: canal da mira."
+  },
+  "cl_crosshairoutline_r": {
+    "en": "Red: outline channel.",
+    "pt-BR": "Vermelho: canal do contorno."
+  },
+  "cl_crosshairoutline_g": {
+    "en": "Green: outline channel.",
+    "pt-BR": "Verde: canal do contorno."
+  },
+  "cl_crosshairoutline_b": {
+    "en": "Blue: outline channel.",
+    "pt-BR": "Azul: canal do contorno."
+  },
+  "cl_crosshairoutline_a": {
+    "en": "Opacity: outline channel.",
+    "pt-BR": "Opacidade: canal do contorno."
+  }
+}

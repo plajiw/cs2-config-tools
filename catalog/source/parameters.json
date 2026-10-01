@@ -1,0 +1,95 @@
+{
+  "sources": {
+    "arminc-console-2025": {
+      "title": "ArminC CS2 console inventory",
+      "url": "https://github.com/ArmynC/ArminC-CS2-Cvars/blob/2301ff1de4665eb3f734e6f5c7d4007d460d2fa8/cvars/cvarlist.md",
+      "snapshotDate": "2025-05-19",
+      "revision": "2301ff1de4665eb3f734e6f5c7d4007d460d2fa8",
+      "buildId": null,
+      "license": "CC0-1.0",
+      "type": "community-console-dump"
+    }
+  },
+  "commands": {
+    "cl_hud_color": {
+      "sourceId": "arminc-console-2025",
+      "parameter": {
+        "type": "integer",
+        "default": "0",
+        "values": [
+          { "value": "0", "en": "Team color", "pt-BR": "Cor da equipe" },
+          { "value": "1", "en": "White", "pt-BR": "Branco" },
+          { "value": "2", "en": "Bright white", "pt-BR": "Branco intenso" },
+          { "value": "3", "en": "Light blue", "pt-BR": "Azul claro" },
+          { "value": "4", "en": "Blue", "pt-BR": "Azul" },
+          { "value": "5", "en": "Purple", "pt-BR": "Roxo" },
+          { "value": "6", "en": "Red", "pt-BR": "Vermelho" },
+          { "value": "7", "en": "Orange", "pt-BR": "Laranja" },
+          { "value": "8", "en": "Yellow", "pt-BR": "Amarelo" },
+          { "value": "9", "en": "Green", "pt-BR": "Verde" },
+          { "value": "10", "en": "Aqua", "pt-BR": "Ciano" },
+          { "value": "11", "en": "Pink", "pt-BR": "Rosa" },
+          {
+            "value": "12",
+            "en": "Teammate color",
+            "pt-BR": "Cor de identificação do jogador na equipe"
+          }
+        ]
+      },
+      "examples": [{ "arguments": ["2"], "en": "Bright white HUD", "pt-BR": "HUD branco intenso" }]
+    },
+    "viewmodel_offset_x": {
+      "sourceId": "arminc-console-2025",
+      "parameter": { "type": "number", "default": "1" },
+      "examples": [
+        {
+          "arguments": ["1"],
+          "en": "Default horizontal offset",
+          "pt-BR": "Deslocamento horizontal padrão"
+        }
+      ]
+    },
+    "cl_hud_telemetry_frametime_show": {
+      "sourceId": "arminc-console-2025",
+      "parameter": {
+        "type": "integer",
+        "default": "1",
+        "values": [
+          { "value": "0", "en": "Never", "pt-BR": "Nunca" },
+          {
+            "value": "1",
+            "en": "Only when frame time is poor",
+            "pt-BR": "Somente quando o tempo de quadro estiver ruim"
+          },
+          { "value": "2", "en": "Always", "pt-BR": "Sempre" }
+        ]
+      },
+      "examples": [
+        {
+          "arguments": ["2"],
+          "en": "Always show frame time",
+          "pt-BR": "Sempre mostrar o tempo de quadro"
+        }
+      ]
+    },
+    "cl_hud_telemetry_ping_show": {
+      "sourceId": "arminc-console-2025",
+      "parameter": {
+        "type": "integer",
+        "default": "1",
+        "values": [
+          { "value": "0", "en": "Never", "pt-BR": "Nunca" },
+          {
+            "value": "1",
+            "en": "Only when ping is poor",
+            "pt-BR": "Somente quando o ping estiver ruim"
+          },
+          { "value": "2", "en": "Always", "pt-BR": "Sempre" }
+        ]
+      },
+      "examples": [
+        { "arguments": ["2"], "en": "Always show ping", "pt-BR": "Sempre mostrar o ping" }
+      ]
+    }
+  }
+}

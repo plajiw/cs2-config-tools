@@ -1,0 +1,10 @@
+node_modules/
+dist/
+artifacts/
+.cache/
+.test-output/
+.vscode-test/
+catalog/catalog.json
+tests/fixtures/
+# Preserve the user-supplied master specification verbatim.
+docs/planning/master-specification.md

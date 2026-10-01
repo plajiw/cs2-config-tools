@@ -1,0 +1,18 @@
+{
+  "id": "user-report-2026-10-01",
+  "type": "user-console",
+  "date": "2026-10-01",
+  "buildId": null,
+  "commands": [
+    "cl_crosshairgap",
+    "cl_crosshairgap_useweaponvalue",
+    "cl_crosshaircolor",
+    "cl_crosshairusealpha"
+  ],
+  "lines": [
+    "Unknown command: cl_crosshairgap",
+    "Unknown command: cl_crosshairgap_useweaponvalue",
+    "Unknown command: cl_crosshaircolor",
+    "Unknown command: cl_crosshairusealpha"
+  ]
+}

@@ -1,0 +1,189 @@
+{
+  "name": "cs2-config-tools",
+  "displayName": "CS2 Config Tools",
+  "description": "Write, understand and organize Counter-Strike 2 CFG files in VS Code.",
+  "version": "0.0.1",
+  "preview": true,
+  "publisher": "cs2-config-community",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plajiw/cs2-config-tools.git"
+  },
+  "homepage": "https://github.com/plajiw/cs2-config-tools#readme",
+  "bugs": {
+    "url": "https://github.com/plajiw/cs2-config-tools/issues"
+  },
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onLanguage:cs2cfg"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
+  "scripts": {
+    "catalog:fetch": "node scripts/fetch-community.cjs",
+    "catalog:promote": "node scripts/promote-catalog.cjs",
+    "build": "node scripts/build.cjs",
+    "catalog": "node scripts/build-catalog.cjs",
+    "catalog:check": "node scripts/build-catalog.cjs --check",
+    "test": "npm run catalog:check && npm run build && node --test tests/unit/*.test.cjs",
+    "test:integration": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/test-vscode.ps1",
+    "format:source": "prettier --write src scripts tests resources catalog/source package*.json tsconfig.json .vscode/*.json",
+    "check:style": "prettier --check src scripts tests resources catalog/source package*.json tsconfig.json .vscode/*.json",
+    "package": "npm run catalog:check && npm run build && node scripts/package.cjs",
+    "test:webview": "npm run build && node scripts/test-bind-map-browser.cjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/vscode": "1.96.0",
+    "@vscode/vsce": "^3.0.0",
+    "prettier": "3.9.9",
+    "typescript": "^5.7.0"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "cs2cfg",
+        "aliases": [
+          "CS2 CFG",
+          "cs2cfg"
+        ],
+        "configuration": "./resources/language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "cs2cfg",
+        "scopeName": "source.cs2cfg",
+        "path": "./resources/syntaxes/cs2cfg.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "cs2Config.selectLanguage",
+        "title": "%command.selectLanguage%"
+      },
+      {
+        "command": "cs2Config.healthCheck",
+        "title": "%command.healthCheck%",
+        "enablement": "editorLangId == cs2cfg"
+      },
+      {
+        "command": "cs2Config.bindMap",
+        "title": "%command.bindMap%",
+        "enablement": "editorLangId == cs2cfg"
+      }
+    ],
+    "configuration": {
+      "title": "CS2 Config Tools",
+      "properties": {
+        "cs2Config.descriptionLanguage": {
+          "type": "string",
+          "enum": [
+            "en",
+            "pt-BR",
+            "auto"
+          ],
+          "default": "en",
+          "description": "%setting.descriptionLanguage%"
+        },
+        "cs2Config.completionMode": {
+          "type": "string",
+          "enum": [
+            "normal",
+            "advanced"
+          ],
+          "default": "normal",
+          "description": "%setting.completionMode%"
+        },
+        "cs2Config.parameterValidation": {
+          "type": "boolean",
+          "default": true,
+          "description": "%setting.parameterValidation%"
+        },
+        "cs2Config.bindDiagnostics": {
+          "type": "string",
+          "enum": [
+            "off",
+            "information",
+            "warning"
+          ],
+          "default": "information",
+          "description": "%setting.bindDiagnostics%"
+        },
+        "cs2Config.inlayHints": {
+          "type": "boolean",
+          "default": false,
+          "description": "%setting.inlayHints%"
+        },
+        "cs2Config.showOriginalDescription": {
+          "type": "boolean",
+          "default": false,
+          "description": "%setting.showOriginal%"
+        },
+        "cs2Config.hoverDetails": {
+          "type": "string",
+          "enum": [
+            "standard",
+            "advanced"
+          ],
+          "default": "standard",
+          "description": "%setting.hoverDetails%"
+        },
+        "cs2Config.cfgRoot": {
+          "type": "string",
+          "default": "",
+          "description": "%setting.cfgRoot%",
+          "scope": "resource"
+        },
+        "cs2Config.consoleEvidence": {
+          "type": "string",
+          "enum": [
+            "none",
+            "user-report-2026-10-01"
+          ],
+          "default": "none",
+          "description": "%setting.consoleEvidence%",
+          "scope": "resource"
+        },
+        "cs2Config.unknownCommands": {
+          "type": "string",
+          "enum": [
+            "off",
+            "information",
+            "warning"
+          ],
+          "default": "information",
+          "description": "%setting.unknownCommands%"
+        },
+        "cs2Config.formatting.maxBlankLines": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "default": 1,
+          "description": "%setting.maxBlankLines%"
+        },
+        "cs2Config.formatting.separateSections": {
+          "type": "boolean",
+          "default": true,
+          "description": "%setting.separateSections%"
+        },
+        "cs2Config.formatting.insertFinalNewline": {
+          "type": "boolean",
+          "default": true,
+          "description": "%setting.insertFinalNewline%"
+        }
+      }
+    }
+  }
+}

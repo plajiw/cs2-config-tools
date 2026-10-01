@@ -1,0 +1,571 @@
+{
+  "sources": {
+    "steamtracking-crosshair-2026-09-30": {
+      "title": "GameTracking CS2 console snapshot",
+      "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+      "snapshotDate": "2026-09-30",
+      "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+      "buildId": null,
+      "type": "tracked-game-console-dump"
+    }
+  },
+  "commands": {
+    "cl_crosshair_length": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "number",
+        "default": "8",
+        "min": 0,
+        "max": 255
+      },
+      "rawFlags": ["clientdll archive per_user"],
+      "examples": [
+        {
+          "arguments": ["8"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ]
+    },
+    "cl_crosshair_thickness": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "number",
+        "default": "2",
+        "min": 0,
+        "max": 32
+      },
+      "rawFlags": ["clientdll archive per_user"],
+      "examples": [
+        {
+          "arguments": ["2"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ]
+    },
+    "cl_crosshair_gap": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "number",
+        "default": "4",
+        "min": -3840,
+        "max": 3840
+      },
+      "rawFlags": ["clientdll archive per_user"],
+      "examples": [
+        {
+          "arguments": ["4"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ]
+    },
+    "cl_crosshair_drawoutline": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "integer",
+        "default": "1",
+        "min": 0,
+        "max": 2,
+        "values": [
+          {
+            "value": "0",
+            "en": "No outline",
+            "pt-BR": "Sem contorno"
+          },
+          {
+            "value": "1",
+            "en": "Full outline",
+            "pt-BR": "Contorno completo"
+          },
+          {
+            "value": "2",
+            "en": "Half outline",
+            "pt-BR": "Meio contorno"
+          }
+        ]
+      },
+      "rawFlags": ["clientdll archive per_user"],
+      "examples": [
+        {
+          "arguments": ["1"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ]
+    },
+    "cl_crosshairstyle": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "integer",
+        "default": "7",
+        "min": 0,
+        "max": 9,
+        "values": [
+          {
+            "value": "0",
+            "en": "Dynamic cross",
+            "pt-BR": "Cruz dinâmica"
+          },
+          {
+            "value": "1",
+            "en": "Dynamic circle",
+            "pt-BR": "Círculo dinâmico"
+          },
+          {
+            "value": "2",
+            "en": "Legacy dynamic cross",
+            "pt-BR": "Cruz dinâmica clássica"
+          },
+          {
+            "value": "3",
+            "en": "Static circle",
+            "pt-BR": "Círculo estático"
+          },
+          {
+            "value": "4",
+            "en": "Static cross",
+            "pt-BR": "Cruz estática"
+          },
+          {
+            "value": "5",
+            "en": "Static cross with shot feedback",
+            "pt-BR": "Cruz estática com resposta ao tiro"
+          },
+          {
+            "value": "6",
+            "en": "Center dot",
+            "pt-BR": "Ponto central"
+          },
+          {
+            "value": "7",
+            "en": "Dynamic quad",
+            "pt-BR": "Quadrantes dinâmicos"
+          },
+          {
+            "value": "8",
+            "en": "Static square",
+            "pt-BR": "Quadrado estático"
+          },
+          {
+            "value": "9",
+            "en": "Static quad",
+            "pt-BR": "Quadrantes estáticos"
+          }
+        ]
+      },
+      "rawFlags": ["clientdll archive per_user"],
+      "examples": [
+        {
+          "arguments": ["7"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ]
+    },
+    "cl_crosshairdot": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "boolean",
+        "default": "false",
+        "values": [
+          {
+            "value": "false",
+            "en": "Off",
+            "pt-BR": "Desativado"
+          },
+          {
+            "value": "true",
+            "en": "On",
+            "pt-BR": "Ativado"
+          }
+        ]
+      },
+      "rawFlags": ["clientdll archive per_user"],
+      "examples": [
+        {
+          "arguments": ["false"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ]
+    },
+    "cl_crosshair_t": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "boolean",
+        "default": "false",
+        "values": [
+          {
+            "value": "false",
+            "en": "Off",
+            "pt-BR": "Desativado"
+          },
+          {
+            "value": "true",
+            "en": "On",
+            "pt-BR": "Ativado"
+          }
+        ]
+      },
+      "rawFlags": ["clientdll archive per_user"],
+      "examples": [
+        {
+          "arguments": ["false"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ]
+    },
+    "cl_crosshair_recoil": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "boolean",
+        "default": "true",
+        "values": [
+          {
+            "value": "false",
+            "en": "Off",
+            "pt-BR": "Desativado"
+          },
+          {
+            "value": "true",
+            "en": "On",
+            "pt-BR": "Ativado"
+          }
+        ]
+      },
+      "rawFlags": ["clientdll archive per_user"],
+      "examples": [
+        {
+          "arguments": ["true"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ]
+    },
+    "cl_crosshair_sniper_width": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "number",
+        "default": "1"
+      },
+      "rawFlags": ["clientdll archive per_user"],
+      "examples": [
+        {
+          "arguments": ["1"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ]
+    },
+    "cl_ironsight_usecrosshaircolor": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "boolean",
+        "default": "false",
+        "values": [
+          {
+            "value": "false",
+            "en": "Off",
+            "pt-BR": "Desativado"
+          },
+          {
+            "value": "true",
+            "en": "On",
+            "pt-BR": "Ativado"
+          }
+        ]
+      },
+      "rawFlags": ["clientdll archive per_user"],
+      "examples": [
+        {
+          "arguments": ["false"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ]
+    },
+    "cl_crosshair_dynamic_splitdist": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "number",
+        "default": "3",
+        "min": 0,
+        "max": 127
+      },
+      "rawFlags": ["clientdll archive per_user"],
+      "examples": [
+        {
+          "arguments": ["3"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ]
+    },
+    "cl_crosshair_dynamic_maxdist_splitratio": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "number",
+        "default": "1",
+        "min": 0,
+        "max": 1
+      },
+      "rawFlags": ["clientdll archive per_user"],
+      "examples": [
+        {
+          "arguments": ["1"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ]
+    },
+    "cl_crosshair_dynamic_splitalpha_innermod": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "number",
+        "default": "0",
+        "min": 0,
+        "max": 1
+      },
+      "rawFlags": ["clientdll archive per_user"],
+      "examples": [
+        {
+          "arguments": ["0"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ]
+    },
+    "cl_crosshair_dynamic_splitalpha_outermod": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "number",
+        "default": "1",
+        "min": 0.3,
+        "max": 1
+      },
+      "rawFlags": ["clientdll archive per_user"],
+      "examples": [
+        {
+          "arguments": ["1"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ]
+    },
+    "cl_crosshair_dynamic_spread_limit": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "number",
+        "default": "255",
+        "min": 0,
+        "max": 255
+      },
+      "rawFlags": ["clientdll archive per_user"],
+      "examples": [
+        {
+          "arguments": ["255"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ]
+    },
+    "cl_crosshairsize": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "number",
+        "default": "3.9"
+      },
+      "rawFlags": ["clientdll hidden archive per_user"],
+      "examples": [
+        {
+          "arguments": ["3.9"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ],
+      "compatibility": {
+        "status": "hidden",
+        "replacement": "cl_crosshair_length"
+      }
+    },
+    "cl_crosshairthickness": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "number",
+        "default": "0.6"
+      },
+      "rawFlags": ["clientdll hidden archive per_user"],
+      "examples": [
+        {
+          "arguments": ["0.6"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ],
+      "compatibility": {
+        "status": "hidden",
+        "replacement": "cl_crosshair_thickness"
+      }
+    },
+    "cl_crosshairalpha": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "number",
+        "default": "200",
+        "min": 0,
+        "max": 255
+      },
+      "rawFlags": ["clientdll hidden archive per_user"],
+      "examples": [
+        {
+          "arguments": ["200"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ],
+      "compatibility": {
+        "status": "hidden",
+        "replacement": "cl_crosshaircolor_a"
+      }
+    },
+    "cl_crosshaircolor_r": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "number",
+        "default": "0",
+        "min": 0,
+        "max": 255
+      },
+      "rawFlags": ["clientdll archive per_user"],
+      "examples": [
+        {
+          "arguments": ["0"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ]
+    },
+    "cl_crosshaircolor_g": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "number",
+        "default": "255",
+        "min": 0,
+        "max": 255
+      },
+      "rawFlags": ["clientdll archive per_user"],
+      "examples": [
+        {
+          "arguments": ["255"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ]
+    },
+    "cl_crosshaircolor_b": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "number",
+        "default": "0",
+        "min": 0,
+        "max": 255
+      },
+      "rawFlags": ["clientdll archive per_user"],
+      "examples": [
+        {
+          "arguments": ["0"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ]
+    },
+    "cl_crosshaircolor_a": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "number",
+        "default": "255",
+        "min": 0,
+        "max": 255
+      },
+      "rawFlags": ["clientdll archive per_user"],
+      "examples": [
+        {
+          "arguments": ["255"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ]
+    },
+    "cl_crosshairoutline_r": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "number",
+        "default": "0",
+        "min": 0,
+        "max": 255
+      },
+      "rawFlags": ["clientdll archive per_user"],
+      "examples": [
+        {
+          "arguments": ["0"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ]
+    },
+    "cl_crosshairoutline_g": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "number",
+        "default": "0",
+        "min": 0,
+        "max": 255
+      },
+      "rawFlags": ["clientdll archive per_user"],
+      "examples": [
+        {
+          "arguments": ["0"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ]
+    },
+    "cl_crosshairoutline_b": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "number",
+        "default": "0",
+        "min": 0,
+        "max": 255
+      },
+      "rawFlags": ["clientdll archive per_user"],
+      "examples": [
+        {
+          "arguments": ["0"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ]
+    },
+    "cl_crosshairoutline_a": {
+      "sourceId": "steamtracking-crosshair-2026-09-30",
+      "parameter": {
+        "type": "number",
+        "default": "255",
+        "min": 0,
+        "max": 255
+      },
+      "rawFlags": ["clientdll archive per_user"],
+      "examples": [
+        {
+          "arguments": ["255"],
+          "en": "Snapshot default",
+          "pt-BR": "Padrão do snapshot"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,8 @@
+node_modules/
+dist/
+artifacts/
+.cache/
+catalog/candidates/
+*.vsix
+.test-output/
+.vscode-test/

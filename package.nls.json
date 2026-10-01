@@ -1,0 +1,18 @@
+{
+  "command.selectLanguage": "CS2 Config: Select Description Language",
+  "command.healthCheck": "CS2 Config: Check CFG Health",
+  "setting.descriptionLanguage": "Language for catalog documentation. Auto follows the editor; unsupported languages fall back to English.",
+  "setting.completionMode": "Normal hides symbols flagged hidden, developmentonly or internal. Advanced includes them. Both modes recognize all indexed symbols.",
+  "setting.parameterValidation": "Warn about values outside evidenced ranges or reviewed parameter types and choices. This does not verify your installed game build.",
+  "setting.bindDiagnostics": "Report repeated or replaced binds in a resolved execution sequence. Replacements may be intentional; unknown effects interrupt comparison. The health report includes these findings even when editor notices are off.",
+  "setting.inlayHints": "Show reviewed parameter meanings next to literal values. Disabled by default.",
+  "setting.showOriginal": "Also display the original English description when available.",
+  "setting.hoverDetails": "Standard shows usage, parameter meanings and sources. Advanced also includes technical types and field provenance.",
+  "setting.cfgRoot": "Optional absolute CFG directory used to resolve exec references. Otherwise use the current file's directory.",
+  "setting.consoleEvidence": "Optional console evidence profile. The user report marks four crosshair commands rejected in an unidentified build; it is not a global removal claim.",
+  "setting.unknownCommands": "Severity for commands missing from this incomplete community catalog.",
+  "setting.maxBlankLines": "Maximum consecutive blank lines kept by the CFG formatter.",
+  "setting.separateSections": "Add a blank line before separator comment headers.",
+  "setting.insertFinalNewline": "End formatted documents with a newline.",
+  "command.bindMap": "CS2 Config: Open Bind Map"
+}

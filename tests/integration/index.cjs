@@ -4,7 +4,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 exports.run = async () => {
   const root = path.resolve(__dirname, '../..');
-  const extension = vscode.extensions.getExtension('cs2-config-community.cs2-config-tools');
+  const manifest = require(path.join(root, 'package.json'));
+  const extension = vscode.extensions.getExtension(`${manifest.publisher}.${manifest.name}`);
   assert.ok(extension, 'Extension is installed in the development host');
   await extension.activate();
   const directory = path.join(root, '.test-output');

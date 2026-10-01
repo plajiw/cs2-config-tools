@@ -1,10 +1,11 @@
 {
   "name": "cs2-config-tools",
   "displayName": "CS2 Config Tools",
+  "icon": "resources/icons/cs2-config-tools.png",
   "description": "Write, understand and organize Counter-Strike 2 CFG files in VS Code.",
   "version": "0.0.1",
   "preview": true,
-  "publisher": "cs2-config-community",
+  "publisher": "plajiw",
   "license": "MIT",
   "repository": {
     "type": "git",

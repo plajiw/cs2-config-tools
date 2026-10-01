@@ -28,7 +28,7 @@ A revisão da estrutura passou pelos testes do núcleo e do formatter, pelo chec
 
 ## A verificar
 
-O mapa visual passou por regressões de domínio/protocolo, troca de origem com a mesma versão, navegação assíncrona e limites de documento. A interface foi revista em Chromium com DOM real, teclado e capturas de referência; veja o [registro de validação](bind-map-validation.md). A integração no Extension Development Host foi tentada novamente, mas o VS Code informou que está sendo atualizado. A revisão no host real continua pendente; os testes de navegador usam uma ponte simulada e não substituem essa etapa. O mapa usa o modelo estático e não foi validado dentro do CS2.
+O mapa visual passou por regressões de domínio/protocolo, troca de origem com a mesma versão, navegação assíncrona e limites de documento. A interface foi revista em Chromium com DOM real, teclado e capturas de referência; veja o [registro de validação](bind-map-validation.md). A instalação pessoal do VS Code continua bloqueada por sua atualização, mas a suíte de integração passou em um host isolado 1.96.4, tanto sobre o projeto quanto sobre os arquivos extraídos do VSIX final. O [registro de entrega](release-validation.md) distingue os testes de providers da revisão do renderer e seus limites. O mapa usa o modelo estático e não foi validado dentro do CS2.
 
 - Inventário, descrições originais e flags de uma build identificada do CS2.
 - Tipos, assinaturas, intervalos, necessidade de cheats e funcionamento observado.

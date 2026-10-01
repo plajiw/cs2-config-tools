@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Added the supplied PNG icon under resources/icons and configured it for the extension listing. Isolated integration extensions to avoid loading the previous publisher's local copy alongside the package being tested.
+
+- Corrected the Marketplace publisher to plajiw and updated formatter examples; integration now reads the extension identifier from the manifest.
+
 - Marked the initial distribution as a preview and verified editor integration with an isolated VS Code host. Corrected the bind-map integration test ordering and added executable/package-path overrides to the test runner.
 
 - Linked the extension to its GitHub repository, homepage and issue tracker; added repository links to the bilingual extension description.

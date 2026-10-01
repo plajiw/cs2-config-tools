@@ -13,7 +13,7 @@ Instale o VSIX da pasta `artifacts/` em **Extensões → … → Instalar do VSI
   "files.associations": { "*.cfg": "cs2cfg" },
   "cs2Config.descriptionLanguage": "pt-BR",
   "[cs2cfg]": {
-    "editor.defaultFormatter": "cs2-config-community.cs2-config-tools",
+    "editor.defaultFormatter": "plajiw.cs2-config-tools",
     "editor.formatOnSave": true
   }
 }

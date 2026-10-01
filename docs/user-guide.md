@@ -15,7 +15,7 @@ CFG is used by many applications, so associate files explicitly in your CS2 work
   "files.associations": { "*.cfg": "cs2cfg" },
   "cs2Config.descriptionLanguage": "pt-BR",
   "[cs2cfg]": {
-    "editor.defaultFormatter": "cs2-config-community.cs2-config-tools",
+    "editor.defaultFormatter": "plajiw.cs2-config-tools",
     "editor.formatOnSave": true
   }
 }

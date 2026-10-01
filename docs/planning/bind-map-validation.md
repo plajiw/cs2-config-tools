@@ -11,6 +11,6 @@ Reviewed on 2026-10-01 on Windows, Node 22.23.3 and Edge 154.0.4258.48. This inc
 
 Run `npm run test:webview` to reproduce the renderer checks. Set `CS2_CFG_BROWSER` to a Chromium executable when Edge is unavailable. Artifacts stay in `.test-output/bind-map-browser/` and are excluded from distribution. The runner uses synthetic CFG text and a separate browser profile, never the game installation or personal browser profile. Its DevTools calls follow the [Chromium protocol](https://chromedevtools.github.io/devtools-protocol/).
 
-## Remaining host checks
+## Host validation and limits
 
-`npm run test:integration` was retried, but the installed VS Code refused to start because it is being updated. The browser checks do not establish that the real WebView bridge, editor focus and navigation work in the Extension Development Host. Repeat integration and review with an actual CFG once the editor can launch. Phase 8 remains pending that host review; builders remain the next roadmap increment.
+The installed VS Code refused to start because it is being updated. An isolated official VS Code 1.96.4 archive allowed `npm run test:integration` to pass on both source build and extracted VSIX files. The suite checks providers, diagnostics, formatting, health and read-only bind map creation against the shared counts/partial state. The browser checks exercise actual DOM and keyboard input with a simulated bridge; host-adapter tests cover navigation messages and lifecycle. These checks do not constitute a manual end-to-end WebView review in every editor version, theme or screen reader. See the [release validation](release-validation.md). Builders remain the next development increment.

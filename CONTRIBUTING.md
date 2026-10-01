@@ -56,6 +56,10 @@ Add a regression example. Check that formatting twice gives the same result and 
 
 ## Before sharing
 
+Treat generated releases as immutable. Increment the version in `package.json` and `package-lock.json`, regenerate the catalog and record the release in `CHANGELOG.md` before distributing another package. `npm run package` writes a new versioned VSIX under `artifacts/` and refuses to overwrite an existing file. Keep older packages; do not delete one to rebuild the same version.
+
+Choose `MAJOR.MINOR.PATCH` by impact: patch for compatible fixes/refinements, minor for new capabilities or substantial compatible expansion, and major for incompatible public behavior/settings/formats. Minor resets patch; major resets both. Use the highest impact in a combined release, not its line count. Before `1.0.0`, breaking changes and a stable-release declaration need an explicit product decision and migration notes. Local edits do not each need a release. Document shipped changes in a dated changelog section; never rebuild an old version to add them. See [agent release rules](AGENTS.md#version-and-release-guardrails).
+
 Document every added, changed or removed user-facing feature in the same change:
 
 - Update the English and pt-BR README feature descriptions when capabilities change. Keep these as concise user-facing overviews rather than implementation notes.

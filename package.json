@@ -3,7 +3,7 @@
   "displayName": "CS2 Config Tools",
   "icon": "resources/icons/cs2-config-tools.png",
   "description": "Write, understand and organize Counter-Strike 2 CFG files in VS Code.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "preview": true,
   "publisher": "plajiw",
   "license": "MIT",

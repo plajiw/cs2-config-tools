@@ -19,6 +19,7 @@ export interface CatalogEntry {
     min?: number;
     max?: number;
     enumName?: string;
+    values?: string[];
     description: string | null;
     sourceId: string;
   };
@@ -26,6 +27,15 @@ export interface CatalogEntry {
   editorial: {
     en: string;
     'pt-BR'?: string;
+    meaning?: {
+      label: { en: string; 'pt-BR'?: string };
+      semanticKind: 'inventory-slot';
+      confidence: 'community';
+      strength: 'high' | 'tentative';
+      source: string;
+      reviewDate: string;
+      notes: string;
+    };
     category?:
       'movement' | 'weapons' | 'grenades' | 'communication' | 'buy' | 'utility' | 'interface';
   };
@@ -34,6 +44,7 @@ export interface CatalogEntry {
   examples: string[][];
   reportedRejection: string | null;
   parameter?: {
+    scope?: { buildId: string; source: string; reviewed: true };
     type: 'integer' | 'number' | 'boolean';
     default?: string;
     min?: number;

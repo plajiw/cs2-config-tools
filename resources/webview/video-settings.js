@@ -8,10 +8,17 @@
     const t = (en, pt) => (state.pt ? pt : en);
     document.documentElement.lang = state.pt ? 'pt-BR' : 'en';
     $('video-title').textContent = t('Video Settings', 'Configurações de vídeo');
+    $('video-mode').textContent = t('Read-only', 'Somente leitura');
     $('video-note').textContent = t(
-      'Saved values, including unsaved editor text. Use Open in editor to change raw values. Labels identify keys; game enum meanings are unverified. Unknown fields remain literal.',
-      'Valores salvos, incluindo texto não salvo do editor. Use Abrir no editor para alterar valores literais. Rótulos identificam chaves; significados dos enums do jogo não foram verificados. Campos desconhecidos permanecem literais.',
+      'Inspect saved video values, including unsaved editor text.',
+      'Confira os valores de vídeo salvos, incluindo texto não salvo do editor.',
     );
+    $('video-scope-title').textContent = t('About these values', 'Sobre estes valores');
+    $('video-scope').textContent = t(
+      'Labels identify keys; game enum meanings are unverified. Unknown fields remain literal. Use Open in editor to change raw values manually.',
+      'Rótulos identificam chaves; significados dos enums do jogo não foram verificados. Campos desconhecidos permanecem literais. Use Abrir no editor para alterar valores manualmente.',
+    );
+    $('video-values-title').textContent = t('Saved values', 'Valores salvos');
     const messages = {
       disconnected: t(
         'Connect Game Settings from Home first.',
@@ -41,12 +48,10 @@
     ]
       .filter(Boolean)
       .join(' · ');
+    $('video-summary').hidden = !$('video-summary').textContent;
+    $('video-values').hidden = !(state.rows || []).length;
     const head = document.createElement('tr');
-    for (const label of [
-      t('Setting', 'Configuração'),
-      t('Key', 'Chave'),
-      t('Raw value', 'Valor literal'),
-    ]) {
+    for (const label of [t('Setting', 'Configuração'), t('Raw value', 'Valor literal')]) {
       const cell = document.createElement('th');
       cell.scope = 'col';
       cell.textContent = label;
@@ -55,11 +60,18 @@
     $('video-head').replaceChildren(head);
     const rows = (state.rows || []).map((field) => {
       const row = document.createElement('tr');
-      for (const value of [field.label, field.key, field.value]) {
-        const cell = document.createElement('td');
-        cell.textContent = value;
-        row.append(cell);
-      }
+      const setting = document.createElement('td');
+      const label = document.createElement('span');
+      label.className = 'setting-label';
+      label.textContent = field.label;
+      const key = document.createElement('code');
+      key.className = 'raw-key';
+      key.textContent = field.key;
+      setting.append(label, key);
+      const value = document.createElement('td');
+      value.className = 'raw-value';
+      value.textContent = field.value;
+      row.append(setting, value);
       return row;
     });
     $('video-fields').replaceChildren(...rows);

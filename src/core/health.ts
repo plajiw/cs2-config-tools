@@ -36,8 +36,9 @@ export function healthReport(
           .filter((entry) => entry.compatibility)
           .map((entry) => [entry.name, entry.compatibility!.replacement]),
       ),
+      state.aliasResolution,
     ),
-    ...parameterFindings(parsed, registry),
+    ...parameterFindings(parsed, registry, state.aliasResolution),
     ...bindFindings(state),
   ];
   const roots = parsed.statements.filter((statement) => statement.context === 'top');

@@ -11,7 +11,9 @@ const { bindMapModel } = require('../dist/core/bind-map');
 const { CommandRegistry } = require('../dist/catalog/registry');
 
 const root = path.resolve(__dirname, '..');
-const output = path.join(root, '.test-output', 'bind-map-browser');
+fs.mkdirSync(path.join(root, '.test-output'), { recursive: true });
+const output = fs.mkdtempSync(path.join(root, '.test-output', 'bind-map-browser-'));
+const { browserPort } = require('./lib/test-lifecycle.cjs');
 const browserPath =
   process.env.CS2_CFG_BROWSER ||
   'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe';
@@ -86,17 +88,7 @@ window.acquireVsCodeApi = () => ({ postMessage: m => { window.smoke.messages.pus
   let socket;
   const pending = new Map();
   try {
-    let port;
-    for (let attempt = 0; attempt < 100; attempt++) {
-      if (child.exitCode !== null) throw new Error(`Browser exited: ${child.exitCode}`);
-      const portFile = path.join(profile, 'DevToolsActivePort');
-      if (fs.existsSync(portFile)) {
-        port = Number(fs.readFileSync(portFile, 'utf8').split('\n')[0]);
-        break;
-      }
-      await delay(100);
-    }
-    assert.ok(port, 'Browser exposes a local debugging port');
+    const port = await browserPort(path.join(profile, 'DevToolsActivePort'), child);
     const target = await (
       await fetch(
         `http://127.0.0.1:${port}/json/new?${encodeURIComponent(pathToFileURL(path.join(output, 'index.html')).href)}`,
@@ -175,9 +167,16 @@ window.acquireVsCodeApi = () => ({ postMessage: m => { window.smoke.messages.pus
     assert.equal(await evaluate("document.querySelectorAll('#mouse-actions button').length"), 7);
     assert.ok(
       await evaluate(
-        "CS2InputLayout.mouse.filter(d => !d.external).every(d => document.querySelector('#mouse [data-key='+d.cs2Key+'] .key-face').isPointInFill(new DOMPoint(d.x,d.y)))",
+        "CS2InputLayout.mouse.filter(d => !d.external).every(d => {const face=document.querySelector('#mouse [data-key='+d.cs2Key+'] .key-face');const point=new DOMPoint(d.x,d.y);return face.isPointInFill(d.transform ? point.matrixTransform(face.transform.baseVal.consolidate().matrix.inverse()) : point)})",
       ),
       'Mouse labels stay within their button paths',
+    );
+    await evaluate("document.querySelector('#mouse').scrollIntoView({block:'center'});true");
+    assert.ok(
+      await evaluate(
+        "CS2InputLayout.mouse.filter(d=>!d.external).every(d=>{const face=document.querySelector('#mouse [data-key='+d.cs2Key+'] .key-face');const p=new DOMPoint(d.transform?260-d.x:d.x,d.y).matrixTransform(face.getScreenCTM());return document.elementFromPoint(p.x,p.y)?.closest('[data-key]')?.dataset.key===d.cs2Key})",
+      ),
+      'Each mouse label has its own unobstructed hit target',
     );
     await evaluate("document.querySelector('#mouse-actions [data-key=mwheelup]').focus()");
     await key('Enter', 13);
@@ -504,6 +503,43 @@ window.acquireVsCodeApi = () => ({ postMessage: m => { window.smoke.messages.pus
     assert.equal(await evaluate("document.querySelector('#details h3').textContent"), 'Enter');
     await evaluate("document.querySelector('#keyboard').scrollLeft=0; true");
     await shot('narrow.png');
+    // Task-oriented review matrix: preserve keyboard scale, mouse shape and selected inspector.
+    for (const [theme, values] of [
+      [
+        'dark',
+        ['#1e1e1e', '#cccccc', '#333333', '#ffffff', '#aaaaaa', '#0098ff', '#cca700', '#252526'],
+      ],
+      [
+        'light',
+        ['#ffffff', '#222222', '#eeeeee', '#222222', '#444444', '#005fb8', '#795e00', '#f3f3f3'],
+      ],
+    ]) {
+      await evaluate(
+        `['--vscode-editor-background','--vscode-editor-foreground','--vscode-button-secondaryBackground','--vscode-button-secondaryForeground','--vscode-descriptionForeground','--vscode-focusBorder','--vscode-editorWarning-foreground','--vscode-textCodeBlock-background'].forEach((key,index)=>document.documentElement.style.setProperty(key,${JSON.stringify(values)}[index])); true`,
+      );
+      for (const width of [1500, 1050, 420]) {
+        await send('Emulation.setDeviceMetricsOverride', {
+          width,
+          height: 1050,
+          deviceScaleFactor: 1,
+          mobile: false,
+        });
+        await delay(100);
+        await evaluate(
+          `document.querySelector('#mouse [data-key=mouse4]').dispatchEvent(new MouseEvent('click',{bubbles:true}));document.querySelector('#keyboard').scrollLeft=0;window.scrollTo(0,0);true`,
+        );
+        assert.equal(
+          await evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),
+          true,
+          `${theme} ${width} page fits`,
+        );
+        assert.ok(
+          await evaluate(`document.querySelector('#details').textContent.includes('+duck')`),
+          'Selected action remains readable',
+        );
+        await shot(`${theme}-${width}.png`);
+      }
+    }
     await evaluate(
       "window.smoke.state.source='other.cfg'; window.smoke.state.snapshot=3; window.postMessage(window.smoke.state,'*'); true",
     );

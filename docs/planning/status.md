@@ -1,10 +1,18 @@
 # Estado do projeto
 
-A consolidação do documento mestre e a auditoria arquitetural estão concluídas. Veja a [auditoria](architecture-audit.md) e o [plano de implementação](implementation-plan.md). O registry reconhece os dois dumps completos, com estados de catálogo e proveniência por campo. Há agora um modelo efetivo local conservador, health check textual e mapa visual de binds somente leitura; análise multiarquivo e builders permanecem planejados.
+O fechamento da estabilização e do refinamento visual está registrado em [stabilization-and-polish-pass](../audits/stabilization-and-polish-pass.md). O escopo é o MVP atual: Hub, vídeo somente leitura, Bind Map e segurança do Autoexec Builder. Builders especializados e análise multiarquivo continuam planejados.
+
+A consolidação do documento mestre e a auditoria arquitetural estão concluídas. Veja a [auditoria](architecture-audit.md) e o [plano de implementação](implementation-plan.md). O registry reconhece os dois dumps completos, com estados de catálogo e proveniência por campo. Há agora um modelo efetivo local conservador, health check textual e mapa visual de binds somente leitura; Autoexec Builder MVP oferece binds simples com preview e escrita localizada; análise multiarquivo e builders especializados permanecem planejados.
 
 CS2 Config Tools tem um protótipo local de edição e formatação. O catálogo oferece explicações comunitárias em inglês e pt-BR, com exemplos extraídos das CFGs de referência. A versão vigente está em `package.json`; mudanças ficam no [changelog](../../CHANGELOG.md).
 
+## Correções de segurança em desenvolvimento
+
+As correções da auditoria completa preservam a arquitetura e limitam a escrita ao MVP existente. O [registro de correções](../audits/full-project-audit-2026-10-02-corrections.md) documenta invariantes, testes e limites. A ampliação de escrita depende dos gates de segurança e aceitação, sem gerar nova distribuição.
+
 ## Implementado
+
+- Em desenvolvimento: Autoexec Builder MVP no Hub, significados compartilhados de slots, ações estruturadas, validação, substituição explícita de binds, diff humano/técnico, escrita localizada com undo e proteção contra snapshots obsoletos. Veja [escopo e validação](autoexec-builder-validation.md).
 
 - Em desenvolvimento: Bind Map com seções próprias de teclado/mouse, botões laterais integrados, ações adjacentes e inspector abaixo em todas as larguras. Capturas reais do Extension Development Host em três larguras, nos temas claro e escuro; veja o [registro visual](bind-map-visual-refinement.md).
 
@@ -12,7 +20,7 @@ CS2 Config Tools tem um protótipo local de edição e formatação. O catálogo
 
 - Em desenvolvimento: Home compacta, agrupamento heurístico de nomes do jogo e conexão independente de Steam userdata com consentimento/persistência. Vídeo somente leitura via parser/modelo compartilhado, valores literais e resolução/proporção/frequência derivadas. Edição, enums verificados e outros domínios userdata permanecem pendentes. Veja a [validação do incremento](userdata-validation.md).
 
-- Config Hub MVP em desenvolvimento: Activity Bar, Home, pasta autorizada/persistida, detecção Steam, listagem, resumos independentes, atalhos para mapa/health e criação exclusiva de CFG vazia. O menu exibe apenas ferramentas implementadas; builders ficam fora da navegação; análise multiarquivo continua pendente. Veja [FEATURES](../../FEATURES.md).
+- Config Hub MVP em desenvolvimento: Activity Bar, Home, pasta autorizada/persistida, detecção Steam, listagem, resumos independentes, atalhos para mapa/health e criação exclusiva de CFG vazia. O menu exibe apenas ferramentas implementadas, incluindo o Autoexec Builder MVP; análise multiarquivo continua pendente. Veja [FEATURES](../../FEATURES.md).
 - Filtro de categorias com menu colorido acessível, lista de binds com keycaps/descrições/comandos separados e identificação visual do caminho da CFG. Incluídos na distribuição solicitada; veja o [changelog](../../CHANGELOG.md).
 
 - Refinamento do mapa visual: teclado com escala fixa e rolagem local, filtros recolhidos em painéis menores, mouse alinhado à esquerda e inspector com descrição primeiro e histórico apenas para múltiplas atribuições.

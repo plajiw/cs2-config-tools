@@ -61,6 +61,22 @@ function validateCatalog(catalog) {
       )
     )
       throw new Error(`Invalid editorial category: ${entry.name}`);
+    const meaning = entry.editorial?.meaning;
+    if (
+      meaning &&
+      (typeof meaning.label?.en !== 'string' ||
+        !meaning.label.en.trim() ||
+        typeof meaning.label?.['pt-BR'] !== 'string' ||
+        !meaning.label['pt-BR'].trim() ||
+        meaning.semanticKind !== 'inventory-slot' ||
+        meaning.confidence !== 'community' ||
+        !['high', 'tentative'].includes(meaning.strength) ||
+        !sources.has(meaning.source) ||
+        !/^\d{4}-\d{2}-\d{2}$/.test(meaning.reviewDate) ||
+        typeof meaning.notes !== 'string' ||
+        !meaning.notes.trim())
+    )
+      throw new Error('Invalid human meaning: ' + entry.name);
     if (!entry.name || /\s/.test(entry.name) || names.has(entry.name))
       throw new Error(`Duplicate/invalid identity: ${entry.name}`);
     names.add(entry.name);
@@ -73,6 +89,7 @@ function validateCatalog(catalog) {
     if (entry.documentation?.reviewed && (!entry.editorial?.en || !entry.editorial['pt-BR']))
       throw new Error(`Missing translation: ${entry.name}`);
     if (entry.parameter) validateParameter(entry.name, entry.parameter);
+    validateConstraintSources(entry, catalog);
     for (const evidence of Object.values(entry.provenance ?? {}))
       if (
         !sources.has(evidence.source) ||
@@ -102,5 +119,70 @@ function validateCatalog(catalog) {
     }
   }
   return catalog;
+}
+
+function validateConstraintSources(entry, catalog) {
+  const technical = entry.technical,
+    parameter = entry.parameter;
+  const fail = () => {
+    throw new Error(`Conflicting parameter constraints: ${entry.name}`);
+  };
+  if (technical) {
+    if (
+      ['min', 'max'].some(
+        (key) => technical[key] !== undefined && !Number.isFinite(technical[key]),
+      ) ||
+      (technical.min !== undefined && technical.max !== undefined && technical.min > technical.max)
+    )
+      fail();
+    if (
+      technical.values !== undefined &&
+      (!Array.isArray(technical.values) ||
+        !technical.values.length ||
+        technical.values.some((value) => typeof value !== 'string') ||
+        new Set(technical.values).size !== technical.values.length ||
+        entry.provenance?.['technical.values']?.source !== technical.sourceId)
+    )
+      throw new Error(`Invalid technical enum evidence: ${entry.name}`);
+  }
+  if (!parameter) return;
+  const scope = parameter.scope;
+  if (scope) {
+    if (
+      typeof scope.buildId !== 'string' ||
+      !scope.buildId.trim() ||
+      scope.reviewed !== true ||
+      !catalog.sources[scope.source] ||
+      catalog.sources[scope.source].buildId !== scope.buildId ||
+      (technical && !entry.runtime?.gameBuild)
+    )
+      throw new Error(`Unresolved parameter scope: ${entry.name}`);
+    if (scope.buildId !== entry.runtime?.gameBuild) return;
+  }
+  if (!technical) return;
+  // A curated subset is valid; a conflicting widening is not an implicit override.
+  if (
+    (parameter.min !== undefined && technical.min !== undefined && parameter.min < technical.min) ||
+    (parameter.max !== undefined && technical.max !== undefined && parameter.max > technical.max)
+  )
+    fail();
+  const min = parameter.min ?? technical.min,
+    max = parameter.max ?? technical.max;
+  if (min !== undefined && max !== undefined && min > max) fail();
+  const normalized = (value) => (value === 'true' ? 1 : value === 'false' ? 0 : Number(value));
+  const valid = (value) => {
+    const number = normalized(value);
+    return (
+      Number.isFinite(number) &&
+      (min === undefined || number >= min) &&
+      (max === undefined || number <= max) &&
+      (!technical.values || technical.values.some((option) => normalized(option) === number))
+    );
+  };
+  if (
+    (parameter.default !== undefined && !valid(parameter.default)) ||
+    parameter.values?.some((option) => !valid(option.value))
+  )
+    fail();
 }
 module.exports = { validateParameter, validateCatalog };

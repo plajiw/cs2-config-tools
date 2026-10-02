@@ -31,6 +31,15 @@ Read `PROJECT_VISION.md` and `docs/planning/implementation-plan.md` for directio
 - Keep `cs2Config.*` settings compatible. Do not register future commands/settings before their feature works.
 - Future WebViews use validated typed messages, restrictive CSP, scoped resources and accessible navigation; business rules stay in the domain.
 
+## Correction invariants
+
+- The host owns current destination authority. Bind immutable previews to URI, destination/session generation, source/version and structured change set; invalidate on changes/cancel/disposal and recheck after awaits and immediately before editing. WebView state is a request, never authority over paths/ranges/versions.
+- Immediate alias interpretation has one owner in ordered core facts. Consumers may phrase results differently but must preserve the same order, deferred uncertainty and cycle facts. Whole-action human labels require a reviewed action shape.
+- Bound external input before full allocation and bound filesystem concurrency. Cancellation stops scheduling new work; late async results require generation/session checks.
+- Builders produce structured changes through validation, human preview, raw diff and Apply. Supported edits preserve unrelated comments, quotes, spacing, line endings and final newline without automatically formatting.
+- Regression tests protect invariants across destination switches, awaits and failures. Isolate each acceptance run and its process/profile/output ownership; cleanup errors must not hide primary assertions. Review critical UI tasks at narrow/medium/wide widths beyond overflow assertions.
+- Do not broaden file writing while safety or host acceptance checks fail. Use the [future feature entry checklist](docs/development-safety.md) before adding write, semantic, filesystem or WebView behavior.
+
 ## Version and release guardrails
 
 - **Always require an explicit user request to generate a release.** Implementing, fixing, testing or finishing work is not authorization to bump the version or create a VSIX. Until requested, keep changes in development and Unreleased. Do not package or install a new release automatically as part of implementation checks.
@@ -51,3 +60,7 @@ Every added, changed or removed user-facing feature must update documentation in
 For code/data changes, run the applicable source formatting, catalog generation, unit and style checks. Parser/diagnostic changes need behavioral regressions; source/schema changes need invalid-data and deterministic-generation checks. For editor provider changes, run `npm run test:integration` on Windows or review in the Extension Development Host. When the user authorizes packaging, run `npm run package` and inspect what enters the VSIX, especially changed runtime paths/assets. Documentation-only work needs link/style review rather than a full runtime test run.
 
 Report the behavior changed, the checks performed and any unverified game assumptions. Keep changes scoped; publication, Marketplace credentials and external communications are separate tasks.
+
+## Local installation preference
+
+When the user explicitly requests a distribution/update, install the resulting VSIX in their usual local VS Code and verify the installed version. Implementation alone still does not authorize generating a release.

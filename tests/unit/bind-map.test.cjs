@@ -74,7 +74,8 @@ test('bind presentation uses registry meaning, source lines and history without 
   });
   assert.equal(data.mode, 'read');
   assert.equal(data.entries[0].category, 'weapons');
-  assert.equal(data.entries[0].meaning, registry.get('slot2').editorial['pt-BR']);
+  assert.equal(data.entries[0].meaning, registry.get('slot2').editorial.meaning.label['pt-BR']);
+  assert.equal(data.entries[0].description, registry.get('slot2').editorial['pt-BR']);
   assert.equal(data.entries[0].origin.line, 3);
   assert.equal(data.entries[0].raw, 'bind q slot2');
   assert.equal(data.entries[0].conflict, true);

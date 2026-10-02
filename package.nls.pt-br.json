@@ -31,5 +31,6 @@
   "command.connectSettings": "CS2 Config: Conectar configurações do jogo",
   "command.detectSettings": "CS2 Config: Detectar perfis Steam",
   "command.commandExplorer": "CS2 Config: Explorar comandos",
-  "command.connectConfiguration": "CS2 Config: Conectar configuração"
+  "command.connectConfiguration": "CS2 Config: Conectar configuração",
+  "command.autoexecBuilder": "CS2: Autoexec Builder"
 }

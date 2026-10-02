@@ -17,7 +17,7 @@
     if (mouse)
       svg.append(
         node('path', {
-          d: 'M130 18 C72 18 48 57 44 116 C38 157 34 213 50 253 C65 291 107 305 139 298 C183 292 212 267 224 229 C236 187 222 148 217 111 C211 49 184 18 130 18 Z',
+          d: 'M130 20 C78 20 48 57 46 108 C44 140 52 176 52 190 C52 220 42 226 46 252 C58 286 100 298 130 298 C160 298 202 286 214 252 C218 226 208 220 208 190 C208 176 216 140 214 108 C212 57 182 20 130 20 Z',
           class: 'device-shell',
         }),
       );
@@ -36,7 +36,14 @@
         'aria-label': def.label,
       });
       group.dataset.focusId = `visual:${def.id}`;
-      if (mouse) group.append(node('path', { d: def.path, class: 'key-face' }));
+      if (mouse)
+        group.append(
+          node('path', {
+            d: def.path,
+            ...(def.transform ? { transform: def.transform } : {}),
+            class: 'key-face',
+          }),
+        );
       else
         group.append(
           node('rect', {

@@ -47,8 +47,8 @@ p {
 .badge {
   margin-left: auto;
   border: 1px solid var(--vscode-panel-border);
-  padding: 9px 14px;
-  border-radius: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
   white-space: nowrap;
 }
 .badge::before {
@@ -57,6 +57,12 @@ p {
 }
 .connected {
   color: var(--vscode-testing-iconPassed, #388a34);
+}
+body.vscode-light .connected {
+  color: #237a3b;
+}
+body.vscode-light section {
+  border-color: var(--vscode-widget-border, #d1d5db);
 }
 section {
   border: 1px solid var(--vscode-panel-border);
@@ -68,7 +74,7 @@ section {
 }
 button {
   font: inherit;
-  color: var(--vscode-foreground);
+  color: var(--vscode-button-secondaryForeground, var(--vscode-foreground));
   border: 1px solid var(--vscode-button-border, var(--vscode-panel-border));
   background: var(--vscode-button-secondaryBackground);
   border-radius: 6px;
@@ -128,6 +134,10 @@ code {
   display: grid;
   grid-template-columns: 3fr 2fr;
   gap: 16px;
+  margin-bottom: 16px;
+}
+.dashboard > section {
+  margin-bottom: 0;
 }
 .stats {
   display: grid;
@@ -160,9 +170,13 @@ code {
   stroke: var(--vscode-editorWarning-foreground);
 }
 .quick {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
+}
+.quick button {
+  min-height: 38px;
+  overflow-wrap: anywhere;
 }
 .section-heading {
   display: flex;
@@ -176,6 +190,9 @@ code {
 .table-scroll {
   overflow-x: auto;
 }
+.table-scroll table {
+  min-width: 640px;
+}
 table {
   width: 100%;
   border-collapse: collapse;
@@ -183,11 +200,12 @@ table {
 }
 th {
   color: var(--vscode-descriptionForeground);
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 12px;
 }
 td,
 th {
-  padding: 10px 8px;
+  padding: 12px;
   border-bottom: 1px solid var(--vscode-panel-border);
 }
 .file-link {
@@ -195,25 +213,25 @@ th {
   background: none;
   color: var(--vscode-textLink-foreground);
   padding: 4px 0;
-  overflow-wrap: anywhere;
+  white-space: nowrap;
+  overflow-wrap: normal;
 }
 .row-actions {
   display: flex;
   gap: 6px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  align-items: center;
 }
 .row-actions button {
   padding: 5px 8px;
   font-size: 12px;
+  min-height: 30px;
+  white-space: nowrap;
 }
 .scope {
   font-size: 12px;
 }
 /* Home prioritizes files and actions; sources remain compact below them. */
-.quick {
-  flex-direction: row;
-  flex-wrap: wrap;
-}
 .stat {
   padding: 8px;
   gap: 4px;
@@ -260,6 +278,68 @@ summary:focus-visible {
 #sources {
   border-top: 1px solid var(--vscode-panel-border);
   padding: 8px 0;
+}
+#connect-sources,
+#new,
+#video-connect {
+  color: var(--vscode-button-foreground);
+  background: var(--vscode-button-background);
+}
+#connect-sources:hover:enabled,
+#new:hover:enabled,
+#video-connect:hover:enabled {
+  background: var(--vscode-button-hoverBackground);
+}
+.video-screen {
+  max-width: 1100px;
+}
+.video-screen header {
+  margin-bottom: 12px;
+}
+.video-screen .badge::before {
+  content: none;
+}
+.video-screen .table-scroll table {
+  min-width: 0;
+  table-layout: fixed;
+}
+.video-screen th:first-child {
+  width: 70%;
+}
+.video-screen td {
+  vertical-align: middle;
+}
+.setting-label {
+  display: block;
+  margin-bottom: 3px;
+}
+.raw-key {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--vscode-descriptionForeground);
+}
+.raw-value {
+  font-family: var(--vscode-editor-font-family, monospace);
+  overflow-wrap: anywhere;
+}
+.video-overview p {
+  margin: 0;
+}
+#video-summary {
+  color: var(--vscode-foreground);
+  font-size: 22px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+.video-scope {
+  border-top: 1px solid var(--vscode-panel-border);
+  margin-top: 20px;
+  padding-top: 4px;
+}
+.table-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--vscode-scrollbarSlider-background) transparent;
 }
 #command-name {
   margin-top: 24px;

@@ -6,9 +6,15 @@ Settings and detailed behavior for CS2 Config Tools. For a feature overview, see
 
 ## Start using it
 
-Install the `.vsix` from `artifacts/` using **Extensions → … → Install from VSIX**. Open a CFG and select **CS2 CFG** in the language selector. The extension offers command suggestions, hover documentation, local alias definitions and links to files referenced by `exec`.
+Install the `.vsix` from `artifacts/` using **Extensions → … → Install from VSIX**. Open a CS2 CFG; for custom locations, select **CS2 CFG** in the language selector. The extension offers command suggestions, hover documentation, local alias definitions and links to files referenced by `exec`.
 
-CFG is used by many applications, so associate files explicitly in your CS2 workspace:
+CFGs under `game/csgo/cfg` and Steam profiles under `730/local/cfg` automatically use **CS2 CFG**, including subfolders. Explicit `files.associations` take precedence. Other CFG locations can use the Hub or the language selector; `.vcfg` files are not associated.
+
+Type `cl_cross` for crosshair commands, `bind "` for known keys, or `bind "x" "` for actions. Suggestions inside strings are enabled by default for CS2 CFG; your editor settings can override this. Use **Ctrl+Space** if automatic suggestions are disabled.
+
+The normal completion policy still applies: snapshot-hidden names such as `cl_crosshairalpha` require `cs2Config.completionMode: "advanced"`. A suggestion is not verification of game behavior.
+
+CFG is used by many applications, so associate files explicitly only in a custom CS2 workspace:
 
 ```json
 {
@@ -41,7 +47,7 @@ The sidebar lists CFG files and the Home offers file opening, the read-only **Vi
 
 Overview counts exclude the collapsed group of game-like names and are sums of independent single-file analyses, not a merged configuration or the running game's state. Each row distinguishes a partial result from the modeled subset. No “Valid” certification is shown. Only the first 100 regular CFG files directly in the folder are listed; nested directories and symbolic links are excluded. Files exceeding the existing analysis limit or inaccessible files have no summary and are excluded from analyzed totals. The hub's selected directory does not change the `cs2Config.cfgRoot` setting used by exec links.
 
-The Home menu contains only implemented tools: Visual Bind Map, CFG Health Check and New empty CFG. File-specific shortcuts use autoexec.cfg when present, otherwise the first visible non-game CFG; file rows open tools for that exact file. Empty folders still allow file creation. Builders stay outside the menu until implemented. See [feature status](../FEATURES.md).
+The Home menu contains only implemented tools: Autoexec Builder, Visual Bind Map, CFG Health Check and New empty CFG. File-specific shortcuts use autoexec.cfg when present, otherwise the first visible non-game CFG; file rows open tools for that exact file. Empty folders still allow file creation. Autoexec Builder is available without a connected folder; choose a destination explicitly. See [feature status](../FEATURES.md).
 
 ## Command Explorer
 
@@ -50,6 +56,8 @@ Open **Command Explorer** from Home Quick Actions, the Tools sidebar or **CS2 Co
 The dedicated page renders the same documentation service as hover, with community summaries, original help, reviewed parameters, examples and provenance kept separate. **Copy command name** copies only the selected registry name. It never executes or inserts a command. Unknown defaults or enum meanings are not invented. **Search commands** returns to the picker. Description language follows the existing extension language setting with English fallback.
 
 ## File grouping and saved video settings
+
+Video Settings identifies its read-only scope in the header. Each setting pairs a friendly label with its original key; the adjacent literal value remains visible in narrow panels. **About these values** explains the limits of interpretation. Missing/disconnected files show recovery messages instead of an empty table.
 
 The main list includes familiar player file names (autoexec, practice, binds, aliases, crosshair and radar) and unclassified files. In a typical game/csgo/cfg directory, gamemode__, gamemap__ and server*.cfg names appear in a collapsed group in Home and the sidebar. The labels **Your CFGs** and **Other CS2 CFGs** describe the primary/collapsed groups. This is a name heuristic, not proof of authorship or game management; custom directories do not apply the game-name heuristic. All listed files remain accessible and editable as text. The overview excludes the collapsed group; partial findings still describe only each file.
 
@@ -123,6 +131,8 @@ Comparisons stop at unresolved effects and restart after explicit writes. `unbin
 
 ## Visual bind map
 
+The mouse has mirrored primary buttons, a centered wheel/M3 and separate embedded M4/M5 regions. Device regions and adjacent controls share selection, uncertainty and category states; wheel directions remain separate controls. The keyboard preserves its readable scale through local scrolling.
+
 With a CS2 CFG active, click the keyboard icon in the editor title bar, or run **CS2 Config: Open Bind Map**. Select the **CS2 CFG** language first if the file opened as plain text. The panel follows that file, including unsaved changes; activate another CFG and run the command again to switch sources.
 
 - **Explore your inputs:** select any key on the proportional ANSI keyboard, its numpad or the mouse. The mouse includes five buttons and both scroll directions. Inputs missing from this analysis show "No binding found"; they may still have bindings in the game.
@@ -136,3 +146,28 @@ The panel is read-only. Tab moves through controls; Enter or Space selects an in
 Closing the source clears the result. Oversized files pause analysis. If analysis fails, **Retry** requests a fresh snapshot; technical errors go to the Extension Host log. Navigation from stale snapshots is rejected. The map does not expand external CFGs, execute bind bodies or write bindings.
 
 Scoreboard and mouse-axis binds (`bind "TAB" "+showscores"`, `bind "MOUSE_X" "yaw"`, `bind "MOUSE_Y" "pitch"`) are recognized with bilingual descriptions and a pinned default-key-file reference. This does not establish a tested game build or execution permissions.
+
+## Autoexec Builder MVP
+
+Open **Autoexec Builder** in Home → Quick Actions or the Tools tree (command **CS2: Autoexec Builder**). Choose an existing CFG or a new destination. A connected folder supplies an autoexec.cfg suggestion. If the chosen file exists, edit it or choose another name; there is no replacement flow. Choosing/cancelling a destination never creates a file.
+
+1. Choose a supported key or mouse control.
+2. Search an action by command or human meaning (smoke / slot8, flash, molotov / incendiary, primary).
+3. Add the bind to the draft. Known numeric ConVar constraints are validated through the registry. Other parameters use safe single tokens separated by spaces; quoted arguments, escapes, aliases and command sequences are outside this MVP.
+4. Select **Review changes**. The human diff shows the previous/new meaning; expand **Raw CFG diff** or open the full editor diff to inspect the exact source.
+5. If a key already has a bind, review its current action and explicitly select **Replace existing**, then review again. Duplicate draft keys block apply.
+6. Review uncertainty/context notes and acknowledge them before **Apply to editor**. Cancel preview or close the builder to leave the destination unchanged.
+
+Existing CFG edits remain in the editor buffer with normal Undo; save when ready. New files are created exclusively through a workspace edit, with generated text opened in the editor. The builder checks buffer version/text and disk text against the preview; any intervening change invalidates apply and requires a new review. It preserves comments, unrelated text, existing quotes, CRLF/LF and final-newline presence. A bind written through an alias is overridden by an appended explicit bind; the alias body is never rewritten.
+
+Slot meanings are shared with Bind Map, hover and completion. slot1–slot10 have human labels (including **Knife / Melee**, **Cycle Grenades**, **C4 / Bomb** and **Molotov / Incendiary**). slot11 has a community Zeus x27 mapping; slot12 is mode-dependent Healthshot; slot13 retains its technical name with a tentative utility-items note. These are community explanations, not Valve-authored help or game-build verification. Items may be unavailable. Single-file analysis cannot resolve external execs or dynamic effects; the preview exposes that uncertainty. No CFG is executed.
+
+## Safety and analysis limits
+
+Changing the Autoexec Builder destination, cancelling, or closing its panel invalidates the reviewed preview. Review again after buffer/disk changes. Supported destinations are regular UTF-8 files up to four million bytes and one million characters; oversized unsaved buffers are rejected before copying their text. Invalid encoding, inaccessible or changing files produce an explicit error. Existing edits preserve unrelated text, quotes, comments, line endings and final newline and remain undoable in the editor.
+
+Immediate aliases are interpreted in written execution order. A later alias definition does not suppress an earlier value warning; invoked aliases can create later aliases. Bind bodies remain deferred. Cycle warnings appear in both editor diagnostics and Health; unresolved effects still make analysis partial. Reviewed inventory-slot labels describe only recognized literal actions: `slot8 unexpected` keeps its raw action without a confident whole-action label.
+
+At narrow Hub widths, scroll the file table locally to reach actions while filenames remain on one line. Exec navigation checks bounded batches and stops scheduling on cancellation. It rejects absolute/traversal names but may follow filesystem links; it does not execute or include target CFGs in effective analysis. Opening saved controls selects the first matching file as a shortcut, not the effective game controls slot.
+
+If the command catalog cannot load, analysis is unavailable and the extension asks you to reinstall, or rebuild a development checkout. It never substitutes an empty catalog.

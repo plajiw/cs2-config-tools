@@ -7,14 +7,15 @@ Uma extensão comunitária para escrever, entender e organizar CFGs de Counter-S
 ## O que a extensão oferece
 
 - **Explorador de comandos:** busca nomes ou descrições, mostra a documentação compartilhada e copia nomes de comandos pelo Hub.
-- **Vídeo salvo pelo jogo:** conecta uma pasta Steam userdata e mostra resolução, proporção, frequência e valores literais de vídeo com acesso direto ao editor de texto para alterações manuais.
+- **Vídeo salvo pelo jogo:** conecta uma pasta Steam userdata e mostra resolução, proporção, frequência, rótulos, chaves originais e valores literais, inclusive em painéis estreitos. Oferece acesso ao editor de texto para alterações manuais.
 - **Hub de configurações:** conecta uma pasta de CFGs, lista suas CFGs e recolhe nomes típicos do jogo e reúne o mapa de binds e a verificação em uma tela inicial com apenas ferramentas implementadas. Inclui conexão única para a pasta do jogo e o perfil Steam, criação segura de CFGs vazias e remoção confirmada de CFGs para a Lixeira.
 - **Verificação de comandos:** identifica nomes desconhecidos, aspas sem fechamento e valores fora dos tipos, opções ou intervalos documentados.
 - **Health check de binds:** aponta binds repetidos ou substituídos, com links para o bind anterior e aliases locais envolvidos.
+- **Autoexec Builder:** cria binds simples de teclado/mouse, busca significados humanos, revisa conflitos e diffs humano/técnico e aplica alterações preservando a fonte.
 - **Mapa visual de binds:** permite consultar binds de teclado, mouse e numpad, ver suas ações e abrir a origem ou binds anteriores. Seções próprias para teclado/mouse e um inspector abaixo mantêm a leitura em diferentes larguras. Oferece navegação por teclado, mantém o foco durante atualizações e identifica resultados incertos.
 - **Relatório de saúde da CFG:** agrupa achados por categoria, mostra totais por gravidade, linhas de origem e limites explicados no painel Output.
 - **Documentação ao passar o mouse:** explica a finalidade do comando, o valor escrito na CFG, padrões e intervalos conhecidos e opções como cores do HUD.
-- **Autocomplete e correções rápidas:** sugere comandos e valores conhecidos e permite selecionar correções para nomes próximos.
+- **Autocomplete e correções rápidas:** reconhece automaticamente CFGs nas pastas do CS2, sugere comandos e valores conhecidos e permite selecionar correções para nomes próximos.
 - **Formatação de CFGs:** organiza espaços, linhas vazias e separações de seções, preservando a ordem dos comandos e o conteúdo entre aspas.
 - **Navegação:** leva até aliases locais ou arquivos citados em exec, encontra referências de aliases e mostra definições no outline.
 - **Dicas opcionais de valores:** exibe significados revisados ao lado dos parâmetros, no idioma escolhido.
@@ -35,7 +36,7 @@ O [guia de uso](user-guide.pt-BR.md) explica as configurações, a formatação 
 
 Os recursos funcionam offline. A análise cobre um arquivo por vez e informa resultados parciais diante de arquivos externos ou efeitos desconhecidos. As verificações do catálogo não confirmam compatibilidade com a build instalada. A extensão não executa CFGs nem altera a instalação do jogo.
 
-Builders de configuração e análise entre arquivos estão planejados. Acompanhe o [plano de implementação](planning/implementation-plan.md).
+O Autoexec Builder MVP está disponível no Hub. Builders especializados e análise entre arquivos estão planejados. Acompanhe o [plano de implementação](planning/implementation-plan.md).
 
 ## Comunidade
 

@@ -288,7 +288,16 @@ svg {
   stroke-width: 1.4;
 }
 #mouse .key-label {
-  font-size: 14px;
+  font-size: 13px;
+}
+#mouse [data-key='mouse3'] .key-label,
+#mouse [data-key='mouse4'] .key-label,
+#mouse [data-key='mouse5'] .key-label {
+  font-size: 10px;
+}
+.device-shell,
+.key-face {
+  vector-effect: non-scaling-stroke;
 }
 .input-key:active .key-face {
   filter: brightness(1.4);

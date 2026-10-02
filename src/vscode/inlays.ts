@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { descriptionLanguage } from '../core/locale';
-import { aliases } from '../core/parser';
+import { aliasInterpretation } from '../core/ordered-aliases';
 import { Services, selector } from './services';
 
 export function registerInlays(services: Services, context: vscode.ExtensionContext): void {
@@ -21,10 +21,15 @@ export function registerInlays(services: Services, context: vscode.ExtensionCont
         );
         const hints: vscode.InlayHint[] = [];
         const parsed = services.parsed(doc);
-        const locals = aliases(parsed);
+        const resolution = services.effective(doc).aliasResolution;
         for (const statement of parsed.statements) {
           const [command, argument] = statement.tokens;
-          if (!argument || locals.has(command.value) || statement.tokens.length !== 2) continue;
+          if (
+            !argument ||
+            aliasInterpretation(resolution, statement) !== 'native' ||
+            statement.tokens.length !== 2
+          )
+            continue;
           const label = services.registry.valueLabel(command.value, argument.value, language);
           const position = doc.positionAt(argument.end);
           if (!label || !range.contains(position)) continue;

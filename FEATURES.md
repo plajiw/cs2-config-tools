@@ -374,6 +374,8 @@ Os templates não devem fingir ser “melhor configuração”, “best FPS” o
 
 ## 9. Autoexec Builder
 
+**MVP implementado em desenvolvimento:** binds simples de teclado/mouse, busca compartilhada, conflitos, preview humano/técnico e escrita localizada com undo e proteção contra arquivos alterados. Templates, builders especializados e substituição destrutiva continuam planejados. Veja o [guia](docs/user-guide.pt-BR.md#autoexec-builder-mvp) e a [validação](docs/planning/autoexec-builder-validation.md).
+
 Feature central de criação.
 
 ### Quando não existe `autoexec.cfg`

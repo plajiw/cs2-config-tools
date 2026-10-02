@@ -1,5 +1,6 @@
 import { EffectiveConfig } from './effective';
 import { CommandRegistry } from '../catalog/registry';
+import { actionMeaning } from './human-meaning';
 import { parse } from './parser';
 
 export interface BindMapLocation {
@@ -12,6 +13,7 @@ export interface BindMapEntry {
   action: string;
   certain: boolean;
   meaning?: string;
+  description?: string;
   category: string;
   conflict: boolean;
   raw?: string;
@@ -54,6 +56,11 @@ export function bindMapModel(
       const top = body.statements.filter((statement) => statement.context === 'top');
       const name = top.length === 1 && !body.issues.length ? top[0].tokens[0].value : undefined;
       const command = name && !state.aliases.has(name) ? context?.registry.get(name) : undefined;
+      const meaning = actionMeaning(
+        command,
+        top[0]?.tokens.slice(1).map((token) => token.value) ?? [],
+        context?.language ?? 'en',
+      );
       const events = state.history.filter((event) => event.kind === 'bind' && event.name === key);
       let active = [] as typeof events;
       for (const event of state.history) {
@@ -65,9 +72,9 @@ export function bindMapModel(
         key,
         action: value.value,
         certain: value.certain,
-        category: command?.editorial.category ?? 'custom',
-        meaning:
-          command?.editorial[context?.language ?? 'en'] || command?.editorial.en || undefined,
+        category: meaning.category,
+        description: meaning.description,
+        meaning: meaning.title || undefined,
         conflict: state.bindChanges.some(
           (change) =>
             change.key === key &&

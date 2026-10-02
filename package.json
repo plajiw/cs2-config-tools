@@ -3,7 +3,7 @@
   "displayName": "CS2 Config Tools",
   "icon": "resources/icons/cs2-config-tools.png",
   "description": "Write, understand and organize Counter-Strike 2 CFG files in VS Code.",
-  "version": "1.2.0",
+  "version": "1.4.1",
   "preview": true,
   "publisher": "plajiw",
   "license": "MIT",
@@ -41,7 +41,8 @@
     "package": "npm run catalog:check && npm run build && node scripts/package.cjs",
     "test:webview": "npm run build && node scripts/test-bind-map-browser.cjs",
     "test:bind-map-host": "npm run build && node scripts/capture-bind-map-host.cjs",
-    "test:hub-webview": "npm run build && node scripts/test-config-hub-browser.cjs"
+    "test:hub-webview": "npm run build && node scripts/test-config-hub-browser.cjs",
+    "test:builder-host": "npm run build && node scripts/capture-autoexec-builder-host.cjs"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
@@ -51,9 +52,22 @@
     "typescript": "^5.7.0"
   },
   "contributes": {
+    "configurationDefaults": {
+      "[cs2cfg]": {
+        "editor.quickSuggestions": {
+          "other": "on",
+          "comments": "off",
+          "strings": "on"
+        }
+      }
+    },
     "languages": [
       {
         "id": "cs2cfg",
+        "filenamePatterns": [
+          "**/game/csgo/cfg/**/*.cfg",
+          "**/730/local/cfg/**/*.cfg"
+        ],
         "aliases": [
           "CS2 CFG",
           "cs2cfg"
@@ -140,6 +154,10 @@
         "command": "cs2Config.connectConfiguration",
         "title": "%command.connectConfiguration%",
         "icon": "$(plug)"
+      },
+      {
+        "command": "cs2Config.autoexecBuilder",
+        "title": "%command.autoexecBuilder%"
       }
     ],
     "menus": {

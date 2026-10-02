@@ -31,5 +31,6 @@
   "command.connectSettings": "CS2 Config: Connect Game Settings",
   "command.detectSettings": "CS2 Config: Detect Steam Profiles",
   "command.commandExplorer": "CS2 Config: Explore Commands",
-  "command.connectConfiguration": "CS2 Config: Connect Configuration"
+  "command.connectConfiguration": "CS2 Config: Connect Configuration",
+  "command.autoexecBuilder": "CS2: Autoexec Builder"
 }

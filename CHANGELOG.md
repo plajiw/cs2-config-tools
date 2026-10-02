@@ -2,6 +2,30 @@
 
 ## Unreleased
 
+## 1.4.1 — 2026-10-02
+
+- Refined Hub spacing, aligned quick/row actions and light-theme status contrast. Video Settings keeps labels, original keys and literal values visible together at narrow widths, with explicit read-only status and secondary scope details.
+- Redesigned the Bind Map mouse with mirrored primary buttons, centered wheel and embedded side buttons, retaining shared keyboard/mouse states and literal input identities. Added mouse hit-target checks and real-host dark/light capture coverage for the main screens.
+- Reject oversized unsaved builder buffers before copying their text, including during Apply freshness checks; retain secondary styling for destination, remove and cancel actions so the review/apply flow stays prominent.
+- Make host acceptance wait for document/watcher notifications, with explicit editor focus, deadlines and exact source/list comparisons. Undo is issued once.
+
+- Automatically recognize CFGs under `game/csgo/cfg` and Steam app `730/local/cfg`, including subfolders, without associating unrelated CFGs or VCFGs. Enable suggestions inside CS2 CFG strings and test direct file opening and bind/command completions in the Extension Host.
+
+## 1.4.0 — 2026-10-02
+
+- Hardened builder previews against destination/session changes and pending cancellation; bounded UTF-8 destination reads while retaining freshness and undo protections.
+- Unified ordered alias facts across effective analysis, parameter warnings, inlays, diagnostics and Health; cycle warning totals now agree.
+- Reject applicable cross-source constraint conflicts during catalog validation; retain reviewed subsets and explicitly scoped build differences.
+- Isolated Windows/browser acceptance resources, preserved primary failures during cleanup, and bounded browser port-file sharing retries.
+- Preserved narrow Hub filenames with local table scrolling, bounded/cancelled/deduplicated exec-link I/O, and required reviewed action shapes for complete-action labels.
+- Added explicit catalog startup recovery, aligned current features and documented future feature safety gates.
+- Added Autoexec Builder MVP in the Hub: structured keyboard/mouse binds, shared action search/validation, explicit conflict replacement, human and raw previews, localized editor edits with undo, exclusive new-file creation and stale buffer/disk protection.
+- Added bilingual shared inventory slot meanings and field-level community provenance for Bind Map, hover, completion and builder search; uncertain/mode-dependent semantics remain explicit.
+
+- Recorded the Bind Map visual refinement iterations and real-editor acceptance matrix, including final narrow/medium/wide captures in dark/light themes and local package verification.
+
+## 1.3.0 — 2026-10-02
+
 - Refined Bind Map into dedicated keyboard/mouse sections with a readable fixed-scale keyboard, integrated five-button mouse and adjacent scroll controls. Shared category/state markers, action explanations and a full-width inspector remain consistent across narrow/medium/wide layouts. Added real Extension Development Host visual captures in dark/light themes.
 
 - Recognize `+showscores`, `yaw` and `pitch` in binds, with bilingual descriptions and a pinned CS2 default key-file reference.

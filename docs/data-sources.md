@@ -30,3 +30,11 @@ SteamTracking provenance is labeled **Source 2 runtime dump via SteamTracking/Ga
 Never execute an inventory indiscriminately. Runtime verification records the environment, exact input/output and restoration procedure. Editor fixtures demonstrate syntax and observed examples only.
 
 Scoreboard and mouse-axis descriptions cite [the tracked CS2 default key file](https://github.com/SteamTracking/GameTracking-CS2/blob/c3b892a3363a9b0275fc901f1960acac9f10b26b/game/csgo/cfg/user_keys_default.vcfg): TAB uses +showscores; analog MOUSE_X/MOUSE_Y use yaw/pitch. Revision, content hash and retrieval date are recorded in the source metadata. This is bundled-configuration evidence, separate from runtime-dump and game-build verification.
+
+## Inventory slot human semantics
+
+The Autoexec Builder milestone supplied a reviewed slot mapping on 2026-10-02. Its bilingual labels/descriptions are project community curation in catalog/source/descriptions.json; editorial.meaning records project-curation as source, community confidence, high/tentative strength, review date and contextual notes. This is the provenance of the supplied semantic proposal, not independent game runtime evidence or Valve authorship. Original help, snapshot presence and runtime.verifiedInGame remain untouched. slot11 is community/high, slot12 mode-dependent, slot13 tentative and not promoted to a primary human label. No exact slot3 cycling or possession of unavailable equipment is inferred.
+
+## Applicable constraint integrity
+
+Generation rejects incompatible curated bounds, enum members or defaults against applicable technical domains. A reviewed curated subset remains the effective supported subset. Technical enum names alone do not establish members; an explicit literal member list requires technical field provenance. A parameter scope must name a reviewed source whose build ID matches its declared scope, with an identified snapshot build before differing technical facts can be separated. Differently scoped parameters are retained as evidence but are not mixed into current-snapshot validation, completion or documentation. Unknown build applicability does not authorize an override.

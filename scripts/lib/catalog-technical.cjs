@@ -20,6 +20,14 @@ function technicalSources(snapshot) {
 function attachTechnical(entry, technical, snapshot) {
   const human = Boolean(entry.editorial.en);
   const provenance = {
+    ...(entry.editorial.meaning
+      ? {
+          'editorial.meaning': {
+            source: entry.editorial.meaning.source,
+            confidence: entry.editorial.meaning.confidence,
+          },
+        }
+      : {}),
     ...(entry.editorial.category
       ? { 'editorial.category': { source: 'project-curation', confidence: 'community' } }
       : {}),
@@ -57,7 +65,16 @@ function attachTechnical(entry, technical, snapshot) {
       provenance,
     };
   const source = `source2-${snapshot.revision}-${technical.kind}`;
-  for (const field of ['kind', 'flags', 'dumpValue', 'min', 'max', 'enumName', 'description'])
+  for (const field of [
+    'kind',
+    'flags',
+    'dumpValue',
+    'min',
+    'max',
+    'enumName',
+    'values',
+    'description',
+  ])
     if (technical[field] !== undefined && technical[field] !== null)
       provenance[`technical.${field}`] = { source, confidence: 'snapshot-verified' };
   provenance['runtime.present'] = { source, confidence: 'snapshot-verified' };

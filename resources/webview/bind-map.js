@@ -111,6 +111,8 @@
     description.querySelector('.metadata').prepend(categoryDot(entry.category));
     heading.append(node('h3', inputName(def) ?? entry.key), description);
     root.append(heading, node('pre', entry.action));
+    if (entry.description && entry.description !== entry.meaning)
+      root.append(node('p', entry.description));
     const source = node('div', undefined, 'source-actions');
     source.append(
       reveal(index, 'origin', text('Open source', 'Abrir origem')),

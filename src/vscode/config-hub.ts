@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { randomBytes } from 'node:crypto';
 import { promises as fs } from 'node:fs';
 import * as path from 'node:path';
+import { AutoexecBuilder } from './autoexec-builder';
 import { ConfigFolder, detectConfigFolders } from './config-folder';
 import { isHubMessage, validCfgName, HubAction } from '../core/config-workspace';
 import { descriptionLanguage } from '../core/locale';
@@ -43,7 +44,7 @@ export function videoPage(webview: vscode.Webview, extensionUri: vscode.Uri): st
   const script = webview.asWebviewUri(
     vscode.Uri.joinPath(extensionUri, 'resources', 'webview', 'video-settings.js'),
   );
-  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource}; script-src 'nonce-${nonce}';"><link rel="stylesheet" href="${css}"><title>Video Settings</title></head><body><main><h1 id="video-title"></h1><p id="video-note"></p><p id="video-status" role="status"></p><p id="video-summary"></p><div class="table-scroll"><table><thead id="video-head"></thead><tbody id="video-fields"></tbody></table></div><div class="buttons"><button id="raw-video"></button><button id="open-video"></button><button id="video-connect"></button><button id="video-manual"></button><button id="video-refresh"></button></div></main><script nonce="${nonce}" src="${script}"></script></body></html>`;
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource}; script-src 'nonce-${nonce}';"><link rel="stylesheet" href="${css}"><title>Video Settings</title></head><body><main class="video-screen"><header><h1 id="video-title"></h1><span id="video-mode" class="badge"></span></header><p id="video-note"></p><section class="video-overview"><p id="video-status" role="status"></p><p id="video-summary"></p></section><section id="video-values"><h2 id="video-values-title"></h2><div class="table-scroll"><table><thead id="video-head"></thead><tbody id="video-fields"></tbody></table></div></section><div class="buttons"><button id="open-video"></button><button id="raw-video"></button><button id="video-connect"></button><button id="video-manual"></button><button id="video-refresh"></button></div><details class="video-scope"><summary id="video-scope-title"></summary><p id="video-scope"></p></details></main><script nonce="${nonce}" src="${script}"></script></body></html>`;
 }
 
 interface HubItem {
@@ -90,6 +91,7 @@ class HubTree implements vscode.TreeDataProvider<HubItem> {
 
 export function registerConfigHub(services: Services, context: vscode.ExtensionContext): void {
   const folder = new ConfigFolder(context.globalState, services);
+  const builder = new AutoexecBuilder(services, context, () => folder.snapshot.folder);
   const userdata = new SteamUserdata(context.globalState);
   const rawVideo = vscode.window.createOutputChannel('CS2 Video Settings');
   let videoPanel: vscode.WebviewPanel | undefined;
@@ -140,6 +142,7 @@ export function registerConfigHub(services: Services, context: vscode.ExtensionC
       : []),
   ]);
   const toolsTree = new HubTree(() => [
+    { label: 'Autoexec Builder', command: 'cs2Config.autoexecBuilder', icon: 'edit' },
     {
       label: label('Command Explorer', 'Explorador de comandos'),
       command: 'cs2Config.commandExplorer',
@@ -558,6 +561,8 @@ export function registerConfigHub(services: Services, context: vscode.ExtensionC
             return openSavedFile('video');
           case 'savedControls':
             return openSavedFile('controls');
+          case 'builder':
+            return builder.show();
           case 'explorer':
             return explorer.show();
           case 'revealSettings':
@@ -600,6 +605,10 @@ export function registerConfigHub(services: Services, context: vscode.ExtensionC
 
   context.subscriptions.push(
     folder,
+    builder,
+    vscode.commands.registerCommand('cs2Config.autoexecBuilder', (uri?: vscode.Uri) =>
+      builder.show(uri),
+    ),
     explorer,
     userdata,
     rawVideo,

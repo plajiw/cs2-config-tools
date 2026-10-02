@@ -24,3 +24,11 @@ Validated in development on 2026-10-01 on Windows. The increment shipped in the 
 - Extension Host integration passed using isolated VS Code 1.96.4. Temporary synthetic files cover profile discovery, independent persistence, read-only inspection, unsaved video buffers, watcher updates, malformed/missing video, unavailable-folder recovery and video page creation. Disk content remains unchanged by inspection. Tests never read or write the game installation.
 
 Name-based grouping does not prove authorship or game management. Video field labels are unverified identifiers from the supplied proposal; no game enum meanings, GPU brand, monitor support or defaults are asserted. Resolution/aspect/frequency are arithmetic derived from literal fields. Game-build/runtime verification, full KeyValues grammar, other userdata domains and video writing remain outside this increment.
+
+## Release 1.3.0 validation — 2026-10-02
+
+The user requested a new distribution. Compared against the immutable 1.2.0 VSIX baseline, this release adds unified configuration connection and confirmed CFG removal, refines Bind Map layout, and recognizes +showscores/yaw/pitch with pinned default-key-file references. These compatible new capabilities require a minor increment.
+
+Manifest, lockfile and generated catalog are synchronized. All 78 unit tests, style checks, deterministic catalog check, source Extension Host integration, Bind Map browser and Config Hub browser checks passed. `npm run package` created `artifacts/cs2-config-tools-1.3.0.vsix`; inspection confirmed runtime modules/assets and catalog references, and excluded development sources/tests/tooling. Extension Host integration also passed against the extracted package. Previous distributions remain intact. No local installation, Marketplace publication, Git tag or game execution was performed.
+
+Immutable package reference (SHA-256): `F69043E87FA1C98324C2FE19373F091F87594A3A443C5C973C6B37DB5BAF1CF8`. The packaged contents define the release baseline.

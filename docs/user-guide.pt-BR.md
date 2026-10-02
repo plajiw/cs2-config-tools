@@ -1,12 +1,12 @@
 # Guia de uso
 
-Configura??es e detalhes de funcionamento do CS2 Config Tools. Para conhecer os recursos, veja a [apresenta??o](README.pt-BR.md).
+Configurações e detalhes de funcionamento do CS2 Config Tools. Para conhecer os recursos, veja a [apresentação](README.pt-BR.md).
 
 [English guide](user-guide.md)
 
 ## Começar
 
-Instale o VSIX da pasta `artifacts/` em **Extensões → … → Instalar do VSIX**. Abra uma CFG e selecione **CS2 CFG** no indicador de linguagem. Para reconhecer as CFGs automaticamente e formatar ao salvar, configure o workspace:
+Instale o VSIX da pasta `artifacts/` em **Extensões → … → Instalar do VSIX**. Abra uma CFG do CS2. Em pastas personalizadas, selecione **CS2 CFG** no indicador de linguagem. Para associar uma pasta exclusiva de CS2 e formatar ao salvar, configure o workspace:
 
 ```json
 {
@@ -19,7 +19,13 @@ Instale o VSIX da pasta `artifacts/` em **Extensões → … → Instalar do VSI
 }
 ```
 
-A associação fica no workspace porque outros programas também usam arquivos `.cfg`.
+CFGs em `game/csgo/cfg` e nos perfis Steam em `730/local/cfg` usam **CS2 CFG** automaticamente, inclusive em subpastas. Associações explícitas em `files.associations` têm prioridade. Em outros locais, use o Hub ou o indicador de linguagem; arquivos `.vcfg` não recebem essa associação.
+
+Digite `cl_cross` para comandos de mira, `bind "` para teclas conhecidas ou `bind "x" "` para ações. Sugestões dentro de strings ficam habilitadas por padrão em CS2 CFG; suas configurações do editor podem sobrescrever isso. Use **Ctrl+Espaço** se as sugestões automáticas estiverem desabilitadas.
+
+A política de sugestões continua válida: nomes marcados como ocultos no snapshot, como `cl_crosshairalpha`, exigem `cs2Config.completionMode: "advanced"`. Uma sugestão não comprova comportamento no jogo.
+
+A associação do exemplo fica no workspace exclusivo de CS2 porque outros programas também usam arquivos `.cfg`.
 
 **Conectar configuração**, na Home ou em Workspace, busca a pasta CFG do jogo e o userdata Steam em um único fluxo. Uma pasta/perfil encontrado é proposto automaticamente; vários resultados exigem seleção. Revise os dois caminhos em uma única confirmação antes da leitura do conteúdo. A conexão é local, sem credenciais Steam. A seleção manual continua disponível; sem userdata, escolha **Continuar somente com CFGs**. Cancelar a seleção ou autorização preserva ambas as conexões. As permissões existentes são mantidas. Cada fonte conserva seu estado e pode ser recuperada separadamente quando indisponível.
 
@@ -39,7 +45,7 @@ A barra lateral lista os arquivos, e a Home reúne abertura no editor, **Mapa vi
 
 As contagens excluem o grupo recolhido de nomes típicos do jogo e somam análises independentes por arquivo, sem combinar as CFGs ou representar o jogo em execução. Cada linha distingue resultado parcial de subconjunto modelado, sem certificação de “válido”. São listados até 100 arquivos CFG regulares diretamente na pasta; subpastas e links simbólicos ficam de fora. Arquivos inacessíveis ou acima do limite de análise não têm resumo e ficam fora dos totais analisados. A pasta do hub não altera `cs2Config.cfgRoot`, usado pelos links de exec.
 
-O menu da Home contém apenas ferramentas implementadas: Mapa visual de binds, Verificação da CFG e Nova CFG vazia. Os atalhos usam autoexec.cfg quando existe, ou a primeira CFG visível fora do grupo do jogo; cada linha abre ferramentas para aquele arquivo exato. Pastas vazias permitem criar arquivos. Builders ficam fora do menu até serem implementados. Veja o [estado dos recursos](../FEATURES.md).
+O menu da Home contém apenas ferramentas implementadas: Autoexec Builder, Mapa visual de binds, Verificação da CFG e Nova CFG vazia. Os atalhos usam autoexec.cfg quando existe, ou a primeira CFG visível fora do grupo do jogo; cada linha abre ferramentas para aquele arquivo exato. Pastas vazias permitem criar arquivos. Autoexec Builder funciona também sem pasta conectada; escolha um destino explicitamente. Veja o [estado dos recursos](../FEATURES.md).
 
 ## Configurações
 
@@ -68,6 +74,8 @@ Abra **Explorador de comandos** nas ações rápidas da Home, na barra lateral F
 A página usa o mesmo serviço de documentação do hover, separando resumos comunitários, ajuda original, parâmetros revisados, exemplos e proveniência. **Copiar nome do comando** copia apenas o nome selecionado do registry. Não executa nem insere comandos. Defaults e significados desconhecidos não são inventados. **Buscar comandos** retorna ao seletor. O idioma segue a configuração existente da extensão com fallback em inglês.
 
 ## Agrupamento de arquivos e vídeo salvo
+
+Configurações de vídeo identifica o escopo somente leitura no cabeçalho. Cada configuração reúne um rótulo e sua chave original; o valor literal ao lado continua visível em painéis estreitos. **Sobre estes valores** explica os limites de interpretação. Arquivos ausentes ou desconectados mostram mensagens de recuperação em vez de uma tabela vazia.
 
 A lista principal inclui nomes conhecidos de CFGs do jogador (autoexec, practice, binds, aliases, crosshair e radar) e arquivos não classificados. Em uma pasta típica game/csgo/cfg, nomes gamemode__, gamemap__ e server*.cfg aparecem em um grupo recolhido na Home e na barra lateral. Os rótulos **Suas CFGs** e **Outras CFGs do CS2** identificam os grupos principal/recolhido. É uma heurística por nome, sem comprovar autoria ou gerenciamento pelo jogo; pastas personalizadas não aplicam a heurística do jogo. Todos os arquivos listados continuam acessíveis para edição como texto. O resumo exclui o grupo recolhido; achados parciais continuam limitados a cada arquivo.
 
@@ -125,6 +133,8 @@ O perfil opcional do console registra rejeições de mira em uma build não iden
 
 ## Mapa visual de binds
 
+O mouse tem botões principais espelhados, wheel/M3 central e regiões M4/M5 separadas e embutidas. Regiões do dispositivo e controles adjacentes compartilham seleção, incerteza e categorias; as direções da wheel continuam em controles separados. O teclado preserva sua escala legível com rolagem local.
+
 Com uma CS2 CFG ativa, clique no ícone de teclado na barra superior do editor ou execute **CS2 Config: Abrir mapa de binds**. Se o arquivo abrir como texto simples, selecione primeiro a linguagem **CS2 CFG**. O painel acompanha aquele arquivo, inclusive alterações não salvas; para trocar a origem, ative outra CFG e execute o comando novamente.
 
 - **Explore suas entradas:** selecione qualquer tecla do teclado ANSI proporcional, do numpad ou do mouse. O mouse inclui cinco botões e as duas direções de rolagem. Entradas ausentes desta análise mostram "Nenhum bind encontrado"; elas ainda podem ter binds no jogo.
@@ -137,4 +147,29 @@ O painel é somente leitura. Tab percorre os controles; Enter ou Espaço selecio
 
 Fechar a origem limpa o resultado. Arquivos grandes pausam a análise. Se a análise falhar, **Tentar novamente** solicita outra visualização; erros técnicos ficam no log do Extension Host. Links de visualizações antigas são rejeitados. O mapa não expande CFGs externas, executa corpos de binds ou grava bindings.
 
-Os binds de placar e eixos do mouse (`bind "TAB" "+showscores"`, `bind "MOUSE_X" "yaw"`, `bind "MOUSE_Y" "pitch"`) s?o reconhecidos com descri??es bil?ngues e refer?ncia fixa ao arquivo de teclas padr?o. Isso n?o comprova uma build testada nem permiss?es de execu??o.
+Os binds de placar e eixos do mouse (`bind "TAB" "+showscores"`, `bind "MOUSE_X" "yaw"`, `bind "MOUSE_Y" "pitch"`) são reconhecidos com descrições bilíngues e referência fixa ao arquivo de teclas padrão. Isso não comprova uma build testada nem permissões de execução.
+
+## Autoexec Builder MVP
+
+Abra **Autoexec Builder** em Home → Ações rápidas ou na árvore Ferramentas (comando **CS2: Autoexec Builder**). Escolha uma CFG existente ou um novo destino. Uma pasta conectada sugere autoexec.cfg. Se o arquivo já existe, edite-o ou escolha outro nome; não há fluxo de sobrescrita. Escolher/cancelar o destino não cria arquivo.
+
+1. Escolha uma tecla ou controle de mouse suportado.
+2. Busque a ação pelo comando ou significado humano (fumaça / slot8, granada de luz, molotov / incendiária, arma primária).
+3. Adicione o bind ao rascunho. Restrições numéricas conhecidas de ConVars são validadas pelo registry. Outros parâmetros usam tokens seguros separados por espaços; argumentos entre aspas, escapes, aliases e sequências de comandos ficam fora deste MVP.
+4. Selecione **Revisar alterações**. O diff humano mostra o significado anterior/novo; expanda **Diff técnico da CFG** ou abra o diff completo no editor para conferir a fonte exata.
+5. Se a tecla já possui bind, confira sua ação atual e marque explicitamente **Substituir existente**, depois revise novamente. Teclas duplicadas no rascunho bloqueiam a aplicação.
+6. Revise as notas de incerteza/contexto e confirme sua leitura antes de **Aplicar no editor**. Cancele o preview ou feche o builder para manter o destino intacto.
+
+Alterações em CFG existente permanecem no buffer com Undo normal; salve quando estiver pronto. Arquivos novos são criados exclusivamente por edição do workspace, com o texto gerado aberto no editor. O builder compara versão/texto do buffer e texto em disco com o preview; qualquer mudança intermediária invalida a aplicação e exige nova revisão. Preserva comentários, texto não relacionado, aspas existentes, CRLF/LF e presença de quebra final. Um bind escrito por alias recebe um bind explícito acrescentado; o corpo do alias nunca é reescrito.
+
+Significados de slots são compartilhados com Mapa de binds, hover e completion. slot1–slot10 têm nomes humanos (incluindo **Faca / Corpo a corpo**, **Alternar granadas**, **C4 / Bomba** e **Molotov / Incendiária**). slot11 tem mapeamento comunitário Zeus x27; slot12 é a injeção de cura dependente do modo; slot13 mantém o nome técnico com nota provisória sobre itens utilitários. São explicações comunitárias, não texto original da Valve nem verificação de build do jogo. Itens podem estar indisponíveis. A análise de arquivo único não resolve execs externos ou efeitos dinâmicos; o preview expõe essa incerteza. Nenhuma CFG é executada.
+
+## Segurança e limites da análise
+
+Trocar o destino do Autoexec Builder, cancelar ou fechar o painel invalida o preview revisado. Revise novamente após mudanças no buffer/disco. Os destinos suportados são arquivos regulares UTF-8 de até quatro milhões de bytes e um milhão de caracteres; buffers não salvos excessivos também são rejeitados antes da cópia do texto. Codificação inválida, arquivo inacessível ou alterado produz erro explícito. As edições preservam texto não relacionado, aspas, comentários, quebras de linha e newline final, com undo no editor.
+
+Aliases imediatos seguem a ordem escrita de execução. Uma definição posterior não suprime um aviso anterior de valor; aliases invocados podem criar aliases usados depois. Corpos de binds permanecem adiados. Ciclos aparecem tanto nos diagnósticos quanto no Health; efeitos não resolvidos continuam tornando a análise parcial. Rótulos revisados de slots descrevem apenas ações literais reconhecidas: `slot8 unexpected` mantém a ação bruta sem um significado confiante da ação completa.
+
+Em larguras estreitas do Hub, role a tabela localmente para alcançar as ações; os nomes permanecem em uma linha. A navegação exec verifica lotes limitados e para de agendar ao cancelar. Rejeita nomes absolutos/traversal, mas pode seguir links do sistema de arquivos; não executa nem inclui as CFGs alvo no estado efetivo. Abrir controles salvos seleciona o primeiro arquivo correspondente como atalho, não como o slot efetivo do jogo.
+
+Se o catálogo não carregar, a análise fica indisponível e a extensão orienta reinstalar ou reconstruir o checkout de desenvolvimento. Nunca substitui o catálogo por um vazio.

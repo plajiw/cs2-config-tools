@@ -30,7 +30,7 @@ This is a dependency order, not a release schedule. Preserve working features du
 - Generated changes are previewable and preserve unrelated content.
 - Editor tests do not replace identified game-build/runtime verification.
 
-Health checks and the read-only visual bind map now provide single-file exploration. Builders, workspace analysis and migration remain planned. Templates explain their purpose without universal FPS claims. No automatic CFG execution, game-installation changes or default telemetry belong in the editor workflow.
+Health checks and the read-only visual bind map now provide single-file exploration. The Autoexec Builder MVP now supplies reviewed simple-bind edits. Specialized builders, workspace analysis and migration remain planned. Templates explain their purpose without universal FPS claims. No automatic CFG execution, game-installation changes or default telemetry belong in the editor workflow.
 
 ## Maintained documents
 

@@ -100,7 +100,8 @@ export type HubMessage =
         | 'openVideo'
         | 'revealSettings'
         | 'savedControls'
-        | 'explorer';
+        | 'explorer'
+        | 'builder';
     }
   | { type: HubAction; revision: number; file: string };
 
@@ -126,6 +127,7 @@ export function isHubMessage(value: unknown): value is HubMessage {
       'revealSettings',
       'savedControls',
       'explorer',
+      'builder',
     ].includes(String(message.type))
   )
     return Object.keys(message).length === 1;

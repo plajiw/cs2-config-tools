@@ -5,6 +5,8 @@ src/**
 scripts/**
 tests/**
 docs/planning/**
+docs/audits/**
+docs/development-safety.md
 docs/architecture.md
 docs/data-sources.md
 docs/command-database.md

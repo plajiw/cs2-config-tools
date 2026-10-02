@@ -10,7 +10,6 @@
 
 <p align="center">
   <a href="https://github.com/plajiw/cs2-config-tools/actions/workflows/ci.yml"><img alt="Checks" src="https://github.com/plajiw/cs2-config-tools/actions/workflows/ci.yml/badge.svg" /></a>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.0.4-blue" />
   <img alt="Status" src="https://img.shields.io/badge/status-preview-orange" />
   <img alt="VS Code" src="https://img.shields.io/badge/VS%20Code-%E2%89%A51.96-007ACC" />
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-green" /></a>
@@ -28,10 +27,13 @@ The interface favors human-readable meaning while keeping the underlying CS2 com
 
 ## Current features
 
+- **Command Explorer** — search shared command documentation and copy command names.
+- **Saved video settings** — inspect Steam userdata with readable labels, original keys and literal values, including in narrow panels. Open authorized files for manual text editing.
 - **Configuration Hub** — connect a CS2 CFG folder, browse configuration files and access analysis tools from one place.
+- **Autoexec Builder** — create simple keyboard/mouse binds, search human meanings, review conflicts and human/raw diffs, then apply source-preserving edits.
 - **Visual Bind Map** — inspect keyboard, mouse and numpad bindings with categories, source navigation, reassignment history and uncertainty states.
 - **CFG Health Check** — review syntax, command, parameter and bind findings in one report.
-- **Autocomplete** — discover known commands, ConVars and values while typing.
+- **Autocomplete** — discover known commands, ConVars and values while typing, with automatic language recognition in CS2 CFG directories.
 - **Hover documentation** — see descriptions, current values, known defaults, ranges and reviewed value meanings.
 - **Diagnostics and quick fixes** — identify unknown commands, unfinished strings, invalid values and nearby command-name corrections.
 - **Alias navigation** — jump to local alias definitions and find references.
@@ -45,13 +47,13 @@ CS2 Config Tools is evolving toward a complete configuration workbench rather th
 
 Planned capabilities include:
 
-- visual creation and editing of `autoexec.cfg`;
+- broader visual editing of `autoexec.cfg`;
 - safe bind editing using the same keyboard and mouse components as the Bind Map;
 - crosshair, radar, viewmodel, practice and alias builders;
 - a Config Doctor for explaining why a configuration does not behave as expected;
 - multi-file `exec` relationships and effective-state tracing;
 - CS2 update compatibility and migration assistance;
-- Steam userdata integration and game-saved settings such as video configuration;
+- broader Steam saved-settings models and reviewed visual editing;
 - previewable, source-preserving edits with diff and backup flows.
 
 The detailed product vision is documented in [`FEATURES.md`](FEATURES.md). Implementation order and current status remain tracked separately in the planning documents.
@@ -73,9 +75,9 @@ Understand  →  Visualize  →  Diagnose  →  Create / Edit  →  Maintain
 
 The project is currently in **preview**.
 
-Implemented foundations include the command registry, CFG parser, completion, hover, diagnostics, formatter, local effective analysis, health reporting, the Configuration Hub and the read-only Visual Bind Map.
+Implemented foundations include the command registry, CFG parser, completion, hover, diagnostics, formatter, local effective analysis, health reporting, the Configuration Hub, the read-only Visual Bind Map and the Autoexec Builder MVP.
 
-Workspace-wide analysis, visual builders, source-preserving editing and migration workflows remain incremental future work.
+Workspace-wide analysis, specialized builders, broader source editing and migration workflows remain incremental future work.
 
 See [`docs/planning/status.md`](docs/planning/status.md) for the current implementation state.
 

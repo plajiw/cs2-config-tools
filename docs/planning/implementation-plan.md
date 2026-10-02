@@ -2,13 +2,23 @@
 
 O objetivo é evoluir o protótipo sem reescrever o que já funciona. Cada fase entrega um incremento revisável. Não são datas ou versões prometidas. A [auditoria](architecture-audit.md) compara o estado atual com a [arquitetura](../architecture.md); a [especificação original](master-specification.md) detalha a visão de longo prazo.
 
-A fase 0 está concluída. A fase 1 começou com registry independente, índice completo dos dois dumps, proveniência por campo, comparação de snapshots e promoção explícita. A validação do contrato completo, semântica de ações e restrições de contexto ainda precisa evoluir. Este plano não inicia os builders nem implementa antecipadamente todas as funcionalidades do documento mestre.
+A fase 0 está concluída. A fase 1 começou com registry independente, índice completo dos dois dumps, proveniência por campo, comparação de snapshots e promoção explícita. A validação do contrato completo, semântica de ações e restrições de contexto ainda precisa evoluir. O Autoexec Builder agora implementa somente o MVP de binds autorizado; as demais funcionalidades do documento mestre continuam incrementais.
+
+## Gates antes da ampliação
+
+O incremento de estabilização e polish do MVP tem um [registro próprio](../audits/stabilization-and-polish-pass.md), com capturas, repetição da aceitação e limites. Seu encerramento não conclui as funcionalidades futuras do plano.
+
+Novos builders seguem o [checklist de entrada](../development-safety.md); não ampliam escrita enquanto testes de segurança ou aceitação do host falharem. A análise entre arquivos deve estender o modelo existente com origens/resolver/grafo e incerteza explícita. Veja o [registro das correções](../audits/full-project-audit-2026-10-02-corrections.md).
 
 ## Incremento entregue
 
+O Autoexec Builder MVP entrega o recorte de binds simples da fase 9 e escrita localizada da fase 11: validação compartilhada, diff humano/técnico e aplicação pelo editor com undo e revalidação. Não encerra builders especializados nem escrita semântica geral. Veja [validação e limites](autoexec-builder-validation.md).
+
+O refinamento atual do Bind Map organiza teclado e mouse em seções próprias e mantém o inspector abaixo em todas as larguras. Reutiliza o modelo e os helpers de seleção/estado, sem antecipar edição. A revisão visual inclui capturas reais do Extension Development Host em três larguras nos temas claro e escuro; veja o [registro](bind-map-visual-refinement.md).
+
 O incremento atual integra melhor as fontes e entrega Command Explorer sobre registry/documentação já existentes. Abertura de valores salvos no editor usa acesso autorizado; edição visual, enums de vídeo e safe writer permanecem dependências futuras. Não agrega CFG + userdata como estado efetivo global.
 
-O Config Hub acrescenta navegação por pasta e uma Home sobre as ferramentas existentes: seleção/consentimento, detecção Steam, resumos por arquivo e criação de CFG vazia sem sobrescrita. Não encerra a fase 12: execs e estado efetivo multiarquivo continuam não resolvidos. O menu inclui apenas ferramentas implementadas; builders ficam fora da navegação. O incremento atual conecta userdata de forma independente e expõe vídeo somente leitura; não antecipa escrita, enums verificados nem outros modelos de configurações salvas. Veja [FEATURES](../../FEATURES.md).
+O Config Hub acrescenta navegação por pasta e uma Home sobre as ferramentas existentes: seleção/consentimento, detecção Steam, resumos por arquivo e criação de CFG vazia sem sobrescrita. Não encerra a fase 12: execs e estado efetivo multiarquivo continuam não resolvidos. O menu inclui apenas ferramentas implementadas; o Autoexec Builder MVP agora está disponível. O incremento atual conecta userdata de forma independente e expõe vídeo somente leitura; não antecipa escrita, enums verificados nem outros modelos de configurações salvas. Veja [FEATURES](../../FEATURES.md).
 
 O mapa somente leitura recebeu um [redesign com SVG](bind-map-svg-redesign.md): teclado ANSI proporcional, mouse interativo, filtros e inspector sobre o modelo compartilhado. Essa entrega prepara os componentes visuais para builders, mas não habilita escrita de binds.
 
@@ -22,7 +32,7 @@ O mapa somente leitura recebeu um [redesign com SVG](bind-map-svg-redesign.md): 
 | 6    | Inlays opcionais de significados revisados                                                                             | Cores e CodeLens apenas quando úteis e fundamentados                          |
 | 7    | Health check textual sobre a análise compartilhada                                                                     | Relatório mais explicativo e ações vinculadas aos achados                     |
 
-Esses são incrementos funcionais; não significam que cada fase esteja integralmente encerrada. A fase 8 agora oferece um mapa de binds somente leitura sobre o modelo compartilhado, com navegação de origem e atualização durante a edição. O layout é uma referência QWERTY; nomes não representados ficam acessíveis na lista. A revisão em navegador cobriu DOM real, teclado, foco e capturas; veja o [registro de validação](bind-map-validation.md). A validação no host continua necessária antes de encerrar a fase. Nenhum builder foi registrado antecipadamente.
+Esses são incrementos funcionais; não significam que cada fase esteja integralmente encerrada. A fase 8 agora oferece um mapa de binds somente leitura sobre o modelo compartilhado, com navegação de origem e atualização durante a edição. O layout é uma referência QWERTY; nomes não representados ficam acessíveis na lista. A revisão em navegador cobriu DOM real, teclado, foco e capturas; veja o [registro de validação](bind-map-validation.md). A validação no host continua necessária antes de encerrar a fase. Autoexec Builder MVP foi registrado junto com sua implementação funcional.
 
 ## Fases e critérios
 

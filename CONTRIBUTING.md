@@ -78,3 +78,9 @@ Explain what users can do and how to use it. Describe available features separat
 The files in `tests/fixtures/` are user-supplied reference configurations. Preserve local edits and review personal information before publishing the repository. Fixtures, source evidence, logs and planning documents are excluded from the extension package. Generated builds belong in `dist/` and distributable packages in `artifacts/`.
 
 Describe what changed and how you checked it. Keep version details in `package.json` and release history in `CHANGELOG.md`; public guides should explain the project without depending on catalog counts.
+
+For Autoexec Builder visual acceptance, run `npm run test:builder-host`. This opens an isolated Extension Development Host with synthetic CFGs, checks conflicts/cancel/apply, undo and stale-source rejection, and captures narrow/medium/wide layouts under a unique `.test-output/autoexec-builder-host-*` directory. It never executes CFGs or modifies the game installation.
+
+## Incremental safety review
+
+Use the [feature entry checklist](docs/development-safety.md) for changes involving writes, semantics, filesystem work or WebViews. Architectural changes need a demonstrated problem. Passing tests and screenshots are evidence with limits, not proof of architecture or UX quality.

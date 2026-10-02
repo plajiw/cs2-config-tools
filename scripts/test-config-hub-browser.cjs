@@ -9,7 +9,9 @@ const { configSummary } = require('../dist/core/config-workspace');
 const { parse } = require('../dist/core/parser');
 const { CommandRegistry } = require('../dist/catalog/registry');
 const root = path.resolve(__dirname, '..');
-const output = path.join(root, '.test-output', 'config-hub-browser');
+fs.mkdirSync(path.join(root, '.test-output'), { recursive: true });
+const output = fs.mkdtempSync(path.join(root, '.test-output', 'config-hub-browser-'));
+const { browserPort } = require('./lib/test-lifecycle.cjs');
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function run() {
@@ -91,9 +93,7 @@ async function run() {
   let socket;
   let id = 0;
   try {
-    const portFile = path.join(profile, 'DevToolsActivePort');
-    for (let attempt = 0; attempt < 100 && !fs.existsSync(portFile); attempt++) await delay(100);
-    const port = Number(fs.readFileSync(portFile, 'utf8').split('\n')[0]);
+    const port = await browserPort(path.join(profile, 'DevToolsActivePort'), child);
     const target = await (
       await fetch(
         `http://127.0.0.1:${port}/json/new?${encodeURIComponent(pathToFileURL(path.join(output, 'index.html')).href)}`,
@@ -202,6 +202,9 @@ async function run() {
       windowsVirtualKeyCode: 13,
     });
     assert.deepEqual(await evaluate('smoke.messages.at(-1)'), { type: 'new' });
+    await evaluate("document.querySelector('#quick [data-action=builder]').click()");
+    assert.deepEqual(await evaluate('smoke.messages.at(-1)'), { type: 'builder' });
+    await evaluate("document.querySelector('#new').focus()");
     await evaluate("window.postMessage({...smoke.state, revision: 2, pt: true}, '*')");
     await delay(100);
     assert.equal(await evaluate('document.documentElement.lang'), 'pt-BR');
@@ -251,7 +254,7 @@ async function run() {
       await evaluate(
         `Object.entries(${JSON.stringify(variables)}).forEach(([key,value]) => document.documentElement.style.setProperty('--vscode-'+key,value))`,
       );
-      for (const width of [1440, 420]) {
+      for (const width of [1440, 900, 420]) {
         await send('Emulation.setDeviceMetricsOverride', {
           width,
           height: 1050,
@@ -260,16 +263,53 @@ async function run() {
         });
         await delay(100);
         assert.equal(
+          await evaluate(
+            `Array.from(document.querySelectorAll('.file-link')).every(link => getComputedStyle(link).whiteSpace === 'nowrap' && link.scrollWidth <= link.clientWidth + 1)`,
+          ),
+          true,
+          `${theme} ${width} filenames remain readable on one line`,
+        );
+        assert.equal(
           await evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),
           true,
           `${theme} ${width} page fits`,
         );
+        if (width === 420) {
+          assert.equal(
+            await evaluate(
+              `(()=>{const table=document.querySelector('.table-scroll');const action=table.querySelector('.row-actions button');action.focus();return table.scrollLeft>0 && document.activeElement===action})()`,
+            ),
+            true,
+            'Narrow offscreen row action is keyboard-reachable in its local table',
+          );
+          await evaluate(
+            `document.querySelector('.table-scroll').scrollLeft=0;document.querySelector('#quick button').focus();window.scrollTo(0,0);true`,
+          );
+        }
         const shot = await send('Page.captureScreenshot', { captureBeyondViewport: true });
         fs.writeFileSync(
           path.join(output, `${theme}-${width}.png`),
           Buffer.from(shot.data, 'base64'),
         );
       }
+      await evaluate(
+        `window.postMessage({...smoke.state, revision: 2, files:[{...smoke.state.files[0],name:'practice-team-weekend-custom.cfg'}]}, '*')`,
+      );
+      await delay(100);
+      assert.equal(
+        await evaluate(
+          `getComputedStyle(document.querySelector('.file-link')).whiteSpace==='nowrap'`,
+        ),
+        true,
+        'Long filename stays recognizable',
+      );
+      const longShot = await send('Page.captureScreenshot', { captureBeyondViewport: true });
+      fs.writeFileSync(
+        path.join(output, `${theme}-long-420.png`),
+        Buffer.from(longShot.data, 'base64'),
+      );
+      await evaluate(`window.postMessage(smoke.state,'*')`);
+      await delay(100);
     }
     await evaluate("window.postMessage({...smoke.state, files: [], revision: 3}, '*')");
     await delay(100);
@@ -349,6 +389,31 @@ async function run() {
     );
     await delay(100);
     assert.equal(await evaluate("document.getElementById('raw-video').disabled"), true);
+    assert.equal(await evaluate("document.getElementById('video-values').hidden"), true);
+    assert.ok(
+      await evaluate(
+        "document.getElementById('video-status').textContent.includes('cs2_video.txt')",
+      ),
+    );
+    await evaluate("window.postMessage(smoke.state,'*')");
+    await delay(100);
+    await send('Emulation.setDeviceMetricsOverride', {
+      width: 420,
+      height: 1000,
+      deviceScaleFactor: 1,
+      mobile: false,
+    });
+    assert.ok(
+      await evaluate(
+        "[...document.querySelectorAll('.raw-value')].every(el=>{const r=el.getBoundingClientRect();return r.left>=0&&r.right<=innerWidth})",
+      ),
+      'Literal values remain visible at narrow widths',
+    );
+    assert.ok(
+      await evaluate(
+        "document.querySelectorAll('.raw-key').length===5 && document.querySelector('#video-mode').textContent.length>0",
+      ),
+    );
     let explorerHtml = explorerPage(
       { cspSource: 'file:', asWebviewUri: (value) => value },
       pathToFileURL(root).href,

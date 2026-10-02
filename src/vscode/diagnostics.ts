@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { analyze, Finding } from '../core/diagnostics';
+import { analyze } from '../core/diagnostics';
 import { parameterFindings } from '../core/parameters';
 import { bindFindings } from '../core/binds';
 import { findingMessage } from '../core/finding-message';
@@ -41,20 +41,16 @@ export function registerDiagnostics(services: Services, context: vscode.Extensio
           names,
           services.registry.reportedRejections(settings.get('consoleEvidence', 'none')),
           compatibility,
+          services.effective(doc).aliasResolution,
         ),
         ...(settings.get('parameterValidation', true)
-          ? parameterFindings(parsed(doc), services.registry)
+          ? parameterFindings(
+              parsed(doc),
+              services.registry,
+              services.effective(doc).aliasResolution,
+            )
           : []),
         ...(bindSeverity === 'off' ? [] : bindFindings(services.effective(doc))),
-        ...services
-          .effective(doc)
-          .limits.filter((limit) => limit.code === 'alias-cycle' && limit.statement)
-          .map<Finding>((limit) => ({
-            start: limit.statement!.tokens[0].contentStart,
-            end: limit.statement!.tokens[0].contentEnd,
-            code: 'alias-cycle',
-            severity: 'warning' as const,
-          })),
       ]
         .filter((f) => f.code !== 'unknown' || unknown !== 'off')
         .map((f) => {

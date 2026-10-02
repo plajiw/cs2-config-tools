@@ -1,7 +1,10 @@
 import * as vscode from 'vscode';
+import { humanMeaning } from '../core/human-meaning';
+import { descriptionLanguage } from '../core/locale';
 import { aliases } from '../core/parser';
 import { completionContext } from '../core/completion';
 import { CatalogEntry } from '../catalog/types';
+import { applicableParameter } from '../catalog/registry';
 import { Services, selector, ui } from './services';
 import { markdown } from './documentation';
 
@@ -86,13 +89,14 @@ export function registerCompletion(services: Services): vscode.Disposable {
           values = ['autoexec.cfg', 'practice.cfg'].map((label) => ({ label }));
         } else {
           const entry = c.name ? entries.get(c.name) : undefined;
+          const parameter = applicableParameter(entry);
           const argumentExamples = [
             ...(entry?.documentationExamples?.map((example) => example.arguments) ?? []),
             ...(entry?.examples ?? []),
           ];
           values =
-            c.argumentIndex === 1 && entry?.parameter?.values
-              ? entry.parameter.values.map((value) => ({ label: value.value, entry }))
+            c.argumentIndex === 1 && parameter?.values
+              ? parameter.values.map((value) => ({ label: value.value, entry }))
               : [
                   ...new Set(
                     argumentExamples
@@ -128,9 +132,19 @@ export function registerCompletion(services: Services): vscode.Disposable {
                         ? 'ConVar'
                         : 'Entrada comunitária',
                   );
+            if (value.entry && c.argumentIndex === 0) {
+              const meaning = humanMeaning(
+                value.entry,
+                descriptionLanguage(
+                  services.config(doc).get('descriptionLanguage', 'en'),
+                  vscode.env.language,
+                ),
+              );
+              if (meaning.label) item.detail = meaning.label;
+            }
             if (value.entry) item.documentation = markdown(value.entry, doc);
-            if (c.argumentIndex === 1 && value.entry?.parameter?.values) {
-              const option = value.entry.parameter.values.find(
+            if (c.argumentIndex === 1 && applicableParameter(value.entry)?.values) {
+              const option = applicableParameter(value.entry)!.values!.find(
                 (option) => option.value === value.label,
               );
               const selectedLanguage = services

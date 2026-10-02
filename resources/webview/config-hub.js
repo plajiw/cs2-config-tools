@@ -43,6 +43,7 @@
         'detectSettings',
         'connectSettings',
         'explorer',
+        'builder',
       ].includes(action);
     return element;
   }
@@ -213,6 +214,7 @@
       ])
         $('quick').append(button(`${title} · ${firstFile}`, action, firstFile));
     }
+    $('quick').append(button('Autoexec Builder', 'builder'));
     $('quick').append(button(t('Create CFG', 'Criar CFG'), 'new'));
     $('quick').append(button(t('Command Explorer', 'Explorador de comandos'), 'explorer'));
   }

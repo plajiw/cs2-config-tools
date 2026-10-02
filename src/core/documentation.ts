@@ -1,5 +1,6 @@
+import { humanMeaning } from './human-meaning';
 import { CatalogEntry } from '../catalog/types';
-import { parameterMeaning } from '../catalog/registry';
+import { parameterMeaning, applicableParameter, parameterBounds } from '../catalog/registry';
 
 export type DocumentationBlock =
   | { kind: 'text'; text: string }
@@ -28,8 +29,30 @@ export function documentation(
     { kind: 'code', text: entry.name },
     { kind: 'text', text: text || label('No description available.', 'Descrição indisponível.') },
   ];
+  const meaning = humanMeaning(entry, options.language);
+  if (meaning.label) blocks.splice(1, 0, { kind: 'heading', text: meaning.label });
+  if (meaning.evidence)
+    blocks.push({
+      kind: 'field',
+      label: label('Semantic kind', 'Tipo semântico'),
+      value: label('Inventory slot command', 'Comando de slot do inventário'),
+    });
+  if (meaning.evidence)
+    blocks.push({
+      kind: 'field',
+      label: label('Semantic evidence', 'Evidência semântica'),
+      value:
+        label(
+          'Community curation; not runtime-verified',
+          'Curadoria comunitária; não verificada no jogo',
+        ) +
+        ' · ' +
+        meaning.evidence.strength +
+        ' · ' +
+        meaning.evidence.reviewDate,
+    });
   const technical = entry.technical;
-  const parameter = entry.parameter;
+  const parameter = applicableParameter(entry);
   const field = (title: string, value: string) =>
     blocks.push({ kind: 'field', label: title, value });
   const valueMeaning = (value: string) => {
@@ -41,8 +64,7 @@ export function documentation(
     field(label('Current value', 'Valor atual'), valueMeaning(options.currentArguments[0]));
   if (parameter?.default !== undefined)
     field(label('Default', 'Padrão'), valueMeaning(parameter.default));
-  const min = technical?.min ?? parameter?.min;
-  const max = technical?.max ?? parameter?.max;
+  const { min, max } = parameterBounds(entry);
   if (min !== undefined || max !== undefined)
     field(
       label('Allowed range', 'Intervalo permitido'),

@@ -27,3 +27,7 @@ The editor-independent registry under `src/catalog/` provides indexed lookup and
 Introduce semantic actions only as verified. Bind/alias/exec structural behavior must be shared; buy and inventory actions need reviewed definitions before builders can explain them confidently. Unknown semantics remain representable and must not prevent source preservation.
 
 The first increment routes existing features through the registry without rewriting the parser or renaming user settings. Move duplicated evidence and action lists incrementally with regression coverage.
+
+## Constraint consumers
+
+Use registry `applicableParameter` and `parameterBounds` rather than reimplementing source precedence. Compatible curated subsets constrain the reviewed editor domain; explicitly scoped parameters for another build are not current defaults or accepted ranges. Catalog validation rejects unresolved applicable conflicts before generation. Complete-action human meaning uses shared core action-shape checks; a recognized command name alone does not validate its arguments.

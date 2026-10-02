@@ -1,5 +1,11 @@
 const vscode = require('vscode');
 const assert = require('node:assert/strict');
+
+async function waitForState(check, message) {
+  const deadline = Date.now() + 3000;
+  while (!check() && Date.now() < deadline) await new Promise((resolve) => setTimeout(resolve, 25));
+  assert.ok(check(), message);
+}
 const fs = require('node:fs');
 const path = require('node:path');
 exports.run = async () => {
@@ -8,8 +14,53 @@ exports.run = async () => {
   const extension = vscode.extensions.getExtension(`${manifest.publisher}.${manifest.name}`);
   assert.ok(extension, 'Extension is installed in the development host');
   await extension.activate();
-  const directory = path.join(root, '.test-output');
+  const directory =
+    process.env.CS2_CFG_TEST_OUTPUT ||
+    fs.mkdtempSync(path.join(root, '.test-output', 'integration-direct-'));
   fs.mkdirSync(directory, { recursive: true });
+  // Open real paths without forcing the language, as users do from Explorer.
+  for (const relative of [
+    'game/csgo/cfg/autoexec.cfg',
+    'game/csgo/cfg/custom/binds.cfg',
+    '730/local/cfg/player.cfg',
+  ]) {
+    const target = path.join(directory, relative);
+    fs.mkdirSync(path.dirname(target), { recursive: true });
+    fs.writeFileSync(target, 'cl_cross\nbind "\nbind "x" "');
+    const automatic = await vscode.workspace.openTextDocument(vscode.Uri.file(target));
+    assert.equal(automatic.languageId, 'cs2cfg', relative);
+    await vscode.window.showTextDocument(automatic);
+    for (const [line, expected] of [
+      [0, 'cl_crosshaircolor_r'],
+      [1, 'MOUSE1'],
+      [2, '+attack'],
+    ]) {
+      const result = await vscode.commands.executeCommand(
+        'vscode.executeCompletionItemProvider',
+        automatic.uri,
+        new vscode.Position(line, automatic.lineAt(line).text.length),
+      );
+      assert.ok(
+        result.items.some((item) => item.label === expected),
+        `${relative}: ${expected}`,
+      );
+    }
+    assert.equal(
+      vscode.workspace.getConfiguration('editor', automatic).get('quickSuggestions').strings,
+      'on',
+    );
+  }
+  for (const relative of [
+    'other-app/settings.cfg',
+    'other-game/cfg/autoexec.cfg',
+    '730/local/cfg/controls.vcfg',
+  ]) {
+    const target = path.join(directory, relative);
+    fs.mkdirSync(path.dirname(target), { recursive: true });
+    fs.writeFileSync(target, 'cl_cross');
+    const unrelated = await vscode.workspace.openTextDocument(vscode.Uri.file(target));
+    assert.notEqual(unrelated.languageId, 'cs2cfg', relative);
+  }
   fs.writeFileSync(path.join(directory, 'practice.cfg'), 'bot_add_t\n');
   const fixture = path.join(directory, 'integration.cfg');
   const text =
@@ -222,7 +273,11 @@ exports.run = async () => {
   assert.ok(definitions.length, 'Alias definition');
   const links = await vscode.commands.executeCommand('vscode.executeLinkProvider', doc.uri);
   assert.ok(
-    links.some((link) => link.target?.fsPath === path.join(directory, 'practice.cfg')),
+    links.some(
+      (link) =>
+        link.target?.toString() ===
+        vscode.Uri.file(path.join(directory, 'practice.cfg')).toString(),
+    ),
     'Exec target resolves',
   );
   await new Promise((resolve) => setTimeout(resolve, 600));
@@ -428,6 +483,7 @@ exports.run = async () => {
   const subscriptions = [];
   const folderServices = createServices({ extensionPath: extension.extensionPath, subscriptions });
   const configFolder = new ConfigFolder(memory, folderServices);
+  let primaryFailure;
   const temporary = fs.mkdtempSync(path.join(directory, 'hub-'));
   const synthetic = path.join(temporary, 'autoexec.cfg');
   fs.writeFileSync(synthetic, 'bind q slot1\nexec missing\n');
@@ -457,6 +513,10 @@ exports.run = async () => {
     edit.insert(openHubDoc.uri, new vscode.Position(0, 0), 'bind w slot2\n');
     assert.ok(await vscode.workspace.applyEdit(edit));
     await configFolder.refresh();
+    await waitForState(
+      () => configFolder.snapshot.files[0]?.summary?.binds === 2,
+      'Hub publishes unsaved source after watcher refresh',
+    );
     assert.equal(configFolder.snapshot.files[0].summary.binds, 2, 'Hub includes unsaved text');
     assert.equal(
       fs.readFileSync(synthetic, 'utf8'),
@@ -465,6 +525,10 @@ exports.run = async () => {
     );
     const newCfg = await configFolder.createEmpty('new.cfg', configFolder.snapshot.folder);
     assert.equal(fs.readFileSync(newCfg.fsPath, 'utf8'), '');
+    await waitForState(
+      () => configFolder.snapshot.files.length === 2,
+      'Hub publishes the exclusively created CFG',
+    );
     assert.equal(configFolder.snapshot.files.length, 2);
     await assert.rejects(
       configFolder.prepareRemoval('autoexec.cfg'),
@@ -478,6 +542,10 @@ exports.run = async () => {
       fs.existsSync(newCfg.fsPath),
       false,
       'Requested synthetic CFG removal uses editor Trash',
+    );
+    await waitForState(
+      () => configFolder.snapshot.files.length === 1,
+      'Hub publishes removal after the filesystem notification',
     );
     assert.equal(configFolder.snapshot.files.length, 1);
     const restored = new ConfigFolder(memory, folderServices);
@@ -572,17 +640,6 @@ exports.run = async () => {
       await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
     } finally {
       settings.dispose();
-      if (fs.existsSync(videoPath)) fs.unlinkSync(videoPath);
-      const controlsPath = path.join(settingsFolder, 'cs2_user_keys_0_slot0.vcfg');
-      if (fs.existsSync(controlsPath)) fs.unlinkSync(controlsPath);
-      for (const relative of [
-        'userdata/123/730/local/cfg',
-        'userdata/123/730/local',
-        'userdata/123/730',
-        'userdata/123',
-        'userdata',
-      ])
-        fs.rmdirSync(path.join(temporary, relative));
     }
     await vscode.commands.executeCommand('cs2Config.commandExplorer');
     await vscode.commands.executeCommand('workbench.action.closeQuickOpen');
@@ -590,18 +647,23 @@ exports.run = async () => {
     const home = await vscode.commands.executeCommand('cs2Config.home');
     assert.ok(home && Array.isArray(home.files), 'Home command opens a functional WebView');
     await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
+  } catch (error) {
+    primaryFailure = error;
+    console.error('PRIMARY FAILURE:', error);
+    throw error;
   } finally {
     configFolder.dispose();
     subscriptions.forEach((subscription) => subscription.dispose());
-    // Only known synthetic files created by this test are removed.
-    for (const name of ['autoexec.cfg', 'notes.txt', 'new.cfg']) {
-      const target = path.join(temporary, name);
-      if (fs.existsSync(target)) fs.unlinkSync(target);
-    }
-    fs.unlinkSync(path.join(nested, 'hidden.cfg'));
-    fs.rmdirSync(nested);
-    fs.rmdirSync(temporary);
+    await require('../../scripts/lib/test-lifecycle.cjs').cleanupOwned(
+      temporary,
+      directory,
+      primaryFailure,
+    );
   }
+  await vscode.workspace
+    .getConfiguration('cs2Config')
+    .update('descriptionLanguage', 'en', vscode.ConfigurationTarget.Global);
+  await require('./autoexec-builder.cjs').checkBuilder(root);
   console.log(
     'PASS: Extension Host integration: completion, bilingual hover, definitions, links, diagnostics, CFG coverage, formatting, config hub, folder persistence, unsaved analysis, exclusive creation and read-only userdata/video lifecycle.',
   );

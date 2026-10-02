@@ -3,6 +3,7 @@ import { aliasAt, atOffset } from '../core/parser';
 import { Services, selector, ui } from './services';
 import { markdown } from './documentation';
 import { execTarget } from './paths';
+import { resolveDocumentLinks } from './document-links';
 import { registerCompletion } from './completion';
 
 export function registerProviders(services: Services, context: vscode.ExtensionContext): void {
@@ -79,22 +80,18 @@ export function registerProviders(services: Services, context: vscode.ExtensionC
     }),
     vscode.languages.registerDocumentLinkProvider(selector, {
       async provideDocumentLinks(doc, cancellation) {
-        const links = await Promise.all(
-          parsed(doc)
-            .statements.filter((s) => s.tokens[0].value === 'exec' && s.tokens[1])
-            .map(async (s) => {
-              const target = await execTarget(doc, s.tokens[1]);
-              return target
-                ? new vscode.DocumentLink(
-                    range(doc, s.tokens[1].contentStart, s.tokens[1].contentEnd),
-                    target,
-                  )
-                : undefined;
-            }),
+        const links = await resolveDocumentLinks(
+          parsed(doc).statements,
+          () => cancellation.isCancellationRequested,
+          (s) => execTarget(doc, s.tokens[1]),
         );
-        return cancellation.isCancellationRequested
-          ? []
-          : links.filter((link): link is vscode.DocumentLink => !!link);
+        return links.map(
+          ({ statement: s, target }) =>
+            new vscode.DocumentLink(
+              range(doc, s.tokens[1].contentStart, s.tokens[1].contentEnd),
+              target,
+            ),
+        );
       },
     }),
     vscode.commands.registerCommand('cs2Config.selectLanguage', async () => {

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "version": "1.2.0",
+  "version": "1.4.1",
   "buildId": null,
   "sources": {
     "arminc-console-2025": {
@@ -306640,9 +306640,21 @@
       "kind": "command",
       "original": null,
       "editorial": {
-        "en": "Select inventory slot 1; contents depend on the loadout.",
-        "pt-BR": "Seleciona o slot 1 do inventário; conteúdo depende do loadout.",
-        "category": "weapons"
+        "en": "Selects the primary weapon when available.",
+        "pt-BR": "Seleciona a arma primária quando disponível.",
+        "category": "weapons",
+        "meaning": {
+          "label": {
+            "en": "Primary Weapon",
+            "pt-BR": "Arma primária"
+          },
+          "semanticKind": "inventory-slot",
+          "confidence": "community",
+          "strength": "high",
+          "source": "project-curation",
+          "reviewDate": "2026-10-02",
+          "notes": "User-reviewed milestone mapping; item availability depends on mode/loadout. No in-game runtime validation."
+        }
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -306661,6 +306673,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.meaning": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.category": {
           "source": "project-curation",
           "confidence": "community"
@@ -306720,9 +306736,21 @@
       "kind": "command",
       "original": null,
       "editorial": {
-        "en": "Select inventory slot 10; contents depend on the loadout.",
-        "pt-BR": "Seleciona o slot 10 do inventário; conteúdo depende do loadout.",
-        "category": "grenades"
+        "en": "Selects the available fire grenade: Molotov or Incendiary Grenade depending on team/loadout.",
+        "pt-BR": "Seleciona a granada de fogo disponível: Molotov ou incendiária conforme equipe/loadout.",
+        "category": "grenades",
+        "meaning": {
+          "label": {
+            "en": "Molotov / Incendiary",
+            "pt-BR": "Molotov / Incendiária"
+          },
+          "semanticKind": "inventory-slot",
+          "confidence": "community",
+          "strength": "high",
+          "source": "project-curation",
+          "reviewDate": "2026-10-02",
+          "notes": "User-reviewed milestone mapping; item availability depends on mode/loadout. No in-game runtime validation."
+        }
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -306741,6 +306769,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.meaning": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.category": {
           "source": "project-curation",
           "confidence": "community"
@@ -306800,21 +306832,52 @@
       "kind": "command",
       "original": null,
       "editorial": {
-        "en": ""
+        "en": "Community mapping: Zeus x27 when available; not runtime-verified.",
+        "pt-BR": "Mapeamento comunitário: Zeus x27 quando disponível; não verificado no jogo.",
+        "category": "weapons",
+        "meaning": {
+          "label": {
+            "en": "Zeus x27",
+            "pt-BR": "Zeus x27"
+          },
+          "semanticKind": "inventory-slot",
+          "confidence": "community",
+          "strength": "high",
+          "source": "project-curation",
+          "reviewDate": "2026-10-02",
+          "notes": "User-reviewed milestone mapping; item availability depends on mode/loadout. No in-game runtime validation."
+        }
       },
       "verification": "pending",
       "requiresCheats": "unknown",
       "examples": [],
       "sources": [
-        "source2-6ac247908a83c309b37314fd097c47dc78103746-command"
+        "source2-6ac247908a83c309b37314fd097c47dc78103746-command",
+        "project-curation"
       ],
       "reportedRejection": null,
-      "catalogStatus": "verified",
+      "catalogStatus": "curated",
       "lifecycle": "unknown",
       "documentation": {
-        "reviewed": false
+        "reviewed": true
       },
       "provenance": {
+        "editorial.meaning": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "editorial.en": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "editorial.pt-BR": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "technical.kind": {
           "source": "source2-6ac247908a83c309b37314fd097c47dc78103746-command",
           "confidence": "snapshot-verified"
@@ -306862,21 +306925,52 @@
       "kind": "command",
       "original": null,
       "editorial": {
-        "en": ""
+        "en": "Selects the Healthshot when available in the current game mode/loadout.",
+        "pt-BR": "Seleciona a injeção de cura quando disponível no modo/loadout atual.",
+        "category": "utility",
+        "meaning": {
+          "label": {
+            "en": "Healthshot",
+            "pt-BR": "Injeção de cura"
+          },
+          "semanticKind": "inventory-slot",
+          "confidence": "community",
+          "strength": "high",
+          "source": "project-curation",
+          "reviewDate": "2026-10-02",
+          "notes": "User-reviewed milestone mapping; item availability depends on mode/loadout. No in-game runtime validation."
+        }
       },
       "verification": "pending",
       "requiresCheats": "unknown",
       "examples": [],
       "sources": [
-        "source2-6ac247908a83c309b37314fd097c47dc78103746-command"
+        "source2-6ac247908a83c309b37314fd097c47dc78103746-command",
+        "project-curation"
       ],
       "reportedRejection": null,
-      "catalogStatus": "verified",
+      "catalogStatus": "curated",
       "lifecycle": "unknown",
       "documentation": {
-        "reviewed": false
+        "reviewed": true
       },
       "provenance": {
+        "editorial.meaning": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "editorial.en": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "editorial.pt-BR": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "technical.kind": {
           "source": "source2-6ac247908a83c309b37314fd097c47dc78103746-command",
           "confidence": "snapshot-verified"
@@ -306924,21 +307018,52 @@
       "kind": "command",
       "original": null,
       "editorial": {
-        "en": ""
+        "en": "Tentative community mapping: utility items; not runtime-verified.",
+        "pt-BR": "Mapeamento comunitário provisório: itens utilitários; não verificado no jogo.",
+        "category": "utility",
+        "meaning": {
+          "label": {
+            "en": "Utility Items",
+            "pt-BR": "Itens utilitários"
+          },
+          "semanticKind": "inventory-slot",
+          "confidence": "community",
+          "strength": "tentative",
+          "source": "project-curation",
+          "reviewDate": "2026-10-02",
+          "notes": "User-reviewed milestone mapping; item availability depends on mode/loadout. No in-game runtime validation."
+        }
       },
       "verification": "pending",
       "requiresCheats": "unknown",
       "examples": [],
       "sources": [
-        "source2-6ac247908a83c309b37314fd097c47dc78103746-command"
+        "source2-6ac247908a83c309b37314fd097c47dc78103746-command",
+        "project-curation"
       ],
       "reportedRejection": null,
-      "catalogStatus": "verified",
+      "catalogStatus": "curated",
       "lifecycle": "unknown",
       "documentation": {
-        "reviewed": false
+        "reviewed": true
       },
       "provenance": {
+        "editorial.meaning": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "editorial.en": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "editorial.pt-BR": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "technical.kind": {
           "source": "source2-6ac247908a83c309b37314fd097c47dc78103746-command",
           "confidence": "snapshot-verified"
@@ -306986,9 +307111,21 @@
       "kind": "command",
       "original": null,
       "editorial": {
-        "en": "Select inventory slot 2; contents depend on the loadout.",
-        "pt-BR": "Seleciona o slot 2 do inventário; conteúdo depende do loadout.",
-        "category": "weapons"
+        "en": "Selects the secondary weapon / pistol when available.",
+        "pt-BR": "Seleciona a arma secundária / pistola quando disponível.",
+        "category": "weapons",
+        "meaning": {
+          "label": {
+            "en": "Secondary Weapon",
+            "pt-BR": "Arma secundária"
+          },
+          "semanticKind": "inventory-slot",
+          "confidence": "community",
+          "strength": "high",
+          "source": "project-curation",
+          "reviewDate": "2026-10-02",
+          "notes": "User-reviewed milestone mapping; item availability depends on mode/loadout. No in-game runtime validation."
+        }
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -307007,6 +307144,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.meaning": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.category": {
           "source": "project-curation",
           "confidence": "community"
@@ -307066,9 +307207,21 @@
       "kind": "command",
       "original": null,
       "editorial": {
-        "en": "Select inventory slot 3; contents depend on the loadout.",
-        "pt-BR": "Seleciona o slot 3 do inventário; conteúdo depende do loadout.",
-        "category": "weapons"
+        "en": "Selects melee-related equipment when available; exact cycling behavior is not runtime-verified.",
+        "pt-BR": "Seleciona equipamento de corpo a corpo quando disponível; o ciclo exato não foi verificado no jogo.",
+        "category": "weapons",
+        "meaning": {
+          "label": {
+            "en": "Knife / Melee",
+            "pt-BR": "Faca / Corpo a corpo"
+          },
+          "semanticKind": "inventory-slot",
+          "confidence": "community",
+          "strength": "high",
+          "source": "project-curation",
+          "reviewDate": "2026-10-02",
+          "notes": "User-reviewed milestone mapping; item availability depends on mode/loadout. No in-game runtime validation."
+        }
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -307087,6 +307240,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.meaning": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.category": {
           "source": "project-curation",
           "confidence": "community"
@@ -307146,8 +307303,21 @@
       "kind": "command",
       "original": null,
       "editorial": {
-        "en": "Select inventory slot 4; contents depend on the loadout.",
-        "pt-BR": "Seleciona o slot 4 do inventário; conteúdo depende do loadout."
+        "en": "Cycles through grenades currently available to the player.",
+        "pt-BR": "Alterna entre as granadas disponíveis para o jogador.",
+        "category": "grenades",
+        "meaning": {
+          "label": {
+            "en": "Cycle Grenades",
+            "pt-BR": "Alternar granadas"
+          },
+          "semanticKind": "inventory-slot",
+          "confidence": "community",
+          "strength": "high",
+          "source": "project-curation",
+          "reviewDate": "2026-10-02",
+          "notes": "User-reviewed milestone mapping; item availability depends on mode/loadout. No in-game runtime validation."
+        }
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -307166,6 +307336,14 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.meaning": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -307221,8 +307399,21 @@
       "kind": "command",
       "original": null,
       "editorial": {
-        "en": "Select inventory slot 5; contents depend on the loadout.",
-        "pt-BR": "Seleciona o slot 5 do inventário; conteúdo depende do loadout."
+        "en": "Selects the C4 / bomb when carried.",
+        "pt-BR": "Seleciona o C4 / bomba quando carregado.",
+        "category": "utility",
+        "meaning": {
+          "label": {
+            "en": "C4 / Bomb",
+            "pt-BR": "C4 / Bomba"
+          },
+          "semanticKind": "inventory-slot",
+          "confidence": "community",
+          "strength": "high",
+          "source": "project-curation",
+          "reviewDate": "2026-10-02",
+          "notes": "User-reviewed milestone mapping; item availability depends on mode/loadout. No in-game runtime validation."
+        }
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -307241,6 +307432,14 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.meaning": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.en": {
           "source": "project-curation",
           "confidence": "community"
@@ -307296,21 +307495,52 @@
       "kind": "command",
       "original": null,
       "editorial": {
-        "en": ""
+        "en": "Selects the High Explosive Grenade when available.",
+        "pt-BR": "Seleciona a granada explosiva quando disponível.",
+        "category": "grenades",
+        "meaning": {
+          "label": {
+            "en": "HE Grenade",
+            "pt-BR": "Granada HE"
+          },
+          "semanticKind": "inventory-slot",
+          "confidence": "community",
+          "strength": "high",
+          "source": "project-curation",
+          "reviewDate": "2026-10-02",
+          "notes": "User-reviewed milestone mapping; item availability depends on mode/loadout. No in-game runtime validation."
+        }
       },
       "verification": "pending",
       "requiresCheats": "unknown",
       "examples": [],
       "sources": [
-        "source2-6ac247908a83c309b37314fd097c47dc78103746-command"
+        "source2-6ac247908a83c309b37314fd097c47dc78103746-command",
+        "project-curation"
       ],
       "reportedRejection": null,
-      "catalogStatus": "verified",
+      "catalogStatus": "curated",
       "lifecycle": "unknown",
       "documentation": {
-        "reviewed": false
+        "reviewed": true
       },
       "provenance": {
+        "editorial.meaning": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "editorial.en": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "editorial.pt-BR": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "technical.kind": {
           "source": "source2-6ac247908a83c309b37314fd097c47dc78103746-command",
           "confidence": "snapshot-verified"
@@ -307358,9 +307588,21 @@
       "kind": "command",
       "original": null,
       "editorial": {
-        "en": "Select inventory slot 7; contents depend on the loadout.",
-        "pt-BR": "Seleciona o slot 7 do inventário; conteúdo depende do loadout.",
-        "category": "grenades"
+        "en": "Selects a Flashbang when available.",
+        "pt-BR": "Seleciona uma granada de luz quando disponível.",
+        "category": "grenades",
+        "meaning": {
+          "label": {
+            "en": "Flashbang",
+            "pt-BR": "Granada de luz"
+          },
+          "semanticKind": "inventory-slot",
+          "confidence": "community",
+          "strength": "high",
+          "source": "project-curation",
+          "reviewDate": "2026-10-02",
+          "notes": "User-reviewed milestone mapping; item availability depends on mode/loadout. No in-game runtime validation."
+        }
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -307379,6 +307621,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.meaning": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.category": {
           "source": "project-curation",
           "confidence": "community"
@@ -307438,9 +307684,21 @@
       "kind": "command",
       "original": null,
       "editorial": {
-        "en": "Select inventory slot 8; contents depend on the loadout.",
-        "pt-BR": "Seleciona o slot 8 do inventário; conteúdo depende do loadout.",
-        "category": "grenades"
+        "en": "Selects the Smoke Grenade when available.",
+        "pt-BR": "Seleciona a granada de fumaça quando disponível.",
+        "category": "grenades",
+        "meaning": {
+          "label": {
+            "en": "Smoke Grenade",
+            "pt-BR": "Granada de fumaça"
+          },
+          "semanticKind": "inventory-slot",
+          "confidence": "community",
+          "strength": "high",
+          "source": "project-curation",
+          "reviewDate": "2026-10-02",
+          "notes": "User-reviewed milestone mapping; item availability depends on mode/loadout. No in-game runtime validation."
+        }
       },
       "verification": "pending",
       "requiresCheats": "unknown",
@@ -307459,6 +307717,10 @@
         "reviewed": true
       },
       "provenance": {
+        "editorial.meaning": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "editorial.category": {
           "source": "project-curation",
           "confidence": "community"
@@ -307518,21 +307780,52 @@
       "kind": "command",
       "original": null,
       "editorial": {
-        "en": ""
+        "en": "Selects the Decoy Grenade when available.",
+        "pt-BR": "Seleciona a granada de distração quando disponível.",
+        "category": "grenades",
+        "meaning": {
+          "label": {
+            "en": "Decoy Grenade",
+            "pt-BR": "Granada de distração"
+          },
+          "semanticKind": "inventory-slot",
+          "confidence": "community",
+          "strength": "high",
+          "source": "project-curation",
+          "reviewDate": "2026-10-02",
+          "notes": "User-reviewed milestone mapping; item availability depends on mode/loadout. No in-game runtime validation."
+        }
       },
       "verification": "pending",
       "requiresCheats": "unknown",
       "examples": [],
       "sources": [
-        "source2-6ac247908a83c309b37314fd097c47dc78103746-command"
+        "source2-6ac247908a83c309b37314fd097c47dc78103746-command",
+        "project-curation"
       ],
       "reportedRejection": null,
-      "catalogStatus": "verified",
+      "catalogStatus": "curated",
       "lifecycle": "unknown",
       "documentation": {
-        "reviewed": false
+        "reviewed": true
       },
       "provenance": {
+        "editorial.meaning": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "editorial.en": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "editorial.pt-BR": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
         "technical.kind": {
           "source": "source2-6ac247908a83c309b37314fd097c47dc78103746-command",
           "confidence": "snapshot-verified"

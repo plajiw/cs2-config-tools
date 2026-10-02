@@ -39,6 +39,8 @@ For the bind map renderer, `npm run test:webview` uses a local Chromium browser 
 
 For the Config Hub, run `npm run test:hub-webview` to check the production Home in Chromium with a simulated editor bridge. Captures in `.test-output/config-hub-browser/` cover dark/light themes and desktop/narrow layouts. Folder persistence, unsaved-buffer analysis and exclusive creation are also covered in Extension Host integration using temporary synthetic CFGs, never the game directory.
 
+For visual acceptance in the real editor, run `npm run test:bind-map-host`. Set `CS2_CFG_VSCODE` to the Windows VS Code executable (the default is the cached 1.96.4 test installation). It opens an isolated Extension Development Host with a synthetic CFG, captures narrow/medium/wide layouts and selected-input details, and checks document overflow, mouse size and inspector placement. Captures and measurements go to a unique `.test-output/bind-map-host-*` directory. Set `CS2_BIND_VISUAL_THEME` to `Default Light Modern` for the light-theme pass. Review the images in addition to the assertions; see the [refinement record](docs/planning/bind-map-visual-refinement.md).
+
 ## Commands and translations
 
 Edit `catalog/source/descriptions.json`, then regenerate the catalog. Keep command names and accepted parameter literals unchanged across languages. English is the source language for community summaries; pt-BR translations should read naturally while preserving meaning.

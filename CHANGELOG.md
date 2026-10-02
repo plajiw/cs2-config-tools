@@ -2,7 +2,25 @@
 
 ## Unreleased
 
-- Added a Config Hub MVP with native Activity Bar navigation, a responsive Home, explicit folder consent/persistence, Steam library detection, file listing and registry-backed single-file summaries. Existing bind-map and health actions open from the hub; unsaved editor changes are included. Empty CFG creation reviews the destination and refuses overwrites. Builder cards are explicitly planned and disabled.
+- Refined Bind Map into dedicated keyboard/mouse sections with a readable fixed-scale keyboard, integrated five-button mouse and adjacent scroll controls. Shared category/state markers, action explanations and a full-width inspector remain consistent across narrow/medium/wide layouts. Added real Extension Development Host visual captures in dark/light themes.
+
+- Recognize `+showscores`, `yaw` and `pitch` in binds, with bilingual descriptions and a pinned CS2 default key-file reference.
+
+- Added a unified local configuration connection flow with game/profile discovery, explicit selection and one combined folder consent. Added per-file CFG removal with confirmation, Trash, dirty-buffer protection and revalidation of file/folder identity. Bind Map preserves category circles for uncertain inputs and aligns Category/State controls at narrow widths.
+
+## 1.2.0 — 2026-10-01
+
+- Refined textual CFG Health Check with severity totals, grouped findings, human explanations shared with diagnostics, source/related lines and explained unresolved effects. Preserves static-analysis scope and selected console-report evidence; no game execution, score or automatic changes.
+- Refined Home terminology, severity summaries, category rows and source-specific status. Connected sources and analysis/access notes collapse; direct profile connection/recovery works from Saved Game Settings and video. Added raw video/controls opening in the text editor and watcher reconnection after folder recovery.
+- Added Command Explorer in Home and Tools, with offline shared-registry name/description search, normal/full visibility toggle, bilingual shared documentation and copying the selected command name. No command execution or automatic userdata writes.
+
+## 1.1.0 — 2026-10-01
+
+- Grouped game-like CFG names separately from player/unclassified files, excluded that group from Home totals and removed duplicate tool cards. Added independent Steam userdata discovery/consent/persistence and a read-only video view backed by a bounded core parser and definitions with provenance. Preserves unknown/raw fields, derives resolution/aspect/frequency mathematically, includes unsaved buffers and updates on changes. No userdata writes or game enum claims.
+
+## 1.0.0 — 2026-10-01
+
+- Added a Config Hub MVP with native Activity Bar navigation, a responsive Home, explicit folder consent/persistence, Steam library detection, file listing and registry-backed single-file summaries. Existing bind-map and health actions open from the hub; unsaved editor changes are included. Empty CFG creation reviews the destination and refuses overwrites. The menu exposes only implemented tools: bind map, health check and empty CFG creation; future builders stay outside navigation. Home rendering is componentized into tools, overview, quick actions and file list.
 
 ## 0.0.4 — 2026-10-01
 

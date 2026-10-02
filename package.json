@@ -3,7 +3,7 @@
   "displayName": "CS2 Config Tools",
   "icon": "resources/icons/cs2-config-tools.png",
   "description": "Write, understand and organize Counter-Strike 2 CFG files in VS Code.",
-  "version": "0.0.4",
+  "version": "1.2.0",
   "preview": true,
   "publisher": "plajiw",
   "license": "MIT",
@@ -40,6 +40,7 @@
     "check:style": "prettier --check src scripts tests resources catalog/source package*.json tsconfig.json .vscode/*.json",
     "package": "npm run catalog:check && npm run build && node scripts/package.cjs",
     "test:webview": "npm run build && node scripts/test-bind-map-browser.cjs",
+    "test:bind-map-host": "npm run build && node scripts/capture-bind-map-host.cjs",
     "test:hub-webview": "npm run build && node scripts/test-config-hub-browser.cjs"
   },
   "devDependencies": {
@@ -118,6 +119,27 @@
         "title": "%command.bindMap%",
         "icon": "$(keyboard)",
         "enablement": "editorLangId == cs2cfg"
+      },
+      {
+        "command": "cs2Config.videoSettings",
+        "title": "%command.videoSettings%"
+      },
+      {
+        "command": "cs2Config.connectSettings",
+        "title": "%command.connectSettings%"
+      },
+      {
+        "command": "cs2Config.detectSettings",
+        "title": "%command.detectSettings%"
+      },
+      {
+        "command": "cs2Config.commandExplorer",
+        "title": "%command.commandExplorer%"
+      },
+      {
+        "command": "cs2Config.connectConfiguration",
+        "title": "%command.connectConfiguration%",
+        "icon": "$(plug)"
       }
     ],
     "menus": {

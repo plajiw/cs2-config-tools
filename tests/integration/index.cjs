@@ -50,6 +50,35 @@ exports.run = async () => {
     `English hover: ${hoverText(english)}`,
   );
   await settings.update('descriptionLanguage', 'pt-BR', vscode.ConfigurationTarget.Global);
+  const defaultBinds = await vscode.workspace.openTextDocument({
+    language: 'cs2cfg',
+    content:
+      'bind "TAB" "+showscores" // Show scoreboard\nbind "MOUSE_X" "yaw"\nbind "MOUSE_Y" "pitch"',
+  });
+  await vscode.window.showTextDocument(defaultBinds);
+  await new Promise((resolve) => setTimeout(resolve, 600));
+  assert.ok(
+    !vscode.languages.getDiagnostics(defaultBinds.uri).some((d) => d.code === 'unknown'),
+    'Default scoreboard and mouse-axis binds are recognized',
+  );
+  for (const [line, column, meaning] of [
+    [0, 15, 'placar'],
+    [1, 18, 'horizontal'],
+    [2, 18, 'vertical'],
+  ]) {
+    const result = await vscode.commands.executeCommand(
+      'vscode.executeHoverProvider',
+      defaultBinds.uri,
+      new vscode.Position(line, column),
+    );
+    assert.ok(hoverText(result).includes(meaning), 'Bind action has Portuguese documentation');
+    assert.ok(
+      hoverText(result).includes(
+        'c3b892a3363a9b0275fc901f1960acac9f10b26b/game/csgo/cfg/user_keys_default.vcfg',
+      ),
+      'Bind action hover links to the pinned default key file',
+    );
+  }
   const internalDoc = await vscode.workspace.openTextDocument({
     language: 'cs2cfg',
     content: 'lb_debug_silhouette',
@@ -210,11 +239,7 @@ exports.run = async () => {
     assert.ok(
       !vscode.languages
         .getDiagnostics(corpus.uri)
-        .some(
-          (d) =>
-            (d.code === 'unknown' && corpus.getText(d.range) !== '+showscores') ||
-            d.severity === vscode.DiagnosticSeverity.Error,
-        ),
+        .some((d) => d.code === 'unknown' || d.severity === vscode.DiagnosticSeverity.Error),
       `${name} coverage`,
     );
   }
@@ -441,6 +466,20 @@ exports.run = async () => {
     const newCfg = await configFolder.createEmpty('new.cfg', configFolder.snapshot.folder);
     assert.equal(fs.readFileSync(newCfg.fsPath, 'utf8'), '');
     assert.equal(configFolder.snapshot.files.length, 2);
+    await assert.rejects(
+      configFolder.prepareRemoval('autoexec.cfg'),
+      /unsaved/,
+      'Dirty CFGs cannot be removed',
+    );
+    await assert.rejects(configFolder.prepareRemoval('../outside.cfg'));
+    const removal = await configFolder.prepareRemoval('new.cfg');
+    await configFolder.remove(removal);
+    assert.equal(
+      fs.existsSync(newCfg.fsPath),
+      false,
+      'Requested synthetic CFG removal uses editor Trash',
+    );
+    assert.equal(configFolder.snapshot.files.length, 1);
     const restored = new ConfigFolder(memory, folderServices);
     await restored.restore();
     assert.equal(restored.snapshot.folder, configFolder.snapshot.folder);
@@ -448,6 +487,106 @@ exports.run = async () => {
     await configFolder.disconnect();
     assert.equal(configFolder.snapshot.files.length, 0);
     assert.equal(stored.size, 0);
+    const { SteamUserdata, detectUserdataFolders } = require(
+      path.join(extension.extensionPath, 'dist/vscode/steam-userdata'),
+    );
+    const settingsFolder = path.join(temporary, 'userdata', '123', '730', 'local', 'cfg');
+    fs.mkdirSync(settingsFolder, { recursive: true });
+    const videoPath = path.join(settingsFolder, 'cs2_video.txt');
+    const videoText =
+      '"video.cfg" { "setting.defaultres" "1280" "setting.defaultresheight" "960" }';
+    fs.writeFileSync(videoPath, videoText);
+    fs.writeFileSync(path.join(settingsFolder, 'cs2_user_keys_0_slot0.vcfg'), '"keys" {}');
+    const settings = new SteamUserdata(memory);
+    try {
+      assert.deepEqual(await detectUserdataFolders([temporary]), [
+        await fs.promises.realpath(settingsFolder),
+      ]);
+      await settings.connect(settingsFolder);
+      assert.equal(settings.snapshot.status, 'available');
+      assert.equal(settings.snapshot.profileId, '123');
+      assert.equal(settings.snapshot.controlsFile, 'cs2_user_keys_0_slot0.vcfg');
+      const editableVideo = await settings.fileUri('video');
+      assert.equal(editableVideo.fsPath, vscode.Uri.file(videoPath).fsPath);
+      assert.equal(
+        (await settings.fileUri('controls')).fsPath,
+        vscode.Uri.file(path.join(settingsFolder, 'cs2_user_keys_0_slot0.vcfg')).fsPath,
+      );
+      assert.equal(settings.snapshot.video.resolution.aspectRatio, '4:3');
+      const restoredSettings = new SteamUserdata(memory);
+      await restoredSettings.restore();
+      assert.equal(restoredSettings.snapshot.folder, settings.snapshot.folder);
+      restoredSettings.dispose();
+      const videoDoc = await vscode.workspace.openTextDocument(vscode.Uri.file(videoPath));
+      const videoEdit = new vscode.WorkspaceEdit();
+      videoEdit.replace(
+        videoDoc.uri,
+        new vscode.Range(0, 0, videoDoc.lineCount, 0),
+        '"video.cfg" { "setting.defaultres" "1920" "setting.defaultresheight" "1080" }',
+      );
+      assert.ok(await vscode.workspace.applyEdit(videoEdit));
+      await settings.refresh();
+      assert.equal(settings.snapshot.video.resolution.aspectRatio, '16:9');
+      assert.equal(
+        fs.readFileSync(videoPath, 'utf8'),
+        videoText,
+        'Userdata inspection never writes',
+      );
+      await settings.disconnect();
+      assert.equal(settings.snapshot.status, 'disconnected');
+      fs.unlinkSync(videoPath);
+      await settings.connect(settingsFolder);
+      assert.equal(settings.snapshot.status, 'missing');
+      fs.writeFileSync(videoPath, '"video.cfg" { "x" "1" "x" "2" }');
+      // The open buffer still takes precedence; close it without saving before testing disk updates.
+      await vscode.window.showTextDocument(videoDoc);
+      await vscode.commands.executeCommand('workbench.action.revertAndCloseActiveEditor');
+      await settings.refresh();
+      assert.equal(settings.snapshot.status, 'invalid');
+      assert.equal(settings.snapshot.video.resolution, undefined);
+      fs.writeFileSync(videoPath, videoText);
+      for (let attempt = 0; attempt < 40 && settings.snapshot.status !== 'available'; attempt++)
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      assert.equal(
+        settings.snapshot.status,
+        'available',
+        'Filesystem watcher refreshes saved settings',
+      );
+      await settings.disconnect();
+      fs.unlinkSync(videoPath);
+      fs.unlinkSync(path.join(settingsFolder, 'cs2_user_keys_0_slot0.vcfg'));
+      fs.rmdirSync(settingsFolder);
+      await settings.restore();
+      assert.equal(settings.snapshot.status, 'disconnected');
+      fs.mkdirSync(settingsFolder);
+      await settings.connect(settingsFolder);
+      fs.rmdirSync(settingsFolder);
+      await settings.refresh();
+      assert.equal(settings.snapshot.connected, false);
+      assert.equal(settings.snapshot.status, 'unavailable');
+      fs.mkdirSync(settingsFolder);
+      await settings.refresh();
+      assert.equal(settings.snapshot.status, 'missing');
+      await settings.disconnect();
+      await vscode.commands.executeCommand('cs2Config.videoSettings');
+      await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
+    } finally {
+      settings.dispose();
+      if (fs.existsSync(videoPath)) fs.unlinkSync(videoPath);
+      const controlsPath = path.join(settingsFolder, 'cs2_user_keys_0_slot0.vcfg');
+      if (fs.existsSync(controlsPath)) fs.unlinkSync(controlsPath);
+      for (const relative of [
+        'userdata/123/730/local/cfg',
+        'userdata/123/730/local',
+        'userdata/123/730',
+        'userdata/123',
+        'userdata',
+      ])
+        fs.rmdirSync(path.join(temporary, relative));
+    }
+    await vscode.commands.executeCommand('cs2Config.commandExplorer');
+    await vscode.commands.executeCommand('workbench.action.closeQuickOpen');
+    await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
     const home = await vscode.commands.executeCommand('cs2Config.home');
     assert.ok(home && Array.isArray(home.files), 'Home command opens a functional WebView');
     await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
@@ -464,6 +603,6 @@ exports.run = async () => {
     fs.rmdirSync(temporary);
   }
   console.log(
-    'PASS: Extension Host integration: completion, bilingual hover, definitions, links, diagnostics, CFG coverage, formatting, config hub, folder persistence, unsaved analysis and exclusive creation.',
+    'PASS: Extension Host integration: completion, bilingual hover, definitions, links, diagnostics, CFG coverage, formatting, config hub, folder persistence, unsaved analysis, exclusive creation and read-only userdata/video lifecycle.',
   );
 };

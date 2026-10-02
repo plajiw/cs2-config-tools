@@ -8,7 +8,7 @@ const { completionContext } = require('../../dist/core/completion');
 const { descriptionLanguage } = require('../../dist/core/locale');
 const catalog = require('../../catalog/catalog.json');
 const names = new Set(catalog.entries.map((e) => e.name));
-test('both editable CFG examples preserve syntax and report the uncovered scoreboard action', () => {
+test('both editable CFG examples preserve syntax and recognize catalog actions', () => {
   const activeNames = new Set();
   for (const file of ['autoexec.cfg', 'practice.cfg']) {
     const text = fs.readFileSync(path.join(__dirname, '../fixtures', file), 'utf8');
@@ -25,7 +25,7 @@ test('both editable CFG examples preserve syntax and report the uncovered scoreb
     );
     parsed.statements.forEach((s) => activeNames.add(s.tokens[0].value));
   }
-  for (const name of activeNames) assert.ok(names.has(name) || name === '+showscores', name);
+  for (const name of activeNames) assert.ok(names.has(name), name);
   assert.equal(names.size, catalog.entries.length, 'Catalog names are unique');
   for (const e of catalog.entries) {
     if (e.documentation.reviewed) {

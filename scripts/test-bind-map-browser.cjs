@@ -171,7 +171,40 @@ window.acquireVsCodeApi = () => ({ postMessage: m => { window.smoke.messages.pus
       await evaluate("document.querySelectorAll('#keyboard g[role=button]').length"),
       104,
     );
-    assert.equal(await evaluate("document.querySelectorAll('#mouse g[role=button]').length"), 7);
+    assert.equal(await evaluate("document.querySelectorAll('#mouse g[role=button]').length"), 5);
+    assert.equal(await evaluate("document.querySelectorAll('#mouse-actions button').length"), 7);
+    assert.ok(
+      await evaluate(
+        "CS2InputLayout.mouse.filter(d => !d.external).every(d => document.querySelector('#mouse [data-key='+d.cs2Key+'] .key-face').isPointInFill(new DOMPoint(d.x,d.y)))",
+      ),
+      'Mouse labels stay within their button paths',
+    );
+    await evaluate("document.querySelector('#mouse-actions [data-key=mwheelup]').focus()");
+    await key('Enter', 13);
+    assert.equal(await evaluate("document.querySelector('#details h3').textContent"), 'Wheel up');
+    await evaluate("document.querySelector('#mouse-actions [data-key=mwheeldown]').focus()");
+    await key(' ', 32);
+    assert.equal(await evaluate("document.querySelector('#details h3').textContent"), 'Wheel down');
+    assert.equal(
+      await evaluate("document.querySelector('#keyboard [data-key=q] .state-marker').tagName"),
+      'circle',
+    );
+    assert.equal(
+      await evaluate(
+        "document.querySelector('#keyboard [data-key=q] .state-marker').style.display",
+      ),
+      '',
+    );
+    assert.equal(
+      await evaluate(
+        "document.querySelector('#keyboard [data-key=q]').classList.contains('uncertain')",
+      ),
+      true,
+    );
+    assert.equal(
+      await evaluate("document.querySelector('#keyboard [data-key=q] .status-marker').textContent"),
+      '!',
+    );
     await evaluate(
       "window.originalKeyboard=document.querySelector('#keyboard svg'); document.querySelector('#keyboard [data-key=z]').dispatchEvent(new MouseEvent('click')); true",
     );
@@ -246,6 +279,26 @@ window.acquireVsCodeApi = () => ({ postMessage: m => { window.smoke.messages.pus
     );
     assert.ok(await evaluate("document.querySelector('#details .meaning').textContent.length > 0"));
     assert.equal(await evaluate("document.querySelectorAll('#legend li').length"), 4);
+    await send('Emulation.setDeviceMetricsOverride', {
+      width: 1920,
+      height: 1000,
+      deviceScaleFactor: 1,
+      mobile: false,
+    });
+    await delay(100);
+    assert.ok(
+      await evaluate(
+        "document.querySelector('.mouse-area').getBoundingClientRect().left >= document.querySelector('.keyboard-area').getBoundingClientRect().right",
+      ),
+      'Wide devices share a row without compressing the keyboard',
+    );
+    assert.ok(await evaluate("document.querySelector('#keyboard').clientWidth >= 1080"));
+    assert.ok(
+      await evaluate(
+        "document.querySelector('#keyboard').scrollWidth <= document.querySelector('#keyboard').clientWidth",
+      ),
+      'Wide keyboard has no unnecessary scrollbar',
+    );
     // Representative VS Code theme variables; these are reference colors, not the user's theme.
     await evaluate(`Object.entries({
       '--vscode-font-family':'Segoe UI, sans-serif', '--vscode-editor-background':'#1e1e1e',
@@ -262,9 +315,9 @@ window.acquireVsCodeApi = () => ({ postMessage: m => { window.smoke.messages.pus
     });
     assert.ok(
       await evaluate(
-        "document.querySelector('.inspector').getBoundingClientRect().left > document.querySelector('.canvas').getBoundingClientRect().right",
+        "document.querySelector('.inspector').getBoundingClientRect().top >= document.querySelector('.canvas').getBoundingClientRect().bottom",
       ),
-      'Desktop inspector remains beside the map',
+      'Desktop inspector spans the width below the map',
     );
     await evaluate("document.querySelector('#keyboard [data-key=q]').focus(); true");
     await key('Enter', 13);
@@ -313,6 +366,10 @@ window.acquireVsCodeApi = () => ({ postMessage: m => { window.smoke.messages.pus
     );
     assert.equal(
       await evaluate("document.querySelector('.file-identity code').textContent"),
+      'synthetic.cfg',
+    );
+    assert.equal(
+      await evaluate("document.querySelector('#file').title"),
       'tests/fixtures/synthetic.cfg',
     );
     assert.equal(await evaluate("document.querySelector('.file-icon').textContent"), 'CFG');
@@ -370,6 +427,29 @@ window.acquireVsCodeApi = () => ({ postMessage: m => { window.smoke.messages.pus
       1080,
     );
     await shot('medium.png');
+    await send('Emulation.setDeviceMetricsOverride', {
+      width: 724,
+      height: 900,
+      deviceScaleFactor: 1,
+      mobile: false,
+    });
+    await delay(100);
+    await evaluate("document.querySelector('#filter-panel').open=true");
+    await waitFor("document.querySelector('#category').getBoundingClientRect().height > 0");
+    assert.ok(
+      await evaluate(
+        "Math.abs(document.querySelector('#category').getBoundingClientRect().top - document.querySelector('#state-filter').getBoundingClientRect().top) < 1",
+      ),
+      'Category and State align at 724px',
+    );
+    assert.ok(
+      await evaluate(
+        "Math.abs(document.querySelector('#category-label').getBoundingClientRect().top - document.querySelector('#state-label').getBoundingClientRect().top) < 1",
+      ),
+      'Filter labels align at 724px',
+    );
+    await shot('filters-724.png');
+    await evaluate("document.querySelector('#filter-panel').open=false");
     await evaluate("window.smoke.state.pt=true; window.postMessage(window.smoke.state,'*'); true");
     await waitFor("document.documentElement.lang === 'pt-BR'");
     await send('Emulation.setDeviceMetricsOverride', {
@@ -396,6 +476,20 @@ window.acquireVsCodeApi = () => ({ postMessage: m => { window.smoke.messages.pus
       'Only the keyboard region scrolls horizontally',
     );
     await waitFor("document.querySelector('#filter-panel').open === false");
+    await evaluate("document.querySelector('#filter-panel').open = true");
+    assert.ok(
+      await evaluate(
+        "Math.abs(document.querySelector('#category').getBoundingClientRect().top - document.querySelector('#state-filter').getBoundingClientRect().top) < 1",
+      ),
+      'Narrow filter controls align',
+    );
+    assert.ok(
+      await evaluate(
+        "Math.abs(document.querySelector('#category').getBoundingClientRect().height - document.querySelector('#state-filter').getBoundingClientRect().height) < 1",
+      ),
+      'Narrow filter heights match',
+    );
+    await evaluate("document.querySelector('#filter-panel').open = false");
     assert.ok(
       await evaluate(
         "document.querySelector('.inspector').getBoundingClientRect().top >= document.querySelector('.canvas').getBoundingClientRect().bottom",

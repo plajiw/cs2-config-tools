@@ -30,12 +30,22 @@ function attachTechnical(entry, technical, snapshot) {
         }
       : {}),
     ...(entry.documentationSource
-      ? Object.fromEntries(
-          Object.keys(entry.parameter ?? {}).map((field) => [
-            `parameter.${field}`,
-            { source: entry.documentationSource.url, confidence: 'community' },
-          ]),
-        )
+      ? {
+          ...(!entry.parameter
+            ? {
+                documentationSource: {
+                  source: entry.documentationSource.url,
+                  confidence: 'community',
+                },
+              }
+            : {}),
+          ...Object.fromEntries(
+            Object.keys(entry.parameter ?? {}).map((field) => [
+              `parameter.${field}`,
+              { source: entry.documentationSource.url, confidence: 'community' },
+            ]),
+          ),
+        }
       : {}),
   };
   if (!technical)

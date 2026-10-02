@@ -6,7 +6,9 @@ A fase 0 está concluída. A fase 1 começou com registry independente, índice 
 
 ## Incremento entregue
 
-O Config Hub acrescenta navegação por pasta e uma Home sobre as ferramentas existentes: seleção/consentimento, detecção Steam, resumos por arquivo e criação de CFG vazia sem sobrescrita. Não encerra a fase 12: execs e estado efetivo multiarquivo continuam não resolvidos. Cards de builders são apenas indicação de planejamento. Veja [FEATURES](../../FEATURES.md).
+O incremento atual integra melhor as fontes e entrega Command Explorer sobre registry/documentação já existentes. Abertura de valores salvos no editor usa acesso autorizado; edição visual, enums de vídeo e safe writer permanecem dependências futuras. Não agrega CFG + userdata como estado efetivo global.
+
+O Config Hub acrescenta navegação por pasta e uma Home sobre as ferramentas existentes: seleção/consentimento, detecção Steam, resumos por arquivo e criação de CFG vazia sem sobrescrita. Não encerra a fase 12: execs e estado efetivo multiarquivo continuam não resolvidos. O menu inclui apenas ferramentas implementadas; builders ficam fora da navegação. O incremento atual conecta userdata de forma independente e expõe vídeo somente leitura; não antecipa escrita, enums verificados nem outros modelos de configurações salvas. Veja [FEATURES](../../FEATURES.md).
 
 O mapa somente leitura recebeu um [redesign com SVG](bind-map-svg-redesign.md): teclado ANSI proporcional, mouse interativo, filtros e inspector sobre o modelo compartilhado. Essa entrega prepara os componentes visuais para builders, mas não habilita escrita de binds.
 

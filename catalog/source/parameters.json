@@ -8,6 +8,18 @@
       "buildId": null,
       "license": "CC0-1.0",
       "type": "community-console-dump"
+    },
+    "steamtracking-default-keys-2026-03-14": {
+      "title": "CS2 bundled default key bindings via SteamTracking",
+      "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/c3b892a3363a9b0275fc901f1960acac9f10b26b/game/csgo/cfg/user_keys_default.vcfg",
+      "snapshotDate": "2026-03-14",
+      "revision": "c3b892a3363a9b0275fc901f1960acac9f10b26b",
+      "buildId": null,
+      "type": "tracked-game-config",
+      "retrievedDate": "2026-10-01",
+      "sha256": "ba4d5d66c0c3a00cd3ad7f7874b275514c81c550208fccf8b8fb557aa0338ee1",
+      "context": "Default bindings and analogbindings; no in-game execution verification.",
+      "attribution": "Valve game configuration tracked by SteamTracking; game-content licensing is separate."
     }
   },
   "commands": {
@@ -17,18 +29,66 @@
         "type": "integer",
         "default": "0",
         "values": [
-          { "value": "0", "en": "Team color", "pt-BR": "Cor da equipe" },
-          { "value": "1", "en": "White", "pt-BR": "Branco" },
-          { "value": "2", "en": "Bright white", "pt-BR": "Branco intenso" },
-          { "value": "3", "en": "Light blue", "pt-BR": "Azul claro" },
-          { "value": "4", "en": "Blue", "pt-BR": "Azul" },
-          { "value": "5", "en": "Purple", "pt-BR": "Roxo" },
-          { "value": "6", "en": "Red", "pt-BR": "Vermelho" },
-          { "value": "7", "en": "Orange", "pt-BR": "Laranja" },
-          { "value": "8", "en": "Yellow", "pt-BR": "Amarelo" },
-          { "value": "9", "en": "Green", "pt-BR": "Verde" },
-          { "value": "10", "en": "Aqua", "pt-BR": "Ciano" },
-          { "value": "11", "en": "Pink", "pt-BR": "Rosa" },
+          {
+            "value": "0",
+            "en": "Team color",
+            "pt-BR": "Cor da equipe"
+          },
+          {
+            "value": "1",
+            "en": "White",
+            "pt-BR": "Branco"
+          },
+          {
+            "value": "2",
+            "en": "Bright white",
+            "pt-BR": "Branco intenso"
+          },
+          {
+            "value": "3",
+            "en": "Light blue",
+            "pt-BR": "Azul claro"
+          },
+          {
+            "value": "4",
+            "en": "Blue",
+            "pt-BR": "Azul"
+          },
+          {
+            "value": "5",
+            "en": "Purple",
+            "pt-BR": "Roxo"
+          },
+          {
+            "value": "6",
+            "en": "Red",
+            "pt-BR": "Vermelho"
+          },
+          {
+            "value": "7",
+            "en": "Orange",
+            "pt-BR": "Laranja"
+          },
+          {
+            "value": "8",
+            "en": "Yellow",
+            "pt-BR": "Amarelo"
+          },
+          {
+            "value": "9",
+            "en": "Green",
+            "pt-BR": "Verde"
+          },
+          {
+            "value": "10",
+            "en": "Aqua",
+            "pt-BR": "Ciano"
+          },
+          {
+            "value": "11",
+            "en": "Pink",
+            "pt-BR": "Rosa"
+          },
           {
             "value": "12",
             "en": "Teammate color",
@@ -36,11 +96,20 @@
           }
         ]
       },
-      "examples": [{ "arguments": ["2"], "en": "Bright white HUD", "pt-BR": "HUD branco intenso" }]
+      "examples": [
+        {
+          "arguments": ["2"],
+          "en": "Bright white HUD",
+          "pt-BR": "HUD branco intenso"
+        }
+      ]
     },
     "viewmodel_offset_x": {
       "sourceId": "arminc-console-2025",
-      "parameter": { "type": "number", "default": "1" },
+      "parameter": {
+        "type": "number",
+        "default": "1"
+      },
       "examples": [
         {
           "arguments": ["1"],
@@ -55,13 +124,21 @@
         "type": "integer",
         "default": "1",
         "values": [
-          { "value": "0", "en": "Never", "pt-BR": "Nunca" },
+          {
+            "value": "0",
+            "en": "Never",
+            "pt-BR": "Nunca"
+          },
           {
             "value": "1",
             "en": "Only when frame time is poor",
             "pt-BR": "Somente quando o tempo de quadro estiver ruim"
           },
-          { "value": "2", "en": "Always", "pt-BR": "Sempre" }
+          {
+            "value": "2",
+            "en": "Always",
+            "pt-BR": "Sempre"
+          }
         ]
       },
       "examples": [
@@ -78,17 +155,29 @@
         "type": "integer",
         "default": "1",
         "values": [
-          { "value": "0", "en": "Never", "pt-BR": "Nunca" },
+          {
+            "value": "0",
+            "en": "Never",
+            "pt-BR": "Nunca"
+          },
           {
             "value": "1",
             "en": "Only when ping is poor",
             "pt-BR": "Somente quando o ping estiver ruim"
           },
-          { "value": "2", "en": "Always", "pt-BR": "Sempre" }
+          {
+            "value": "2",
+            "en": "Always",
+            "pt-BR": "Sempre"
+          }
         ]
       },
       "examples": [
-        { "arguments": ["2"], "en": "Always show ping", "pt-BR": "Sempre mostrar o ping" }
+        {
+          "arguments": ["2"],
+          "en": "Always show ping",
+          "pt-BR": "Sempre mostrar o ping"
+        }
       ]
     }
   }

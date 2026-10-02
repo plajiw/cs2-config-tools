@@ -3,6 +3,7 @@
   'use strict';
   const vscode = acquireVsCodeApi();
   let state;
+  let sourceSignature;
   const $ = (id) => document.getElementById(id);
   const node = (tag, text, className) => {
     const element = document.createElement(tag);
@@ -32,7 +33,17 @@
     element.type = 'button';
     element.dataset.action = action;
     if (file) element.dataset.file = file;
-    element.disabled = !state.connected && !['choose', 'detect', 'refresh'].includes(action);
+    element.disabled =
+      !state.connected &&
+      ![
+        'connect',
+        'choose',
+        'detect',
+        'refresh',
+        'detectSettings',
+        'connectSettings',
+        'explorer',
+      ].includes(action);
     return element;
   }
   function render(next) {
@@ -48,13 +59,22 @@
         'Manage, inspect and organize your Counter-Strike 2 configuration files.',
         'Organize e explore seus arquivos de configuração do Counter-Strike 2.',
       ),
-      'welcome-title': t('Connect your CFG folder', 'Conecte sua pasta de CFGs'),
+      'connect-sources': t('Connect configuration', 'Conectar configuração'),
+      'welcome-title': t('Connect your configuration', 'Conecte sua configuração'),
       'welcome-copy': t(
-        'Detect a Steam installation or choose a folder. You decide which directory the extension can read.',
-        'Detecte uma instalação Steam ou escolha uma pasta. Você decide qual diretório a extensão pode ler.',
+        'Find your CS2 folder and Steam profile in one flow, then approve the selected folders.',
+        'Encontre a pasta do CS2 e seu perfil Steam em um único fluxo e aprove as pastas selecionadas.',
       ),
-      detect: t('Detect automatically', 'Detectar automaticamente'),
+      detect: t('Connect configuration', 'Conectar configuração'),
       choose: t('Choose folder', 'Escolher pasta'),
+      'sources-title': t('Configuration Sources', 'Fontes de configuração'),
+      'settings-title': t('Saved Game Settings', 'Configurações salvas do jogo'),
+      'userdata-title': t('Steam userdata', 'Steam userdata'),
+      'connect-settings': t('Choose folder manually', 'Escolher pasta manualmente'),
+      'detect-settings': t('Detect Steam profiles', 'Detectar perfis Steam'),
+      'disconnect-settings': t('Disconnect Game Settings', 'Desconectar configurações'),
+      'scope-title': t('Analysis scope', 'Escopo da análise'),
+      'open-settings-folder': t('Open folder', 'Abrir pasta'),
       'folder-title': t('CS2 Config Folder', 'Pasta de CFGs do CS2'),
       change: t('Change folder', 'Trocar pasta'),
       reveal: t('Open in Explorer', 'Abrir no explorador'),
@@ -65,31 +85,36 @@
         'Files are read after your permission. Existing configs open in the text editor. No automatic writes or command execution.',
         'Arquivos são lidos após sua permissão. CFGs existentes abrem no editor de texto. Sem escrita automática ou execução de comandos.',
       ),
-      'overview-title': t('Configuration Overview', 'Visão geral das configurações'),
+      'overview-title': t('CFG Overview', 'Resumo das CFGs'),
       'overview-copy': t(
-        'Independent static summaries of the files listed below.',
-        'Resumos estáticos independentes dos arquivos listados abaixo.',
+        'CFG files only; saved game settings are shown below.',
+        'Somente arquivos CFG; configurações salvas pelo jogo aparecem abaixo.',
       ),
       'quick-title': t('Quick Actions', 'Ações rápidas'),
       'quick-copy': t(
         'Start with a file or create an empty CFG.',
         'Abra um arquivo ou crie uma CFG vazia.',
       ),
-      'files-title': t('Config Files', 'Arquivos de configuração'),
+      'files-title': t('Your CFGs', 'Suas CFGs'),
       'files-note': t(
         'Current folder · unsaved editor text is included in analysis.',
         'Pasta atual · a análise inclui alterações não salvas no editor.',
       ),
       new: t('+ New CFG', '+ Nova CFG'),
       scope: t(
-        'Static analysis only. Counts are summed per file, not the running game state. External execs remain unresolved. Builders and visual editing are planned.',
-        'Somente análise estática. Contagens são somadas por arquivo e não representam o jogo em execução. Execs externos permanecem não resolvidos. Builders e edição visual estão planejados.',
+        'Static analysis only. Counts are summed per file, not the running game state. External execs remain unresolved. File grouping uses name hints, not proven ownership.',
+        'Somente análise estática. Contagens são somadas por arquivo e não representam o jogo em execução. Execs externos permanecem não resolvidos. O agrupamento usa nomes, sem comprovar autoria.',
       ),
     };
     for (const [id, text] of Object.entries(labels)) $(id).textContent = text;
-    $('connection').textContent = state.connected
-      ? t('Connected', 'Conectado')
-      : t('Not connected', 'Não conectado');
+    $('connection').textContent =
+      state.connected && state.userdata?.connected && state.userdata.status === 'available'
+        ? t('Ready', 'Pronto')
+        : state.connected
+          ? t('CFG connected', 'CFG conectada')
+          : state.userdata?.connected
+            ? t('Game settings connected', 'Configurações salvas conectadas')
+            : t('Set up sources', 'Conectar fontes');
     $('connection').classList.toggle('connected', state.connected);
     $('welcome').hidden = state.connected;
     $('folder-path').textContent =
@@ -105,78 +130,68 @@
           : t('Typical location: game/csgo/cfg', 'Local habitual: game/csgo/cfg');
     for (const id of ['reveal', 'new']) $(id).disabled = !state.connected;
     $('disconnect').disabled = !state.folder;
+    $('userdata-path').textContent = state.userdata?.folder || t('Not connected', 'Não conectado');
+    $('disconnect-settings').hidden = !state.userdata?.folder;
+    $('open-settings-folder').hidden = !state.userdata?.connected;
+    $('open-settings-folder').disabled = !state.userdata?.connected;
+    $('connect-settings').hidden = !!state.userdata?.connected;
+    $('detect-settings').textContent = state.userdata?.connected
+      ? t('Change connection', 'Trocar conexão')
+      : t('Connect configuration', 'Conectar configuração');
+    $('disconnect').hidden = !state.folder;
+    $('userdata-status').textContent =
+      (state.userdata?.connected
+        ? t('● Connected', '● Conectado')
+        : t('○ Not connected', '○ Não conectado')) +
+      (state.userdata?.profileId
+        ? ' · ' + t('Profile ', 'Perfil ') + state.userdata.profileId
+        : '') +
+      ' · ' +
+      t('Read-only connection', 'Conexão somente leitura');
+    const signature = [state.connected, state.userdata?.connected, state.userdata?.status].join(
+      ':',
+    );
+    if (signature !== sourceSignature) {
+      $('sources').open =
+        !state.connected ||
+        !state.userdata?.connected ||
+        ['missing', 'invalid', 'unavailable'].includes(state.userdata?.status);
+      sourceSignature = signature;
+    }
 
-    $('tools').replaceChildren();
-    const tools = [
-      [
-        t('Visual Bind Map', 'Mapa visual de binds'),
-        t(
-          'Inspect keyboard and mouse binds, meanings and source history.',
-          'Explore binds do teclado e mouse, descrições e histórico de origem.',
-        ),
-        'keyboard',
-        'bindMap',
-      ],
-      [
-        t('Create Autoexec', 'Criar autoexec'),
-        t(
-          'Guided creation using the shared command registry.',
-          'Criação guiada com o catálogo compartilhado.',
-        ),
-        'file',
-      ],
-      [
-        t('Practice Config', 'CFG de treino'),
-        t(
-          'Build a practice configuration with reviewed settings.',
-          'Monte uma configuração de treino com parâmetros revisados.',
-        ),
-        'target',
-      ],
-      [
-        t('Alias Builder', 'Builder de aliases'),
-        t(
-          'Compose reusable actions with a reviewable preview.',
-          'Componha ações reutilizáveis com prévia para revisão.',
-        ),
-        'terminal',
-      ],
-      [
-        t('Command Explorer', 'Explorador de comandos'),
-        t(
-          'Browse command documentation in a dedicated panel.',
-          'Explore a documentação dos comandos em um painel dedicado.',
-        ),
-        'search',
-      ],
-    ];
     const firstFile =
       state.files.find((file) => file.name.toLowerCase() === 'autoexec.cfg')?.name ||
-      state.files[0]?.name;
-    for (const [title, copy, glyph, action] of tools) {
-      const card = button('', action || 'planned', action ? firstFile : undefined, 'tool-card');
-      card.append(
-        icon(glyph),
-        node('h2', title),
-        node('p', copy),
-        node('span', action ? '→' : t('Planned', 'Planejado'), 'card-footer'),
+      state.files.find((file) => file.origin !== 'game')?.name;
+    renderGameSettings(t);
+    renderOverview(t);
+    renderQuickActions(t, firstFile);
+    renderFiles(t);
+    if (identity && !focused.isConnected) {
+      const region = document.getElementById(identity[2]) || document;
+      const replacement = [...region.querySelectorAll('button[data-action]')].find(
+        (element) =>
+          element.dataset.action === identity[0] && (element.dataset.file ?? '') === identity[1],
       );
-      card.disabled = !action || !firstFile || !state.connected;
-      $('tools').append(card);
+      if (replacement && !replacement.disabled && !replacement.hidden)
+        replacement.focus({ preventScroll: true });
     }
-    const summaries = state.files.filter((file) => file.summary).map((file) => file.summary);
+  }
+  function renderOverview(t) {
+    const summaries = state.files
+      .filter((file) => file.origin !== 'game' && file.summary)
+      .map((file) => file.summary);
     $('stats').replaceChildren();
     const totals = [
-      state.files.length,
+      state.files.filter((file) => file.origin !== 'game').length,
       ...['binds', 'settings', 'aliases'].map((key) =>
         summaries.reduce((sum, summary) => sum + summary[key], 0),
       ),
     ];
     const statLabels = [
       t('CFG files', 'Arquivos CFG'),
-      t('Modeled binds', 'Binds modelados'),
-      t('Certain settings', 'Configurações determinadas'),
-      t('Modeled aliases', 'Aliases modelados'),
+      'Binds',
+      t('Settings', 'Configurações'),
+      'Aliases',
     ];
     totals.forEach((value, index) => {
       const stat = node('div', undefined, `stat stat-${index}`);
@@ -187,6 +202,8 @@
       );
       $('stats').append(stat);
     });
+  }
+  function renderQuickActions(t, firstFile) {
     $('quick').replaceChildren();
     if (firstFile) {
       for (const [title, action] of [
@@ -196,7 +213,13 @@
       ])
         $('quick').append(button(`${title} · ${firstFile}`, action, firstFile));
     }
-    $('quick').append(button(t('Create new empty CFG', 'Criar nova CFG vazia'), 'new'));
+    $('quick').append(button(t('Create CFG', 'Criar CFG'), 'new'));
+    $('quick').append(button(t('Command Explorer', 'Explorador de comandos'), 'explorer'));
+  }
+  function renderFiles(t) {
+    const summaries = state.files
+      .filter((file) => file.origin !== 'game' && file.summary)
+      .map((file) => file.summary);
     $('table-head').replaceChildren();
     const head = node('tr');
     for (const text of [
@@ -212,19 +235,39 @@
     }
     $('table-head').append(head);
     $('files').replaceChildren();
+    $('other-files').replaceChildren();
+    const gameCount = state.files.filter((file) => file.origin === 'game').length;
+    $('other-configs').hidden = !gameCount;
+    $('other-title').textContent = t('Other CS2 CFGs', 'Outras CFGs do CS2') + ' · ' + gameCount;
     for (const file of state.files) {
       const row = node('tr');
       const name = node('td');
       name.append(button(file.name, 'open', file.name, 'file-link'));
-      const status = file.summary
-        ? file.summary.partial
-          ? t('Partial', 'Parcial')
-          : t('Modeled subset', 'Subconjunto modelado')
-        : t('Not analyzed', 'Não analisado');
+      const status =
+        file.summary && (file.summary.errors || file.summary.warnings)
+          ? t('Needs review', 'Precisa de revisão')
+          : file.summary
+            ? file.summary.partial
+              ? t('Partial analysis', 'Análise parcial')
+              : t('Checked', 'Analisado')
+            : t('Needs review', 'Precisa de revisão');
       row.append(
         name,
         node('td', String(file.summary?.binds ?? '—')),
-        node('td', String(file.summary?.findings ?? '—')),
+        node(
+          'td',
+          file.summary
+            ? [
+                file.summary.errors ? file.summary.errors + ' ' + t('errors', 'erros') : '',
+                file.summary.warnings ? file.summary.warnings + ' ' + t('warnings', 'avisos') : '',
+                file.summary.information
+                  ? file.summary.information + ' ' + t('notes', 'observações')
+                  : '',
+              ]
+                .filter(Boolean)
+                .join(' · ') || t('No findings', 'Sem achados')
+            : '—',
+        ),
         node('td', status),
       );
       const actions = node('td', undefined, 'row-actions');
@@ -232,8 +275,11 @@
         button(t('Bind Map', 'Mapa de binds'), 'bindMap', file.name),
         button(t('Inspect', 'Verificar'), 'health', file.name),
       );
+      const remove = button(t('Remove CFG', 'Remover CFG'), 'delete', file.name);
+      remove.disabled = !state.writable;
+      actions.append(remove);
       row.append(actions);
-      $('files').append(row);
+      $(file.origin === 'game' ? 'other-files' : 'files').append(row);
     }
     $('empty').textContent = !state.files.length
       ? t('No CFG files to display.', 'Nenhum arquivo CFG para exibir.')
@@ -242,21 +288,97 @@
             'Showing the first 100 files. Folder totals are limited to this list.',
             'Exibindo os primeiros 100 arquivos. Os totais estão limitados a esta lista.',
           )
-        : summaries.length < state.files.length
+        : summaries.length < state.files.filter((file) => file.origin !== 'game').length
           ? t(
               'Some files could not be analyzed or exceeded the size limit; their counts are excluded.',
               'Alguns arquivos não puderam ser analisados ou excederam o limite de tamanho; suas contagens não foram incluídas.',
             )
           : '';
-    if (identity && !focused.isConnected) {
-      const region = document.getElementById(identity[2]) || document;
-      const replacement = [...region.querySelectorAll('button[data-action]')].find(
-        (element) =>
-          element.dataset.action === identity[0] && (element.dataset.file ?? '') === identity[1],
-      );
-      if (replacement && !replacement.disabled && !replacement.hidden)
-        replacement.focus({ preventScroll: true });
+  }
+  function renderGameSettings(t) {
+    const settings = state.userdata;
+    const messages = {
+      disconnected: t(
+        'Connect a Steam profile to inspect saved video values.',
+        'Conecte um perfil Steam para conferir valores de vídeo salvos.',
+      ),
+      loading: t('Reading Game Settings…', 'Lendo configurações do jogo…'),
+      missing: t(
+        'Connected · cs2_video.txt not found.',
+        'Conectado · cs2_video.txt não encontrado.',
+      ),
+      unavailable: t(
+        'Game Settings unavailable. Choose the folder again or refresh.',
+        'Configurações indisponíveis. Escolha a pasta novamente ou atualize.',
+      ),
+      invalid: t(
+        'Video text needs review; open the read-only view.',
+        'Texto de vídeo precisa de revisão; abra a visualização somente leitura.',
+      ),
+      available: t(
+        'Saved video settings · read only',
+        'Configurações de vídeo salvas · somente leitura',
+      ),
+    };
+    $('settings-status').textContent = messages[settings?.status || 'disconnected'];
+    const entries = [];
+    if (!settings?.connected) {
+      entries.push(button(t('Connect configuration', 'Conectar configuração'), 'connect'));
     }
+    const row = (title, detail, action, file) => {
+      const item = node('div', undefined, 'settings-row');
+      const text = node('div');
+      text.append(node('strong', title), node('p', detail));
+      item.append(text);
+      if (action) item.append(button(t('Open', 'Abrir'), action, file));
+      return item;
+    };
+    const resolution = settings?.video?.resolution,
+      refresh = settings?.video?.refreshRate;
+    const videoSummary = [
+      resolution
+        ? resolution.width + ' × ' + resolution.height + ' · ' + resolution.aspectRatio
+        : '',
+      refresh ? refresh.hz + ' Hz' : '',
+    ]
+      .filter(Boolean)
+      .join(' · ');
+    entries.push(
+      row(
+        t('Video', 'Vídeo'),
+        videoSummary || messages[settings?.status || 'disconnected'],
+        settings?.connected ? 'video' : undefined,
+      ),
+    );
+    if (settings?.connected) entries.at(-1).querySelector('button').disabled = false;
+    const controls = row(
+      t('Controls', 'Controles'),
+      settings?.controlsFile
+        ? t('Saved controls file detected', 'Arquivo de controles salvo encontrado')
+        : settings?.connected
+          ? t('No saved controls file detected', 'Nenhum arquivo de controles salvo encontrado')
+          : t('Not connected', 'Não conectado'),
+      settings?.controlsFile ? 'savedControls' : undefined,
+    );
+    if (settings?.controlsFile) controls.querySelector('button').disabled = false;
+    entries.push(controls);
+    for (const [key, title] of [
+      ['crosshair', t('Crosshair', 'Mira')],
+      ['radar', 'Radar'],
+    ]) {
+      const file = state.files.find((file) => file.origin !== 'game' && file.summary?.[key]);
+      entries.push(
+        row(
+          title,
+          file
+            ? t('Found in CFG: ', 'Encontrado em CFG: ') + file.name
+            : t('Not detected in the analyzed CFGs', 'Não encontrado nas CFGs analisadas'),
+          file ? 'open' : undefined,
+          file?.name,
+        ),
+      );
+    }
+    $('game-settings').replaceChildren(...entries);
   }
   document.addEventListener('click', (event) => {
     const control = event.target.closest('button[data-action]');

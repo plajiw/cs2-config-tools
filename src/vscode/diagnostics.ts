@@ -1,7 +1,8 @@
 import * as vscode from 'vscode';
 import { analyze, Finding } from '../core/diagnostics';
 import { parameterFindings } from '../core/parameters';
-import { bindFindings, bindFindingMessage } from '../core/binds';
+import { bindFindings } from '../core/binds';
+import { findingMessage } from '../core/finding-message';
 import { Services, ui } from './services';
 
 export function registerDiagnostics(services: Services, context: vscode.ExtensionContext): void {
@@ -31,34 +32,7 @@ export function registerDiagnostics(services: Services, context: vscode.Extensio
     const settings = config(doc),
       unknown = settings.get<string>('unknownCommands', 'information'),
       bindSeverity = settings.get<string>('bindDiagnostics', 'information');
-    const messages: Record<string, string> = {
-      'unterminated-string': ui('Unterminated quoted string.', 'Texto entre aspas sem fechamento.'),
-      unknown: ui(
-        'Not in this incomplete catalog; it may be an external alias or plugin command.',
-        'Ausente deste catálogo incompleto; pode ser um alias externo ou comando de plugin.',
-      ),
-      'reported-rejection': ui(
-        'Rejected in the selected console report (2026-10-01, unidentified build). Verify your current build; no automatic replacement is available.',
-        'Rejeitado no relato de console selecionado (01/10/2026, build não identificada). Confira sua build; não há substituição automática.',
-      ),
-      'missing-name': ui('Provide a key or alias name.', 'Informe uma tecla ou nome de alias.'),
-      'parameter-type': ui(
-        'Value does not match the reviewed parameter type.',
-        'Valor incompatível com o tipo de parâmetro revisado.',
-      ),
-      'parameter-value': ui(
-        'Value is not among the reviewed choices.',
-        'Valor ausente das opções revisadas.',
-      ),
-      'parameter-range': ui(
-        'Value is outside the documented range; the game may clamp it.',
-        'Valor fora do intervalo documentado; o jogo pode limitar o valor.',
-      ),
-      'alias-cycle': ui(
-        'Alias expansion contains a cycle or exceeds the recursion limit.',
-        'A expansão do alias contém um ciclo ou excede o limite de recursão.',
-      ),
-    };
+
     diagnostics.set(
       doc.uri,
       [
@@ -99,17 +73,7 @@ export function registerDiagnostics(services: Services, context: vscode.Extensio
                   : vscode.DiagnosticSeverity.Warning;
           const diagnostic = new vscode.Diagnostic(
             range(doc, f.start, f.end),
-            f.code.startsWith('bind-')
-              ? bindFindingMessage(
-                  f,
-                  vscode.env.language.toLowerCase() === 'pt-br' ? 'pt-BR' : 'en',
-                )
-              : f.code === 'hidden-compatibility'
-                ? ui(
-                    `Hidden in the referenced console snapshot. Prefer ${f.replacement}; values require visual adjustment.`,
-                    `Oculto no snapshot de console de referência. Prefira ${f.replacement}; os valores exigem ajuste visual.`,
-                  )
-                : messages[f.code],
+            findingMessage(f, vscode.env.language.toLowerCase() === 'pt-br' ? 'pt-BR' : 'en'),
             severity,
           );
           diagnostic.code = f.code;

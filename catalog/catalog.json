@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "version": "0.0.4",
+  "version": "1.2.0",
   "buildId": null,
   "sources": {
     "arminc-console-2025": {
@@ -11,6 +11,18 @@
       "buildId": null,
       "license": "CC0-1.0",
       "type": "community-console-dump"
+    },
+    "steamtracking-default-keys-2026-03-14": {
+      "title": "CS2 bundled default key bindings via SteamTracking",
+      "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/c3b892a3363a9b0275fc901f1960acac9f10b26b/game/csgo/cfg/user_keys_default.vcfg",
+      "snapshotDate": "2026-03-14",
+      "revision": "c3b892a3363a9b0275fc901f1960acac9f10b26b",
+      "buildId": null,
+      "type": "tracked-game-config",
+      "retrievedDate": "2026-10-01",
+      "sha256": "ba4d5d66c0c3a00cd3ad7f7874b275514c81c550208fccf8b8fb557aa0338ee1",
+      "context": "Default bindings and analogbindings; no in-game execution verification.",
+      "attribution": "Valve game configuration tracked by SteamTracking; game-content licensing is separate."
     },
     "steamtracking-crosshair-2026-09-30": {
       "title": "GameTracking CS2 console snapshot",
@@ -1178,6 +1190,58 @@
         },
         "editorial.pt-BR": {
           "source": "project-curation",
+          "confidence": "community"
+        }
+      }
+    },
+    {
+      "name": "+showscores",
+      "kind": "unknown",
+      "original": null,
+      "editorial": {
+        "en": "Show the scoreboard while the bound key is held. The tracked default key file assigns this action to TAB.",
+        "pt-BR": "Mostra o placar enquanto a tecla vinculada estiver pressionada. O arquivo de teclas padr?o rastreado associa esta a??o ao TAB.",
+        "category": "interface"
+      },
+      "verification": "pending",
+      "requiresCheats": "unknown",
+      "examples": [],
+      "sources": [
+        "steamtracking-default-keys-2026-03-14"
+      ],
+      "documentationSource": {
+        "title": "CS2 bundled default key bindings via SteamTracking",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/c3b892a3363a9b0275fc901f1960acac9f10b26b/game/csgo/cfg/user_keys_default.vcfg",
+        "snapshotDate": "2026-03-14",
+        "revision": "c3b892a3363a9b0275fc901f1960acac9f10b26b",
+        "buildId": null,
+        "type": "tracked-game-config",
+        "retrievedDate": "2026-10-01",
+        "sha256": "ba4d5d66c0c3a00cd3ad7f7874b275514c81c550208fccf8b8fb557aa0338ee1",
+        "context": "Default bindings and analogbindings; no in-game execution verification.",
+        "attribution": "Valve game configuration tracked by SteamTracking; game-content licensing is separate."
+      },
+      "reportedRejection": null,
+      "catalogStatus": "curated",
+      "lifecycle": "unknown",
+      "documentation": {
+        "reviewed": true
+      },
+      "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "editorial.en": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "editorial.pt-BR": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "documentationSource": {
+          "source": "https://github.com/SteamTracking/GameTracking-CS2/blob/c3b892a3363a9b0275fc901f1960acac9f10b26b/game/csgo/cfg/user_keys_default.vcfg",
           "confidence": "community"
         }
       }
@@ -35848,6 +35912,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "integer",
@@ -35881,14 +35953,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "rawFlags": [
         "clientdll",
         "archive",
@@ -36007,6 +36071,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "number",
@@ -36023,14 +36095,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "rawFlags": [
         "clientdll",
         "archive",
@@ -36145,6 +36209,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "number",
@@ -36161,14 +36233,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "rawFlags": [
         "clientdll",
         "archive",
@@ -36283,6 +36347,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "number",
@@ -36299,14 +36371,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "rawFlags": [
         "clientdll",
         "archive",
@@ -36421,6 +36485,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "number",
@@ -36437,14 +36509,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "rawFlags": [
         "clientdll",
         "archive",
@@ -36559,6 +36623,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "number",
@@ -36575,14 +36647,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "rawFlags": [
         "clientdll",
         "archive",
@@ -36786,6 +36850,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "number",
@@ -36802,14 +36874,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "rawFlags": [
         "clientdll",
         "archive",
@@ -36924,6 +36988,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "number",
@@ -36940,14 +37012,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "rawFlags": [
         "clientdll",
         "archive",
@@ -37067,6 +37131,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "boolean",
@@ -37093,14 +37165,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "rawFlags": [
         "clientdll",
         "archive",
@@ -37287,6 +37351,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "number",
@@ -37301,14 +37373,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "rawFlags": [
         "clientdll",
         "archive",
@@ -37410,6 +37474,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "boolean",
@@ -37436,14 +37508,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "rawFlags": [
         "clientdll",
         "archive",
@@ -37544,6 +37608,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "number",
@@ -37560,14 +37632,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "rawFlags": [
         "clientdll",
         "archive",
@@ -37685,6 +37749,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "number",
@@ -37701,14 +37773,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "compatibility": {
         "status": "hidden",
         "replacement": "cl_crosshaircolor_a"
@@ -37856,6 +37920,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "number",
@@ -37872,14 +37944,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "rawFlags": [
         "clientdll",
         "archive",
@@ -37994,6 +38058,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "number",
@@ -38010,14 +38082,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "rawFlags": [
         "clientdll",
         "archive",
@@ -38132,6 +38196,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "number",
@@ -38148,14 +38220,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "rawFlags": [
         "clientdll",
         "archive",
@@ -38270,6 +38334,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "number",
@@ -38286,14 +38358,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "rawFlags": [
         "clientdll",
         "archive",
@@ -38408,6 +38472,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "boolean",
@@ -38434,14 +38506,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "rawFlags": [
         "clientdll",
         "archive",
@@ -38612,6 +38676,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "number",
@@ -38628,14 +38700,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "rawFlags": [
         "clientdll",
         "archive",
@@ -38750,6 +38814,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "number",
@@ -38766,14 +38838,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "rawFlags": [
         "clientdll",
         "archive",
@@ -38888,6 +38952,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "number",
@@ -38904,14 +38976,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "rawFlags": [
         "clientdll",
         "archive",
@@ -39026,6 +39090,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "number",
@@ -39042,14 +39114,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "rawFlags": [
         "clientdll",
         "archive",
@@ -39167,6 +39231,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "number",
@@ -39181,14 +39253,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "compatibility": {
         "status": "hidden",
         "replacement": "cl_crosshair_length"
@@ -39288,6 +39352,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "integer",
@@ -39356,14 +39428,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "rawFlags": [
         "clientdll",
         "archive",
@@ -39485,6 +39549,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "number",
@@ -39499,14 +39571,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "compatibility": {
         "status": "hidden",
         "replacement": "cl_crosshair_thickness"
@@ -52624,6 +52688,15 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "ArminC CS2 console inventory",
+        "url": "https://github.com/ArmynC/ArminC-CS2-Cvars/blob/2301ff1de4665eb3f734e6f5c7d4007d460d2fa8/cvars/cvarlist.md",
+        "snapshotDate": "2025-05-19",
+        "revision": "2301ff1de4665eb3f734e6f5c7d4007d460d2fa8",
+        "buildId": null,
+        "license": "CC0-1.0",
+        "type": "community-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "integer",
@@ -52705,15 +52778,6 @@
           "pt-BR": "HUD branco intenso"
         }
       ],
-      "documentationSource": {
-        "title": "ArminC CS2 console inventory",
-        "url": "https://github.com/ArmynC/ArminC-CS2-Cvars/blob/2301ff1de4665eb3f734e6f5c7d4007d460d2fa8/cvars/cvarlist.md",
-        "snapshotDate": "2025-05-19",
-        "revision": "2301ff1de4665eb3f734e6f5c7d4007d460d2fa8",
-        "buildId": null,
-        "license": "CC0-1.0",
-        "type": "community-console-dump"
-      },
       "catalogStatus": "curated",
       "lifecycle": "unknown",
       "documentation": {
@@ -53239,6 +53303,15 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "ArminC CS2 console inventory",
+        "url": "https://github.com/ArmynC/ArminC-CS2-Cvars/blob/2301ff1de4665eb3f734e6f5c7d4007d460d2fa8/cvars/cvarlist.md",
+        "snapshotDate": "2025-05-19",
+        "revision": "2301ff1de4665eb3f734e6f5c7d4007d460d2fa8",
+        "buildId": null,
+        "license": "CC0-1.0",
+        "type": "community-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "integer",
@@ -53270,15 +53343,6 @@
           "pt-BR": "Sempre mostrar o tempo de quadro"
         }
       ],
-      "documentationSource": {
-        "title": "ArminC CS2 console inventory",
-        "url": "https://github.com/ArmynC/ArminC-CS2-Cvars/blob/2301ff1de4665eb3f734e6f5c7d4007d460d2fa8/cvars/cvarlist.md",
-        "snapshotDate": "2025-05-19",
-        "revision": "2301ff1de4665eb3f734e6f5c7d4007d460d2fa8",
-        "buildId": null,
-        "license": "CC0-1.0",
-        "type": "community-console-dump"
-      },
       "catalogStatus": "curated",
       "lifecycle": "unknown",
       "documentation": {
@@ -53794,6 +53858,15 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "ArminC CS2 console inventory",
+        "url": "https://github.com/ArmynC/ArminC-CS2-Cvars/blob/2301ff1de4665eb3f734e6f5c7d4007d460d2fa8/cvars/cvarlist.md",
+        "snapshotDate": "2025-05-19",
+        "revision": "2301ff1de4665eb3f734e6f5c7d4007d460d2fa8",
+        "buildId": null,
+        "license": "CC0-1.0",
+        "type": "community-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "integer",
@@ -53825,15 +53898,6 @@
           "pt-BR": "Sempre mostrar o ping"
         }
       ],
-      "documentationSource": {
-        "title": "ArminC CS2 console inventory",
-        "url": "https://github.com/ArmynC/ArminC-CS2-Cvars/blob/2301ff1de4665eb3f734e6f5c7d4007d460d2fa8/cvars/cvarlist.md",
-        "snapshotDate": "2025-05-19",
-        "revision": "2301ff1de4665eb3f734e6f5c7d4007d460d2fa8",
-        "buildId": null,
-        "license": "CC0-1.0",
-        "type": "community-console-dump"
-      },
       "catalogStatus": "curated",
       "lifecycle": "unknown",
       "documentation": {
@@ -56440,6 +56504,14 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "GameTracking CS2 console snapshot",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
+        "snapshotDate": "2026-09-30",
+        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
+        "buildId": null,
+        "type": "tracked-game-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "boolean",
@@ -56466,14 +56538,6 @@
           "pt-BR": "Padrão do snapshot"
         }
       ],
-      "documentationSource": {
-        "title": "GameTracking CS2 console snapshot",
-        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/6ac247908a83c309b37314fd097c47dc78103746/DumpSource2/convars.txt",
-        "snapshotDate": "2026-09-30",
-        "revision": "6ac247908a83c309b37314fd097c47dc78103746",
-        "buildId": null,
-        "type": "tracked-game-console-dump"
-      },
       "rawFlags": [
         "clientdll",
         "archive",
@@ -238805,6 +238869,58 @@
       ]
     },
     {
+      "name": "pitch",
+      "kind": "unknown",
+      "original": null,
+      "editorial": {
+        "en": "Vertical mouse-look action, assigned to MOUSE_Y in the tracked default analog bindings.",
+        "pt-BR": "A??o de movimento vertical da vis?o pelo mouse, associada a MOUSE_Y nos bindings anal?gicos padr?o rastreados.",
+        "category": "movement"
+      },
+      "verification": "pending",
+      "requiresCheats": "unknown",
+      "examples": [],
+      "sources": [
+        "steamtracking-default-keys-2026-03-14"
+      ],
+      "documentationSource": {
+        "title": "CS2 bundled default key bindings via SteamTracking",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/c3b892a3363a9b0275fc901f1960acac9f10b26b/game/csgo/cfg/user_keys_default.vcfg",
+        "snapshotDate": "2026-03-14",
+        "revision": "c3b892a3363a9b0275fc901f1960acac9f10b26b",
+        "buildId": null,
+        "type": "tracked-game-config",
+        "retrievedDate": "2026-10-01",
+        "sha256": "ba4d5d66c0c3a00cd3ad7f7874b275514c81c550208fccf8b8fb557aa0338ee1",
+        "context": "Default bindings and analogbindings; no in-game execution verification.",
+        "attribution": "Valve game configuration tracked by SteamTracking; game-content licensing is separate."
+      },
+      "reportedRejection": null,
+      "catalogStatus": "curated",
+      "lifecycle": "unknown",
+      "documentation": {
+        "reviewed": true
+      },
+      "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "editorial.en": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "editorial.pt-BR": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "documentationSource": {
+          "source": "https://github.com/SteamTracking/GameTracking-CS2/blob/c3b892a3363a9b0275fc901f1960acac9f10b26b/game/csgo/cfg/user_keys_default.vcfg",
+          "confidence": "community"
+        }
+      }
+    },
+    {
       "name": "pixelvis_debug",
       "kind": "command",
       "original": {
@@ -401706,6 +401822,15 @@
         "source2-6ac247908a83c309b37314fd097c47dc78103746-convar",
         "project-curation"
       ],
+      "documentationSource": {
+        "title": "ArminC CS2 console inventory",
+        "url": "https://github.com/ArmynC/ArminC-CS2-Cvars/blob/2301ff1de4665eb3f734e6f5c7d4007d460d2fa8/cvars/cvarlist.md",
+        "snapshotDate": "2025-05-19",
+        "revision": "2301ff1de4665eb3f734e6f5c7d4007d460d2fa8",
+        "buildId": null,
+        "license": "CC0-1.0",
+        "type": "community-console-dump"
+      },
       "reportedRejection": null,
       "parameter": {
         "type": "number",
@@ -401720,15 +401845,6 @@
           "pt-BR": "Deslocamento horizontal padrão"
         }
       ],
-      "documentationSource": {
-        "title": "ArminC CS2 console inventory",
-        "url": "https://github.com/ArmynC/ArminC-CS2-Cvars/blob/2301ff1de4665eb3f734e6f5c7d4007d460d2fa8/cvars/cvarlist.md",
-        "snapshotDate": "2025-05-19",
-        "revision": "2301ff1de4665eb3f734e6f5c7d4007d460d2fa8",
-        "buildId": null,
-        "license": "CC0-1.0",
-        "type": "community-console-dump"
-      },
       "catalogStatus": "curated",
       "lifecycle": "unknown",
       "documentation": {
@@ -412629,6 +412745,58 @@
       "rawFlags": [
         "release"
       ]
+    },
+    {
+      "name": "yaw",
+      "kind": "unknown",
+      "original": null,
+      "editorial": {
+        "en": "Horizontal mouse-look action, assigned to MOUSE_X in the tracked default analog bindings.",
+        "pt-BR": "A??o de movimento horizontal da vis?o pelo mouse, associada a MOUSE_X nos bindings anal?gicos padr?o rastreados.",
+        "category": "movement"
+      },
+      "verification": "pending",
+      "requiresCheats": "unknown",
+      "examples": [],
+      "sources": [
+        "steamtracking-default-keys-2026-03-14"
+      ],
+      "documentationSource": {
+        "title": "CS2 bundled default key bindings via SteamTracking",
+        "url": "https://github.com/SteamTracking/GameTracking-CS2/blob/c3b892a3363a9b0275fc901f1960acac9f10b26b/game/csgo/cfg/user_keys_default.vcfg",
+        "snapshotDate": "2026-03-14",
+        "revision": "c3b892a3363a9b0275fc901f1960acac9f10b26b",
+        "buildId": null,
+        "type": "tracked-game-config",
+        "retrievedDate": "2026-10-01",
+        "sha256": "ba4d5d66c0c3a00cd3ad7f7874b275514c81c550208fccf8b8fb557aa0338ee1",
+        "context": "Default bindings and analogbindings; no in-game execution verification.",
+        "attribution": "Valve game configuration tracked by SteamTracking; game-content licensing is separate."
+      },
+      "reportedRejection": null,
+      "catalogStatus": "curated",
+      "lifecycle": "unknown",
+      "documentation": {
+        "reviewed": true
+      },
+      "provenance": {
+        "editorial.category": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "editorial.en": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "editorial.pt-BR": {
+          "source": "project-curation",
+          "confidence": "community"
+        },
+        "documentationSource": {
+          "source": "https://github.com/SteamTracking/GameTracking-CS2/blob/c3b892a3363a9b0275fc901f1960acac9f10b26b/game/csgo/cfg/user_keys_default.vcfg",
+          "confidence": "community"
+        }
+      }
     },
     {
       "name": "zoom_sensitivity_ratio",

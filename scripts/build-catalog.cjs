@@ -41,8 +41,11 @@ const entries = [...names].sort().map((name) => {
     throw new Error(`Missing bilingual description: ${name}`);
   const observed = inventory.nativeCandidates.find((entry) => entry.name === name);
   const details = parameters.commands[name];
-  const source = details ? parameters.sources[details.sourceId] : undefined;
-  if (details && !source) throw new Error(`Unknown documentation source: ${name}`);
+  const sourceId = details?.sourceId ?? editorial.sourceId;
+  if (details && editorial.sourceId && details.sourceId !== editorial.sourceId)
+    throw new Error(`Conflicting documentation source: ${name}`);
+  const source = sourceId ? parameters.sources[sourceId] : undefined;
+  if (sourceId && !source) throw new Error(`Unknown documentation source: ${name}`);
   if (details) validateParameter(name, details.parameter);
   if (details?.parameter.values) {
     const values = details.parameter.values;
@@ -62,11 +65,14 @@ const entries = [...names].sort().map((name) => {
       name,
       kind: 'unknown',
       original: null,
-      editorial,
+      editorial: Object.fromEntries(
+        Object.entries(editorial).filter(([key]) => key !== 'sourceId'),
+      ),
       verification: 'pending',
       requiresCheats: 'unknown',
       examples,
-      sources: observed ? ['local-corpus'] : [],
+      sources: [...(observed ? ['local-corpus'] : []), ...(editorial.sourceId ? [sourceId] : [])],
+      ...(source ? { documentationSource: source } : {}),
       reportedRejection: report.commands.includes(name) ? report.id : null,
       ...(details
         ? {

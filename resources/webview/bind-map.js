@@ -31,6 +31,12 @@
     uncertain: ['Uncertain', 'Incerto'],
   };
   const entries = () => state.model?.entries ?? [];
+  const categoryDot = (category) => {
+    const dot = node('span', undefined, 'category-dot category-swatch');
+    dot.dataset.category = category;
+    dot.setAttribute('aria-hidden', 'true');
+    return dot;
+  };
   const status = (entry) =>
     !entry.certain ? text('Uncertain', 'Incerto') : text('Assigned', 'Com bind');
   const inputName = (def) =>
@@ -84,26 +90,44 @@
           def
             ? text('No binding found in this analysis.', 'Nenhum bind encontrado nesta análise.')
             : text(
-                'Select a key or mouse control to inspect its bind.',
-                'Selecione uma tecla ou controle do mouse para consultar seu bind.',
+                'No input selected. Choose a key or mouse control to inspect its action, command, source and history.',
+                'Nenhuma entrada selecionada. Escolha uma tecla ou controle do mouse para consultar ação, comando, origem e histórico.',
               ),
+          'empty-copy',
         ),
       );
       return;
     }
-    root.append(
-      node('h3', inputName(def) ?? entry.key),
+    const heading = node('div', undefined, 'selection-heading');
+    const description = node('div');
+    description.append(
       node('p', entry.meaning ?? text('Custom action', 'Ação personalizada'), 'meaning'),
-      node('p', text(...(categories[entry.category] ?? categories.custom)), 'metadata'),
-      node('pre', entry.action),
+      node(
+        'p',
+        text(...(categories[entry.category] ?? categories.custom)) + ' · ' + status(entry),
+        'metadata',
+      ),
     );
+    description.querySelector('.metadata').prepend(categoryDot(entry.category));
+    heading.append(node('h3', inputName(def) ?? entry.key), description);
+    root.append(heading, node('pre', entry.action));
+    const source = node('div', undefined, 'source-actions');
+    source.append(
+      reveal(index, 'origin', text('Open source', 'Abrir origem')),
+      node(
+        'p',
+        `${(state.file ?? '').split(/[/\\]/).pop()}${entry.origin.line ? `:${entry.origin.line}` : ''}`,
+        'metadata',
+      ),
+    );
+    root.append(source);
     if (entry.conflict)
       root.append(
         node(
           'p',
           text(
-            '! Reassigned in this file. The last modeled bind is shown; replacement can be intentional.',
-            '! Reatribuído neste arquivo. O último bind modelado é exibido; a substituição pode ser intencional.',
+            '! Reassigned in this file. The last recorded bind is shown; replacement can be intentional.',
+            '! Reatribuído neste arquivo. O último bind registrado é exibido; a substituição pode ser intencional.',
           ),
           'notice',
         ),
@@ -119,14 +143,6 @@
           'notice',
         ),
       );
-    root.append(reveal(index, 'origin', text('Open source', 'Abrir origem')));
-    root.append(
-      node(
-        'p',
-        `${(state.file ?? '').split(/[/\\]/).pop()}${entry.origin.line ? `:${entry.origin.line}` : ''}`,
-        'metadata',
-      ),
-    );
     if (entry.definition.start !== entry.origin.start)
       root.append(
         reveal(index, 'definition', text('Open alias definition', 'Abrir definição do alias')),
@@ -188,9 +204,19 @@
       empty: text('No data in this analysis', 'Sem dados nesta análise'),
       conflict: text('Reassigned / ambiguous', 'Reatribuído / ambíguo'),
       uncertain: text('Uncertain', 'Incerto'),
+      names: {
+        mouse1: text('Left click', 'Clique esquerdo'),
+        mouse2: text('Right click', 'Clique direito'),
+        mouse3: text('Wheel click', 'Clique da roda'),
+        mouse4: text('Side button 1', 'Botão lateral 1'),
+        mouse5: text('Side button 2', 'Botão lateral 2'),
+        mwheelup: text('Wheel up', 'Rolar para cima'),
+        mwheeldown: text('Wheel down', 'Rolar para baixo'),
+      },
     };
     keyboard.update(entries(), visual, passes, labels);
     mouse.update(entries(), visual, passes, labels);
+    mouseControls.update(entries(), visual, passes, labels);
   }
   function select(key, id) {
     selected = key;
@@ -204,18 +230,31 @@
       const selection = CS2InputState.select(def, CS2InputLayout.matches(def, entries()));
       select(selection.key, selection.visualId);
     },
-    tooltip: (def) => {
+    tooltip: (def, element) => {
       const entry = CS2InputLayout.matches(def, entries())[0];
       $('tooltip').textContent =
         `${inputName(def)} · ${entry ? `${entry.meaning ?? entry.action} · ${status(entry)}` : text('No data in this analysis', 'Sem dados nesta análise')}`;
       $('tooltip').hidden = false;
+      const tip = $('tooltip'),
+        rect = element.getBoundingClientRect();
+      tip.style.maxWidth = Math.min(360, window.innerWidth - 24) + 'px';
+      tip.style.left =
+        Math.max(12, Math.min(rect.left, window.innerWidth - tip.offsetWidth - 12)) + 'px';
+      tip.style.top =
+        Math.max(
+          12,
+          rect.bottom + tip.offsetHeight + 8 < window.innerHeight
+            ? rect.bottom + 8
+            : rect.top - tip.offsetHeight - 8,
+        ) + 'px';
     },
     hideTooltip: () => {
       $('tooltip').hidden = true;
     },
   };
   const keyboard = CS2InputSvg.keyboard(callbacks),
-    mouse = CS2InputSvg.mouse(callbacks);
+    mouse = CS2InputSvg.mouse(callbacks),
+    mouseControls = CS2InputSvg.controls(CS2InputLayout.mouse, callbacks);
   const narrow = window.matchMedia('(max-width: 899px)');
   const collapseFilters = () => {
     $('filter-panel').open = !narrow.matches;
@@ -224,6 +263,7 @@
   narrow.addEventListener('change', collapseFilters);
   $('keyboard').append(keyboard.svg);
   $('mouse').append(mouse.svg);
+  $('mouse-actions').append(...mouseControls.nodes);
   const categoryPicker = CS2ChoicePicker(
     $('category'),
     $('category-menu'),
@@ -267,7 +307,9 @@
         node('span', entry.meaning ?? text('Custom action', 'Ação personalizada'), 'bind-name'),
         node('code', entry.action, 'bind-command'),
       );
-      item.append(node('kbd', entry.key, 'bind-key'), action);
+      const key = node('kbd', entry.key, 'bind-key');
+      key.append(categoryDot(entry.category));
+      item.append(key, action);
       root.append(item);
     });
     if (!root.children.length)
@@ -277,13 +319,17 @@
     document.documentElement.lang = state.pt ? 'pt-BR' : 'en';
     const copy = {
       title: ['Visual bind map', 'Mapa visual de binds'],
+      intro: [
+        'Inspect keyboard and mouse bindings, actions and source locations.',
+        'Consulte binds de teclado e mouse, ações e linhas de origem.',
+      ],
       mode: ['Read-only · Single file', 'Somente leitura · Arquivo único'],
       'filters-title': ['Filters', 'Filtros'],
       'category-label': ['Category', 'Categoria'],
       'state-label': ['State', 'Estado'],
       'keyboard-title': ['ANSI keyboard', 'Teclado ANSI'],
       'mouse-title': ['Mouse', 'Mouse'],
-      'mouse-note': ['Five buttons and scroll directions.', 'Cinco botões e direções de rolagem.'],
+      'mouse-note': ['Five buttons + wheel inputs', 'Cinco botões + entradas da roda'],
       'selection-help': [
         'Select an input to inspect it. Scroll horizontally to reach more keys.',
         'Selecione uma entrada para consultá-la. Role na horizontal para acessar mais teclas.',
@@ -297,13 +343,14 @@
       ],
     };
     for (const [id, label] of Object.entries(copy)) $(id).textContent = text(...label);
-    $('file').textContent = state.file ?? '';
+    $('file').textContent = (state.file ?? '').split(/[/\\]/).pop();
+    $('file').setAttribute('aria-label', state.file ?? '');
     $('file').title = state.file ?? '';
     $('legend').replaceChildren(
       ...[
         ['●', text('Assigned', 'Com bind')],
         ['!', text('Reassigned / ambiguous', 'Reatribuído / ambíguo')],
-        ['?', text('Uncertain', 'Incerto')],
+        ['◌', text('Uncertain · dashed border', 'Incerto · borda tracejada')],
         ['○', text('No data', 'Sem dados')],
       ].map(([symbol, label]) => node('li', `${symbol} ${label}`)),
     );

@@ -26,5 +26,10 @@
   "setting.maxBlankLines": "Máximo de linhas vazias consecutivas mantidas pelo formatter.",
   "setting.separateSections": "Adicionar uma linha vazia antes de cabeçalhos de comentário com separadores.",
   "setting.insertFinalNewline": "Terminar documentos formatados com uma quebra de linha.",
-  "command.bindMap": "CS2 Config: Abrir mapa de binds"
+  "command.bindMap": "CS2 Config: Abrir mapa de binds",
+  "command.videoSettings": "CS2 Config: Ver configurações de vídeo",
+  "command.connectSettings": "CS2 Config: Conectar configurações do jogo",
+  "command.detectSettings": "CS2 Config: Detectar perfis Steam",
+  "command.commandExplorer": "CS2 Config: Explorar comandos",
+  "command.connectConfiguration": "CS2 Config: Conectar configuração"
 }

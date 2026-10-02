@@ -26,5 +26,10 @@
   "setting.maxBlankLines": "Maximum consecutive blank lines kept by the CFG formatter.",
   "setting.separateSections": "Add a blank line before separator comment headers.",
   "setting.insertFinalNewline": "End formatted documents with a newline.",
-  "command.bindMap": "CS2 Config: Open Bind Map"
+  "command.bindMap": "CS2 Config: Open Bind Map",
+  "command.videoSettings": "CS2 Config: View Video Settings",
+  "command.connectSettings": "CS2 Config: Connect Game Settings",
+  "command.detectSettings": "CS2 Config: Detect Steam Profiles",
+  "command.commandExplorer": "CS2 Config: Explore Commands",
+  "command.connectConfiguration": "CS2 Config: Connect Configuration"
 }

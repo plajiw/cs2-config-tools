@@ -131,6 +131,26 @@ Antes de implementar qualquer feature planejada:
 
 ## 4. CS2 Configuration Hub
 
+### Implementado e próximo incremento
+
+O Hub já oferece pasta CFG, detecção/conexão independente de userdata e inspeção de vídeo. O incremento atual refina nomes, gravidades, categorias e fontes recolhíveis, integra conexão/recuperação nas telas de configurações salvas e abre vídeo/controles no editor de texto. O **Command Explorer** está funcional na Home e em Ferramentas: busca no registry, alternância normal/completo, documentação compartilhada e cópia do nome.
+
+O próximo passo dependente continua sendo fortalecer validação e escrita segura antes de editores visuais de vídeo/builders. O resumo permanece de CFGs; um estado global CFG + userdata não é afirmado. Modelos completos de controles e preferências salvas continuam pendentes.
+
+### Incremento anterior
+
+A Home prioriza CFGs do jogador e arquivos não classificados, recolhe nomes típicos do jogo por heurística e concentra atalhos em uma única região. Fontes de configuração conectam a pasta de CFGs e Steam userdata independentemente. A página de vídeo lê cs2_video.txt, mantém valores literais e deriva resolução/proporção/frequência. Escrita de vídeo, outros domínios userdata e builders continuam planejados.
+
+### Recorte histórico da entrada do Hub
+
+O Hub possui um fluxo único de conexão local para descobrir a pasta do jogo e o perfil Steam, com autorização conjunta, além de remoção individual de CFG para a Lixeira com confirmação. Não exige login ou credenciais Steam.
+
+O health check textual implementado agrupa achados, informa gravidade e linhas de origem e explica os efeitos não resolvidos. Uma página visual de Health Check continua planejada.
+
+O Hub atual reúne Home, conexão manual/detecção de pasta, arquivos CFG, mapa de binds somente leitura, health check e criação de CFG vazia. O menu apresenta somente essas capacidades funcionais. Leitura, escrita e formatação continuam no editor de texto com os providers existentes.
+
+Nesse recorte inicial, builders, Game Settings, Config Doctor, File Map e Command Explorer ficavam fora da navegação. O incremento atual descrito acima registra o avanço implementado. A Home compõe renderizadores de ferramentas, resumo, ações rápidas e lista de arquivos; análise, acesso a arquivos e comandos continuam nos serviços compartilhados. A preparação não conclui a análise multiarquivo nem gera uma distribuição. O estado e a validação ficam em [status](docs/planning/status.md).
+
 O Hub é o ponto central de entrada da extensão.
 
 Ele não deve ser um dashboard inflado. Sua função é responder rapidamente:
@@ -460,6 +480,8 @@ Esse padrão é um dos elementos que deixa o produto “redondo”.
 # PARTE III — VISUALIZAÇÃO E EDIÇÃO
 
 ## 11. Visual Bind Map
+
+Implementado em desenvolvimento: teclado com escala fixa e rolagem local, mouse com cinco botões integrados e controles para botões/roda, inspector abaixo e identidade de categoria compartilhada. A composição foi revisada no Extension Development Host em três larguras nos temas claro e escuro. Veja o [registro visual](docs/planning/bind-map-visual-refinement.md). Edição visual permanece planejada.
 
 **Em evolução / parcialmente implementado.**
 
@@ -943,10 +965,10 @@ interface Cs2VideoSetting {
   key: string;
   label: string;
   description?: string;
-  category: "display" | "quality" | "latency" | "effects" | "advanced";
-  type: "boolean" | "integer" | "float" | "enum" | "resolution" | "refresh-rate";
+  category: 'display' | 'quality' | 'latency' | 'effects' | 'advanced';
+  type: 'boolean' | 'integer' | 'float' | 'enum' | 'resolution' | 'refresh-rate';
   writable: boolean;
-  confidence: "verified" | "high" | "community" | "unknown";
+  confidence: 'verified' | 'high' | 'community' | 'unknown';
   sources: SourceReference[];
 }
 ```
@@ -1434,10 +1456,10 @@ bind "
 bind "x" "
 → actions / aliases
 
-exec 
+exec
 → cfg files
 
-buy 
+buy
 → items
 ```
 
@@ -1959,25 +1981,25 @@ Issue → Review Changes
 
 ## 57. Matriz resumida
 
-| Feature | Resultado | Dependências principais |
-| --- | --- | --- |
-| Visual Bind Map | Entender binds fisicamente | Parser + bind analysis + human labels |
-| Bind Editor | Editar binds visualmente | Bind Map + safe writer + diff |
-| Autoexec Builder | Criar autoexec | Registry + generators + writer |
-| Crosshair Builder | Montar/aplicar mira | Crosshair metadata validado |
-| Radar Builder | Montar/aplicar radar | Registry + ranges/semantics |
-| Practice Builder | Criar practice.cfg | Practice command validation |
-| Alias Builder | Montar aliases | Alias parser/semantics |
-| Config Doctor | Explicar problemas | Diagnostics + effective analysis |
-| Execution Trace | Mostrar precedência | Multi-file exec analysis |
-| File Map | Visualizar exec graph | Workspace + dependency graph |
-| Migration Assistant | Ajudar após updates | Historical/build-aware metadata |
-| Game Settings | Ver estado persistido | Userdata discovery + parsers |
-| Video Editor | Editar vídeo com segurança | Video registry + safe userdata writer |
-| Saved vs Autoexec | Comparar fontes | Unified configuration model |
-| Semantic Diff | Comparar intenção | Normalized domain models |
-| Backup/Restore | Segurança | Snapshot service |
-| Shareable Report | Ajuda comunitária | Diagnostics + sanitization |
+| Feature             | Resultado                  | Dependências principais               |
+| ------------------- | -------------------------- | ------------------------------------- |
+| Visual Bind Map     | Entender binds fisicamente | Parser + bind analysis + human labels |
+| Bind Editor         | Editar binds visualmente   | Bind Map + safe writer + diff         |
+| Autoexec Builder    | Criar autoexec             | Registry + generators + writer        |
+| Crosshair Builder   | Montar/aplicar mira        | Crosshair metadata validado           |
+| Radar Builder       | Montar/aplicar radar       | Registry + ranges/semantics           |
+| Practice Builder    | Criar practice.cfg         | Practice command validation           |
+| Alias Builder       | Montar aliases             | Alias parser/semantics                |
+| Config Doctor       | Explicar problemas         | Diagnostics + effective analysis      |
+| Execution Trace     | Mostrar precedência        | Multi-file exec analysis              |
+| File Map            | Visualizar exec graph      | Workspace + dependency graph          |
+| Migration Assistant | Ajudar após updates        | Historical/build-aware metadata       |
+| Game Settings       | Ver estado persistido      | Userdata discovery + parsers          |
+| Video Editor        | Editar vídeo com segurança | Video registry + safe userdata writer |
+| Saved vs Autoexec   | Comparar fontes            | Unified configuration model           |
+| Semantic Diff       | Comparar intenção          | Normalized domain models              |
+| Backup/Restore      | Segurança                  | Snapshot service                      |
+| Shareable Report    | Ajuda comunitária          | Diagnostics + sanitization            |
 
 ---
 

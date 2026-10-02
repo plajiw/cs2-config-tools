@@ -9,14 +9,22 @@ import {
   configSummary,
   steamLibraryPaths,
   validCfgName,
+  configFileOrigin,
 } from '../core/config-workspace';
 import { parse } from '../core/parser';
 import { Services, MAX_DOCUMENT_LENGTH } from './services';
 
 const STATE_KEY = 'cs2Config.authorizedFolder';
 const FILE_LIMIT = 100;
+export interface CfgRemoval {
+  name: string;
+  snapshot: FolderSnapshot;
+  uri: vscode.Uri;
+  identity: { dev: number; ino: number; size: number; mtimeMs: number };
+}
 export interface ConfigFile {
   name: string;
+  origin: 'user' | 'game' | 'unknown';
   summary?: ConfigSummary;
   unavailable?: boolean;
 }
@@ -132,7 +140,10 @@ export class ConfigFolder implements vscode.Disposable {
         result.limited = candidates.length > FILE_LIMIT;
         for (const item of candidates.slice(0, FILE_LIMIT)) {
           if (generation !== this.generation || this.disposed) return;
-          const file: ConfigFile = { name: item.name };
+          const file: ConfigFile = {
+            name: item.name,
+            origin: configFileOrigin(item.name, result.typical),
+          };
           try {
             const uri = await this.fileUri(item.name, folder);
             if (!uri) throw new Error('Unsupported file');
@@ -184,6 +195,50 @@ export class ConfigFolder implements vscode.Disposable {
     return uri;
   }
 
+  async prepareRemoval(name: string): Promise<CfgRemoval> {
+    const snapshot = this.snapshot;
+    if (
+      !vscode.workspace.isTrusted ||
+      !snapshot.connected ||
+      !snapshot.files.some((file) => file.name === name)
+    )
+      throw new Error('File removal is unavailable');
+    const uri = await this.fileUri(name);
+    if (!uri || this.snapshot !== snapshot) throw new Error('File selection changed');
+    if (
+      vscode.workspace.textDocuments.some(
+        (doc) => doc.uri.toString() === uri.toString() && doc.isDirty,
+      )
+    )
+      throw new Error('Save or discard unsaved changes before removing this CFG');
+    const { dev, ino, size, mtimeMs } = await fs.lstat(uri.fsPath);
+    return { name, snapshot, uri, identity: { dev, ino, size, mtimeMs } };
+  }
+
+  async remove(target: CfgRemoval): Promise<void> {
+    if (this.snapshot !== target.snapshot) throw new Error('Folder changed during confirmation');
+    const fresh = await this.prepareRemoval(target.name);
+    if (
+      fresh.uri.toString() !== target.uri.toString() ||
+      Object.keys(target.identity).some(
+        (key) =>
+          fresh.identity[key as keyof CfgRemoval['identity']] !==
+          target.identity[key as keyof CfgRemoval['identity']],
+      )
+    )
+      throw new Error('File changed during confirmation');
+    if (
+      this.snapshot !== target.snapshot ||
+      !vscode.workspace.isTrusted ||
+      vscode.workspace.textDocuments.some(
+        (doc) => doc.uri.toString() === fresh.uri.toString() && doc.isDirty,
+      )
+    )
+      throw new Error('File selection changed');
+    await vscode.workspace.fs.delete(fresh.uri, { useTrash: true, recursive: false });
+    await this.refresh();
+  }
+
   dispose(): void {
     this.disposed = true;
     ++this.generation;
@@ -193,7 +248,7 @@ export class ConfigFolder implements vscode.Disposable {
   }
 }
 
-export async function detectConfigFolders(): Promise<string[]> {
+export async function detectSteamRoots(): Promise<string[]> {
   const roots = new Set<string>();
   const home = os.homedir();
   if (process.platform === 'win32') {
@@ -216,6 +271,11 @@ export async function detectConfigFolders(): Promise<string[]> {
     roots.add(path.join(home, '.local', 'share', 'Steam'));
     roots.add(path.join(home, '.steam', 'steam'));
   }
+  return [...roots];
+}
+
+export async function detectConfigFolders(): Promise<string[]> {
+  const roots = new Set(await detectSteamRoots());
   for (const root of [...roots]) {
     try {
       const libraryFile = path.join(root, 'steamapps', 'libraryfolders.vdf');

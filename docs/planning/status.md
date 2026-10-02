@@ -1,12 +1,18 @@
 # Estado do projeto
 
-A consolidação do documento mestre e a auditoria arquitetural estão concluídas. Veja a [auditoria](architecture-audit.md) e o [plano de implementação](implementation-plan.md). O registry reconhece os dois dumps completos, com estados de catálogo e proveniência por campo. Há agora um modelo efetivo local conservador, health check textual e mapa visual de binds somente leitura; workspace e builders permanecem planejados.
+A consolidação do documento mestre e a auditoria arquitetural estão concluídas. Veja a [auditoria](architecture-audit.md) e o [plano de implementação](implementation-plan.md). O registry reconhece os dois dumps completos, com estados de catálogo e proveniência por campo. Há agora um modelo efetivo local conservador, health check textual e mapa visual de binds somente leitura; análise multiarquivo e builders permanecem planejados.
 
 CS2 Config Tools tem um protótipo local de edição e formatação. O catálogo oferece explicações comunitárias em inglês e pt-BR, com exemplos extraídos das CFGs de referência. A versão vigente está em `package.json`; mudanças ficam no [changelog](../../CHANGELOG.md).
 
 ## Implementado
 
-- Config Hub MVP em desenvolvimento: Activity Bar, Home, pasta autorizada/persistida, detecção Steam, listagem, resumos independentes, atalhos para mapa/health e criação exclusiva de CFG vazia. Builders aparecem como planejados; análise multiarquivo continua pendente. Veja [FEATURES](../../FEATURES.md).
+- Em desenvolvimento: Bind Map com seções próprias de teclado/mouse, botões laterais integrados, ações adjacentes e inspector abaixo em todas as larguras. Capturas reais do Extension Development Host em três larguras, nos temas claro e escuro; veja o [registro visual](bind-map-visual-refinement.md).
+
+- Em desenvolvimento: refinamento do Hub, gravidades reais e categorias detectadas com escopo explícito; conexão/recuperação de userdata nas próprias telas; abertura de vídeo/controles como texto. Command Explorer completo com busca/visibilidade no registry, documentação compartilhada, cópia e testes. Estado global CFG + userdata e escrita visual continuam pendentes.
+
+- Em desenvolvimento: Home compacta, agrupamento heurístico de nomes do jogo e conexão independente de Steam userdata com consentimento/persistência. Vídeo somente leitura via parser/modelo compartilhado, valores literais e resolução/proporção/frequência derivadas. Edição, enums verificados e outros domínios userdata permanecem pendentes. Veja a [validação do incremento](userdata-validation.md).
+
+- Config Hub MVP em desenvolvimento: Activity Bar, Home, pasta autorizada/persistida, detecção Steam, listagem, resumos independentes, atalhos para mapa/health e criação exclusiva de CFG vazia. O menu exibe apenas ferramentas implementadas; builders ficam fora da navegação; análise multiarquivo continua pendente. Veja [FEATURES](../../FEATURES.md).
 - Filtro de categorias com menu colorido acessível, lista de binds com keycaps/descrições/comandos separados e identificação visual do caminho da CFG. Incluídos na distribuição solicitada; veja o [changelog](../../CHANGELOG.md).
 
 - Refinamento do mapa visual: teclado com escala fixa e rolagem local, filtros recolhidos em painéis menores, mouse alinhado à esquerda e inspector com descrição primeiro e histórico apenas para múltiplas atribuições.
@@ -19,7 +25,8 @@ CS2 Config Tools tem um protótipo local de edição e formatação. O catálogo
 - Documentação pura, exemplos revisados sem repetição da linha atual e mensagens de parâmetros.
 - Modelo local com histórico de binds/atribuições, aliases em ordem e limites explícitos para execs, ciclos e ações desconhecidas.
 - Análise compartilhada de repetição/substituição de binds, com resets, barreiras de incerteza, origem em aliases e links para o bind anterior; severidade configurável e contagens no health check.
-- Outline, referências de aliases, sugestões de correção, inlays opcionais e comando de health check.
+- Conexão local unificada para pasta CFG/perfil Steam, com uma confirmação conjunta; remoção de CFG para a Lixeira com confirmação e proteção de buffers/identidade. Bind Map mantém bolinhas coloridas em resultados incertos e filtros alinhados em telas estreitas.
+- Outline, referências de aliases, sugestões de correção, inlays opcionais e comando de health check. O Output do health check agrupa achados, resume gravidades e explica efeitos não resolvidos, com linhas de origem e mensagens compartilhadas com os diagnósticos. Página visual de Health Check permanece planejada.
 
 - Coleta de ConVars e comandos na mesma revisão, índice de candidatos, relatório de diferenças e promoção explícita com validação de hashes.
 - Registry independente, documentação humana separada dos fatos técnicos e autocomplete normal/avançado.

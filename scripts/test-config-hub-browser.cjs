@@ -25,9 +25,10 @@ async function run() {
       return { Uri: { joinPath: (uri, ...parts) => uri + '/' + parts.join('/') } };
     return loader.call(this, name, ...args);
   };
-  let page;
+  let page, videoPage, explorerPage;
   try {
-    page = require('../dist/vscode/config-hub').hubPage;
+    ({ hubPage: page, videoPage } = require('../dist/vscode/config-hub'));
+    ({ explorerPage } = require('../dist/vscode/command-explorer'));
   } finally {
     Module._load = loader;
   }
@@ -52,7 +53,17 @@ async function run() {
     typical: true,
     limited: false,
     pt: false,
-    files,
+    files: [...files, { name: 'gamemode_custom.cfg', origin: 'game', summary: files[0].summary }],
+    userdata: {
+      connected: true,
+      folder: 'C:/Steam/userdata/123/730/local/cfg',
+      profileId: '123',
+      status: 'available',
+      video: {
+        resolution: { width: 1280, height: 960, aspectRatio: '4:3' },
+        refreshRate: { hz: 74.973 },
+      },
+    },
   };
   fs.writeFileSync(
     path.join(output, 'bridge.js'),
@@ -133,12 +144,41 @@ async function run() {
       ['2', '3', '0', '1'],
     );
     assert.equal(
-      await evaluate("document.querySelectorAll('.tool-card:disabled').length"),
-      4,
-      'Builders are honestly disabled',
+      await evaluate("document.querySelectorAll('.tool-card').length"),
+      0,
+      'No duplicated feature cards',
     );
+    assert.equal(await evaluate("document.querySelectorAll('#other-files tr').length"), 1);
     assert.equal(
-      await evaluate("document.querySelectorAll('#files tr')[1].textContent.includes('Partial')"),
+      await evaluate("document.getElementById('sources').open"),
+      false,
+      'Connected sources are compact',
+    );
+    assert.equal(await evaluate("document.getElementById('disconnect-settings').hidden"), false);
+    await evaluate("document.querySelector('#connect-sources').click()");
+    assert.deepEqual(await evaluate('smoke.messages.at(-1)'), { type: 'connect' });
+    await evaluate("window.postMessage({...smoke.state, writable:true}, '*')");
+    await delay(100);
+    await evaluate("document.querySelector('#files [data-action=delete]').click()");
+    assert.deepEqual(await evaluate('smoke.messages.at(-1)'), {
+      type: 'delete',
+      file: 'autoexec.cfg',
+      revision: 1,
+    });
+    await evaluate("window.postMessage({...smoke.state, writable:false}, '*')");
+    await delay(100);
+    assert.equal(
+      await evaluate("document.querySelector('#files [data-action=delete]').disabled"),
+      true,
+    );
+    await evaluate("document.querySelector('#quick [data-action=explorer]').click()");
+    assert.deepEqual(await evaluate('smoke.messages.at(-1)'), { type: 'explorer' });
+    await evaluate("document.querySelector('#game-settings [data-action=video]').click()");
+    assert.deepEqual(await evaluate('smoke.messages.at(-1)'), { type: 'video' });
+    assert.equal(
+      await evaluate(
+        "document.querySelectorAll('#files tr')[1].textContent.includes('Partial analysis')",
+      ),
       true,
     );
     await evaluate("document.querySelector('#quick [data-action=bindMap]').click()");
@@ -231,6 +271,19 @@ async function run() {
         );
       }
     }
+    await evaluate("window.postMessage({...smoke.state, files: [], revision: 3}, '*')");
+    await delay(100);
+    assert.equal(
+      await evaluate("document.querySelector('#quick [data-action=new]').disabled"),
+      false,
+      'Connected empty folders allow creation',
+    );
+    assert.equal(
+      await evaluate(
+        "document.querySelectorAll('#quick [data-action=bindMap], #quick [data-action=health]').length",
+      ),
+      0,
+    );
     await evaluate(
       "window.postMessage({...smoke.state, connected: false, folder: undefined, files: [], revision: 3}, '*')",
     );
@@ -238,8 +291,111 @@ async function run() {
     assert.equal(await evaluate("document.getElementById('welcome').hidden"), false);
     assert.equal(await evaluate("document.getElementById('new').disabled"), true);
     assert.deepEqual(await evaluate('smoke.violations'), []);
+    await evaluate(
+      "window.postMessage({...smoke.state, connected: false, userdata: {connected:false, status:'disconnected'}, files: []}, '*')",
+    );
+    await delay(100);
+    assert.equal(
+      await evaluate("document.querySelector('#game-settings [data-action=connect]').disabled"),
+      false,
+    );
+    assert.equal(await evaluate("document.getElementById('disconnect-settings').hidden"), true);
+    assert.equal(await evaluate("document.getElementById('sources').open"), true);
+    await evaluate("document.querySelector('#game-settings [data-action=connect]').click()");
+    assert.deepEqual(await evaluate('smoke.messages.at(-1)'), { type: 'connect' });
+    let videoHtml = videoPage(
+      { cspSource: 'file:', asWebviewUri: (value) => value },
+      pathToFileURL(root).href,
+    );
+    const videoNonce = /script-src 'nonce-([a-f0-9]+)'/.exec(videoHtml)[1];
+    const { parseVideoSettings, videoRows } = require('../dist/core/video-settings');
+    const model = parseVideoSettings(
+      '"video.cfg" { "setting.defaultres" "1280" "setting.defaultresheight" "960" "setting.refreshrate_numerator" "74973" "setting.refreshrate_denominator" "1000" "unknown" "<img src=x onerror=alert(1)>" }',
+    );
+    const videoState = {
+      type: 'videoState',
+      connected: true,
+      status: 'available',
+      pt: true,
+      video: model,
+      rows: videoRows(model, true),
+    };
+    fs.writeFileSync(
+      path.join(output, 'video-bridge.js'),
+      `window.smoke = { state: ${JSON.stringify(videoState)}, messages: [], violations: [] }; document.addEventListener('securitypolicyviolation', e => smoke.violations.push(e.violatedDirective)); window.acquireVsCodeApi = () => ({ postMessage: m => { smoke.messages.push(m); if (m.type === 'ready') setTimeout(() => window.postMessage(smoke.state, '*'), 0); } });`,
+    );
+    videoHtml = videoHtml.replace(
+      '</head>',
+      `<script nonce="${videoNonce}" src="${pathToFileURL(path.join(output, 'video-bridge.js')).href}"></script></head>`,
+    );
+    fs.writeFileSync(path.join(output, 'video.html'), videoHtml);
+    await send('Page.navigate', { url: pathToFileURL(path.join(output, 'video.html')).href });
+    for (let attempt = 0; attempt < 50; attempt++) {
+      if (await evaluate("document.querySelectorAll('#video-fields tr').length === 5")) break;
+      await delay(100);
+    }
+    assert.equal(
+      await evaluate("document.getElementById('video-summary').textContent"),
+      '1280 × 960 · 4:3 · 74.973 Hz',
+    );
+    assert.equal(await evaluate("document.querySelectorAll('#video-fields img').length"), 0);
+    await evaluate("document.getElementById('open-video').click()");
+    assert.deepEqual(await evaluate('smoke.messages.at(-1)'), { type: 'openVideo' });
+    await evaluate("document.getElementById('raw-video').click()");
+    assert.deepEqual(await evaluate('smoke.messages.at(-1)'), { type: 'rawVideo' });
+    assert.deepEqual(await evaluate('smoke.violations'), []);
+    await evaluate(
+      "window.postMessage({...smoke.state, status: 'missing', video: undefined, rows: []}, '*')",
+    );
+    await delay(100);
+    assert.equal(await evaluate("document.getElementById('raw-video').disabled"), true);
+    let explorerHtml = explorerPage(
+      { cspSource: 'file:', asWebviewUri: (value) => value },
+      pathToFileURL(root).href,
+    );
+    const explorerNonce = /script-src 'nonce-([a-f0-9]+)'/.exec(explorerHtml)[1];
+    const { documentation } = require('../dist/core/documentation');
+    const commandState = {
+      type: 'command',
+      pt: true,
+      name: 'cl_crosshairsize',
+      blocks: [
+        ...documentation(registry.get('cl_crosshairsize'), {
+          language: 'pt-BR',
+          advanced: true,
+          showOriginal: true,
+        }),
+        { kind: 'code', text: '<img src=x onerror=alert(1)>' },
+      ],
+    };
+    fs.writeFileSync(
+      path.join(output, 'explorer-bridge.js'),
+      `window.smoke = { state: ${JSON.stringify(commandState)}, messages: [], violations: [] }; document.addEventListener('securitypolicyviolation', e => smoke.violations.push(e.violatedDirective)); window.acquireVsCodeApi = () => ({postMessage: m => { smoke.messages.push(m); if(m.type==='ready') setTimeout(() => window.postMessage(smoke.state,'*'),0); }});`,
+    );
+    explorerHtml = explorerHtml.replace(
+      '</head>',
+      `<script nonce="${explorerNonce}" src="${pathToFileURL(path.join(output, 'explorer-bridge.js')).href}"></script></head>`,
+    );
+    fs.writeFileSync(path.join(output, 'explorer.html'), explorerHtml);
+    await send('Page.navigate', { url: pathToFileURL(path.join(output, 'explorer.html')).href });
+    for (let attempt = 0; attempt < 50; attempt++) {
+      if (
+        await evaluate(
+          "document.getElementById('command-name')?.textContent === 'cl_crosshairsize'",
+        )
+      )
+        break;
+      await delay(100);
+    }
+    assert.equal(await evaluate("document.querySelectorAll('#command-doc img').length"), 0);
+    assert.equal(await evaluate('document.documentElement.lang'), 'pt-BR');
+    await evaluate("document.getElementById('copy').click()");
+    assert.deepEqual(await evaluate('smoke.messages.at(-1)'), { type: 'copy' });
+    await evaluate("document.getElementById('search').click()");
+    assert.deepEqual(await evaluate('smoke.messages.at(-1)'), { type: 'search' });
+    assert.deepEqual(await evaluate('smoke.violations'), []);
     console.log(
-      `PASS: Config hub browser: derived counts, planned tools, keyboard activation, typed actions, focus, literal safety, first-use state and responsive dark/light screenshots. ${output}`,
+      `PASS: Config hub browser: derived counts, implemented tools, keyboard activation, typed actions, focus, literal safety, first-use state and responsive dark/light screenshots. ${output}`,
     );
     socket.send(JSON.stringify({ id: ++id, method: 'Browser.close' }));
     await Promise.race([new Promise((resolve) => child.once('exit', resolve)), delay(1500)]);

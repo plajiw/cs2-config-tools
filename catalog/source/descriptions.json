@@ -666,5 +666,23 @@
   "cl_crosshairoutline_a": {
     "en": "Opacity: outline channel.",
     "pt-BR": "Opacidade: canal do contorno."
+  },
+  "+showscores": {
+    "en": "Show the scoreboard while the bound key is held. The tracked default key file assigns this action to TAB.",
+    "pt-BR": "Mostra o placar enquanto a tecla vinculada estiver pressionada. O arquivo de teclas padr?o rastreado associa esta a??o ao TAB.",
+    "category": "interface",
+    "sourceId": "steamtracking-default-keys-2026-03-14"
+  },
+  "yaw": {
+    "en": "Horizontal mouse-look action, assigned to MOUSE_X in the tracked default analog bindings.",
+    "pt-BR": "A??o de movimento horizontal da vis?o pelo mouse, associada a MOUSE_X nos bindings anal?gicos padr?o rastreados.",
+    "category": "movement",
+    "sourceId": "steamtracking-default-keys-2026-03-14"
+  },
+  "pitch": {
+    "en": "Vertical mouse-look action, assigned to MOUSE_Y in the tracked default analog bindings.",
+    "pt-BR": "A??o de movimento vertical da vis?o pelo mouse, associada a MOUSE_Y nos bindings anal?gicos padr?o rastreados.",
+    "category": "movement",
+    "sourceId": "steamtracking-default-keys-2026-03-14"
   }
 }

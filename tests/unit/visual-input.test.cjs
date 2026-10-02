@@ -3,6 +3,26 @@ const assert = require('node:assert/strict');
 const layout = require('../../resources/webview/visual-input/layout');
 const state = require('../../resources/webview/visual-input/state');
 
+test('device and adjacent control presentations share conflict, selection, uncertainty and filters', () => {
+  const entries = [
+    { key: 'mouse1', category: 'weapons', certain: false },
+    { key: 'MOUSE1', category: 'weapons', certain: true },
+  ];
+  const projected = state.presentation(entries, true, (entry) => entry?.category === 'movement');
+  assert.equal(projected.entry, entries[0]);
+  assert.equal(projected.selected, true);
+  assert.equal(projected.conflict, true);
+  assert.equal(projected.uncertain, true);
+  assert.equal(projected.dim, true);
+  assert.equal(state.presentation(entries, false, () => true).dim, false);
+  assert.equal(state.presentation([], false, (entry) => !entry).dim, false);
+  assert.equal(layout.mouse.filter((def) => !def.external).length, 5);
+  assert.deepEqual(
+    layout.mouse.filter((def) => def.external).map((def) => def.cs2Key),
+    ['mwheelup', 'mwheeldown'],
+  );
+});
+
 test('ANSI geometry has unique IDs, proportional keys and nonoverlapping clusters', () => {
   assert.equal(layout.keys.length, 104);
   assert.equal(new Set(layout.keys.map((key) => key.id)).size, layout.keys.length);

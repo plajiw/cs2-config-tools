@@ -28,3 +28,5 @@ Candidate snapshots are **discovered**; promoted technical records are **verifie
 SteamTracking provenance is labeled **Source 2 runtime dump via SteamTracking/GameTracking-CS2**, never “Valve official.” Lifecycle stays unknown unless separately evidenced. Missing entries in the update report are not automatically marked removed. Future automated updates should propose reviewable changes, not publish facts automatically.
 
 Never execute an inventory indiscriminately. Runtime verification records the environment, exact input/output and restoration procedure. Editor fixtures demonstrate syntax and observed examples only.
+
+Scoreboard and mouse-axis descriptions cite [the tracked CS2 default key file](https://github.com/SteamTracking/GameTracking-CS2/blob/c3b892a3363a9b0275fc901f1960acac9f10b26b/game/csgo/cfg/user_keys_default.vcfg): TAB uses +showscores; analog MOUSE_X/MOUSE_Y use yaw/pitch. Revision, content hash and retrieval date are recorded in the source metadata. This is bundled-configuration evidence, separate from runtime-dump and game-build verification.

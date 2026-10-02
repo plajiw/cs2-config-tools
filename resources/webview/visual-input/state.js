@@ -1,6 +1,15 @@
 // Presentation state only; command interpretation belongs to the shared domain.
 (function (root) {
   const api = {
+    presentation(matches, selected, filter) {
+      const entry = matches[0];
+      const conflict = matches.length > 1 || matches.some((e) => e.conflict);
+      const uncertain = matches.some((e) => !e.certain);
+      const dim = matches.length
+        ? !matches.some((e) => filter(e, conflict))
+        : !filter(undefined, false);
+      return { entry, conflict, uncertain, selected, dim };
+    },
     select(definition, matches) {
       return { key: matches[0]?.key, visualId: definition.id, ambiguous: matches.length > 1 };
     },
